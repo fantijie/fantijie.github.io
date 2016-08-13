@@ -4,32 +4,18 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Markdown简介 | Fan Ti Jie&#39;s Blog</title>
+  <title>java.lang.String , StringBuilder , StringBuffer 源码解析 | Fan Ti Jie&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Markdown&amp;#x7B80;&amp;#x4ECB;UML
-
-hello
-1">
+  <meta name="description" content="StringStringBufferStringBuilder">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Markdown简介">
-<meta property="og:url" content="https://fantijie.github.io/2016/08/13/markdown/index.html">
+<meta property="og:title" content="java.lang.String , StringBuilder , StringBuffer 源码解析">
+<meta property="og:url" content="https://fantijie.github.io/2016/08/14/java-lang-string-stringbuffer-stringbuilder/index.html">
 <meta property="og:site_name" content="Fan Ti Jie's Blog">
-<meta property="og:description" content="Markdown&amp;#x7B80;&amp;#x4ECB;UML
-
-hello
-1">
-<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/SyfFKj2rKt3CoKnELR1Iy4ZDoSdNKSZ8BrT8B4fLgCmlvO980TKu0PLQARXbvgNgA9Ha9EPbWwHr51BpKa0CUoukMrk5bvrRdirjVZbZsxDrMnLiRRbGT5ifl5Y__Td69Yud94kj59xkcl9yxHImzcTJDpphNVTaHzUJFGl0sha0">
-<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/AqXCpavCJrN8IYnBrCj9p4klvb80WkISnE9YXU2IeioyT0M840ZeGaNo4dDJuOBQcNab2fafO7uj5vBsaDJY4YU5r8gIrBmKc66OPgMa5YSZp88AfgUMk035DJGHCcNvcIaAnL1n9BsQK8jh0G00">
-<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/AyaioKbLUBQryVcAxgUpzt4LPsVc5IGM9UOgP2JcfPGNPPQKfEOfb1ILfd9nQMXfAkZgsYaeFLkxzEMg9OPFbxGydz2cn8KaPWGJoqm32irT-6JtDiEd7KkUJLkhf52IaPh7fG04kdRH80DZuIgUTKnulhhxsVHjppgNlrZOytnMozEk5K_spb42AmSPzRIZxTcKzH3bHXW6GWtDouSRQVHaHoz-Ko5w56njRHMUx5ZxSleMI1WyszZ-h67tywQTXY0fiChKdE9KX1QWFPMfnR54QSnBoKp3wWLZx5w0cOsgbWX_W28W834zLIy_BmXeQsgHWeQcaa9YiK8Hc8UY4EJm85SNpo1Nvv1uPmzNPs_SFWM7A8fZaCCLXqkGx8I40DnOa95fYK1UB2vNG3GWfHuJRAa74aXG1VY31v8s8J4qf-7fXBxdkoS38qa9uYY8TJZL02M0QPuB0000">
-<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/uoekIImguR9IUhPswSjLImoVBcbvFg5DoHekOWGNoKnJq51wDdVXaztR39zsB7asRQsIfa99HcgUWaP9KMcg9fS245X15JphcF1yTVUpwTkUTIv_iR3d-QoMfrqhdkoTOmrM1JRgQKVRiodh8UgDq0pCouSO1pOIQgdHanszk8nLWfYRcbES2jU7v5vZDEChKuiHvYFROGot0DrecF6eRaFHY-m-hDhpKZBJk51PLael5-vwkgiV4jZ6yC26g40ESnDiVe3PRGAn6DbMU5WWcM6ABnnWPfdYz0Ic_-5wyFaTuXS8MLoINy050000">
-<meta property="og:updated_time" content="2016-08-13T15:20:02.000Z">
+<meta property="og:description" content="StringStringBufferStringBuilder">
+<meta property="og:updated_time" content="2016-08-13T18:11:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Markdown简介">
-<meta name="twitter:description" content="Markdown&amp;#x7B80;&amp;#x4ECB;UML
-
-hello
-1">
-<meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/SyfFKj2rKt3CoKnELR1Iy4ZDoSdNKSZ8BrT8B4fLgCmlvO980TKu0PLQARXbvgNgA9Ha9EPbWwHr51BpKa0CUoukMrk5bvrRdirjVZbZsxDrMnLiRRbGT5ifl5Y__Td69Yud94kj59xkcl9yxHImzcTJDpphNVTaHzUJFGl0sha0">
+<meta name="twitter:title" content="java.lang.String , StringBuilder , StringBuffer 源码解析">
+<meta name="twitter:description" content="StringStringBufferStringBuilder">
   
     <link rel="alternative" href="/atom.xml" title="Fan Ti Jie&#39;s Blog" type="application/atom+xml">
   
@@ -178,11 +164,11 @@ hello
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-markdown" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-java-lang-string-stringbuffer-stringbuilder" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/08/13/markdown/" class="article-date">
-  	<time datetime="2016-08-13T05:08:56.000Z" itemprop="datePublished">2016-08-13</time>
+      <a href="/2016/08/14/java-lang-string-stringbuffer-stringbuilder/" class="article-date">
+  	<time datetime="2016-08-13T18:08:52.000Z" itemprop="datePublished">2016-08-14</time>
 </a>
     </div>
   
@@ -199,7 +185,7 @@ hello
         
   
     <h1 class="article-title" itemprop="name">
-      Markdown简介
+      java.lang.String , StringBuilder , StringBuffer 源码解析
     </h1>
   
 
@@ -208,7 +194,7 @@ hello
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/">markdown</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
 	</div>
 
         
@@ -223,15 +209,11 @@ hello
           
               <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#markdown简介"><span class="toc-number">1.</span> <span class="toc-text">Markdown简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#uml"><span class="toc-number">1.1.</span> <span class="toc-text">UML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hello"><span class="toc-number">1.2.</span> <span class="toc-text">hello</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1"><span class="toc-number">1.3.</span> <span class="toc-text">1</span></a></li></ol></li></ol>
+                  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#string"><span class="toc-number">1.</span> <span class="toc-text">String</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stringbuffer"><span class="toc-number">2.</span> <span class="toc-text">StringBuffer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stringbuilder"><span class="toc-number">3.</span> <span class="toc-text">StringBuilder</span></a></li></ol>
               </div>
           
       
-        <h2 id="markdown&#x7B80;&#x4ECB;"><a href="#Markdown&#x7B80;&#x4ECB;" class="headerlink" title="Markdown&#x7B80;&#x4ECB;"></a>Markdown&#x7B80;&#x4ECB;</h2><h3 id="uml"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><img src="http://www.plantuml.com/plantuml/svg/SyfFKj2rKt3CoKnELR1Iy4ZDoSdNKSZ8BrT8B4fLgCmlvO980TKu0PLQARXbvgNgA9Ha9EPbWwHr51BpKa0CUoukMrk5bvrRdirjVZbZsxDrMnLiRRbGT5ifl5Y__Td69Yud94kj59xkcl9yxHImzcTJDpphNVTaHzUJFGl0sha0">
-<img src="http://www.plantuml.com/plantuml/svg/AqXCpavCJrN8IYnBrCj9p4klvb80WkISnE9YXU2IeioyT0M840ZeGaNo4dDJuOBQcNab2fafO7uj5vBsaDJY4YU5r8gIrBmKc66OPgMa5YSZp88AfgUMk035DJGHCcNvcIaAnL1n9BsQK8jh0G00">
-<h3 id="hello"><a href="#hello" class="headerlink" title="hello"></a>hello</h3><img src="http://www.plantuml.com/plantuml/svg/AyaioKbLUBQryVcAxgUpzt4LPsVc5IGM9UOgP2JcfPGNPPQKfEOfb1ILfd9nQMXfAkZgsYaeFLkxzEMg9OPFbxGydz2cn8KaPWGJoqm32irT-6JtDiEd7KkUJLkhf52IaPh7fG04kdRH80DZuIgUTKnulhhxsVHjppgNlrZOytnMozEk5K_spb42AmSPzRIZxTcKzH3bHXW6GWtDouSRQVHaHoz-Ko5w56njRHMUx5ZxSleMI1WyszZ-h67tywQTXY0fiChKdE9KX1QWFPMfnR54QSnBoKp3wWLZx5w0cOsgbWX_W28W834zLIy_BmXeQsgHWeQcaa9YiK8Hc8UY4EJm85SNpo1Nvv1uPmzNPs_SFWM7A8fZaCCLXqkGx8I40DnOa95fYK1UB2vNG3GWfHuJRAa74aXG1VY31v8s8J4qf-7fXBxdkoS38qa9uYY8TJZL02M0QPuB0000">
-<h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><img src="http://www.plantuml.com/plantuml/svg/uoekIImguR9IUhPswSjLImoVBcbvFg5DoHekOWGNoKnJq51wDdVXaztR39zsB7asRQsIfa99HcgUWaP9KMcg9fS245X15JphcF1yTVUpwTkUTIv_iR3d-QoMfrqhdkoTOmrM1JRgQKVRiodh8UgDq0pCouSO1pOIQgdHanszk8nLWfYRcbES2jU7v5vZDEChKuiHvYFROGot0DrecF6eRaFHY-m-hDhpKZBJk51PLael5-vwkgiV4jZ6yC26g40ESnDiVe3PRGAn6DbMU5WWcM6ABnnWPfdYz0Ic_-5wyFaTuXS8MLoINy050000">
-
+        <h3 id="string"><a href="#String" class="headerlink" title="String"></a>String</h3><h3 id="stringbuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h3><h3 id="stringbuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h3>
       
     </div>
 
@@ -241,18 +223,18 @@ hello
     
 <nav id="article-nav">
   
-    <a href="/2016/08/14/git/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/08/14/java-io/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          git
+          java_io
         
       </div>
     </a>
   
   
-    <a href="/2016/08/12/hexo/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">hexo</div>
+    <a href="/2016/08/14/git/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">git</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -268,7 +250,7 @@ hello
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="markdown" data-title="Markdown简介" data-url="https://fantijie.github.io/2016/08/13/markdown/"></div>
+	<div class="ds-thread" data-thread-key="java-lang-string-stringbuffer-stringbuilder" data-title="java.lang.String , StringBuilder , StringBuffer 源码解析" data-url="https://fantijie.github.io/2016/08/14/java-lang-string-stringbuffer-stringbuilder/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
