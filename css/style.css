@@ -246,7 +246,6 @@ a {
 #container .left-col .overlay {
   width: 100%;
   height: 180px;
-  background-color: #000;
   position: absolute;
   opacity: 0.7;
 }
@@ -850,7 +849,7 @@ a {
   margin-bottom: 80px;
 }
 .article {
-  margin: 30px;
+  margin: 15px;
   position: relative;
   border: 1px solid #ddd;
   background: #fff;
@@ -1006,7 +1005,6 @@ a {
 .article-entry ul,
 .article-entry ol {
   font-size: 14px;
-  margin: 10px 0px;
 }
 .article-entry li ul,
 .article-entry li ol {
@@ -1183,6 +1181,81 @@ a {
 }
 #article-nav #article-nav-older {
   float: right;
+}
+.toc-article {
+  background: #eee;
+  margin: 0 0 0 0.2em;
+  padding: 1em;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  position: fixed;
+  top: 100px;
+  right: 3%;
+}
+.toc-article .toc-title {
+  font-size: 120%;
+}
+.toc-article strong {
+  padding: 0.3em 1;
+}
+ol.toc {
+  width: 100%;
+  margin: 1em 2em 0 0;
+}
+#toc {
+  z-index: 999;
+  line-height: 1.5em;
+  font-size: 1em;
+  float: right;
+}
+#toc .toc {
+  padding: 0;
+}
+#toc .toc li {
+  list-style-type: none;
+}
+#toc .toc-child {
+  padding-left: 1.5em;
+}
+#toc.toc-aside {
+  display: none;
+  width: 13%;
+  position: fixed;
+  right: 2%;
+  top: 320px;
+  overflow: hidden;
+  line-height: 1.5em;
+  font-size: 1em;
+  color: color-heading;
+  opacity: 0.6;
+  -webkit-transition: opacity 1s ease-out;
+  -moz-transition: opacity 1s ease-out;
+  -ms-transition: opacity 1s ease-out;
+  transition: opacity 1s ease-out;
+}
+#toc.toc-aside strong {
+  padding: 0.3em 0;
+  color: color-font;
+}
+#toc.toc-aside:hover {
+  -webkit-transition: opacity 0.3s ease-out;
+  -moz-transition: opacity 0.3s ease-out;
+  -ms-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
+  opacity: 1;
+}
+#toc.toc-aside a {
+  -webkit-transition: color 1s ease-out;
+  -moz-transition: color 1s ease-out;
+  -ms-transition: color 1s ease-out;
+  transition: color 1s ease-out;
+}
+#toc.toc-aside a:hover {
+  color: color-theme;
+  -webkit-transition: color 0.3s ease-out;
+  -moz-transition: color 0.3s ease-out;
+  -ms-transition: color 0.3s ease-out;
+  transition: color 0.3s ease-out;
 }
 @-moz-keyframes cd-bounce-1 {
   0% {
