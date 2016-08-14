@@ -15,7 +15,9 @@ String 的UML图">
 <meta property="og:description" content="String
 String 的UML图">
 <meta property="og:image" content="http://www.plantuml.com/plantuml/svg/hP8_Jm8n6CRdwwVeg56EdH07_G8ck166bzAxgvJslFOWYYJ4C3WO7Gow4IScDIGk6FqwTyHluNk0aOiOex5B_ppF--lpfYKXi2Rud1v26roXkyGHolB80yPfXKS2f3Y1kkIqMWsi3Kl5OgVJSKC9oiOjwJBTgjL8Zv0S9xP2vaXxkXL2b77A1pjVx0Zpy_O0eWe_Yhd23N5oESgdhaihDXBABoMFezdbX3YV-FNoAcwTWKamPdc8GPm2zOG2IHaMqZR8c5Thj4IJXzlP_JWTJcOlWxaB4zC0J91fr-V9z2BflwAmjKHjRAAGZWPl_RlqvZbz6gvgYudgIFZPNParcOwJgxFl2bR3_CwzFG-gFSzmkrWp7IlxCmIjs3ZJ3RwlSMt-3AeVMqx1C24-qWGYE_jtuBUL1Ter5gnWFThMee5Forbp5ozhc3aC-yocDIrAhdmR89Wu-74f3lp0xm00">
-<meta property="og:updated_time" content="2016-08-14T04:10:17.000Z">
+<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/ZP112i8m44NNcLFa0iPz4Q5wX2wBYp5EssYCCKqjQBs2H_08ugN4QnWNOWD5dDt_ytd3VB0eDrWIN-C1XTgTW2dZoHKeYMVa56frnAKcdkULzpOPZzks5LQZySrM2xdRBXPm1e085DPbX4gj9RDwW_hkl4ANqRuX4mImI4uw8NYwhBr3wJFlb2bdZT8hSidZTdrUxi2-q3_ICCJ_98kYXutU_X7hcNpKJOVF0vCQwpf2X6Q0XSvucD3T2m00">
+<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/ZP3D3S8m38NFyHHPWFHU8IHWX1vH3svgIY1DGvfIYPyL684H44iXrY2SQAGAuTjxVlfaFx0eTrWHt-81XMfEm9JnvDOeYMVa56frn48JNwqstjiqIVg-5rQZyLsjXMpgF8SB04IWiAuYrDnQCkK7D7IN6tGPxJioGG2BvFGi19yNhNSeVUQTCjMYKxeabpxljzVr0UmB_ICDO_nnRlJthzpGvPFpRFm2O59ZsyQGq0wmq1iF4_fx0m00">
+<meta property="og:updated_time" content="2016-08-14T04:39:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java.lang.String , StringBuilder , StringBuffer 源码解析">
 <meta name="twitter:description" content="String
@@ -223,8 +225,12 @@ String 的UML图">
 </blockquote>
 <img src="http://www.plantuml.com/plantuml/svg/hP8_Jm8n6CRdwwVeg56EdH07_G8ck166bzAxgvJslFOWYYJ4C3WO7Gow4IScDIGk6FqwTyHluNk0aOiOex5B_ppF--lpfYKXi2Rud1v26roXkyGHolB80yPfXKS2f3Y1kkIqMWsi3Kl5OgVJSKC9oiOjwJBTgjL8Zv0S9xP2vaXxkXL2b77A1pjVx0Zpy_O0eWe_Yhd23N5oESgdhaihDXBABoMFezdbX3YV-FNoAcwTWKamPdc8GPm2zOG2IHaMqZR8c5Thj4IJXzlP_JWTJcOlWxaB4zC0J91fr-V9z2BflwAmjKHjRAAGZWPl_RlqvZbz6gvgYudgIFZPNParcOwJgxFl2bR3_CwzFG-gFSzmkrWp7IlxCmIjs3ZJ3RwlSMt-3AeVMqx1C24-qWGYE_jtuBUL1Ter5gnWFThMee5Forbp5ozhc3aC-yocDIrAhdmR89Wu-74f3lp0xm00">
 <a id="more"></a>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String a = <span class="string">&quot;aaa&quot;</span>;</div></pre></td></tr></table></figure>
-<h3 id="stringbuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h3><h3 id="stringbuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String str = <span class="string">&quot;aaa&quot;</span>;</div></pre></td></tr></table></figure>
+<h3 id="stringbuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h3><img src="http://www.plantuml.com/plantuml/svg/ZP112i8m44NNcLFa0iPz4Q5wX2wBYp5EssYCCKqjQBs2H_08ugN4QnWNOWD5dDt_ytd3VB0eDrWIN-C1XTgTW2dZoHKeYMVa56frnAKcdkULzpOPZzks5LQZySrM2xdRBXPm1e085DPbX4gj9RDwW_hkl4ANqRuX4mImI4uw8NYwhBr3wJFlb2bdZT8hSidZTdrUxi2-q3_ICCJ_98kYXutU_X7hcNpKJOVF0vCQwpf2X6Q0XSvucD3T2m00">
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">StringBuffer str = <span class="keyword">new</span> StringBuffer();</div></pre></td></tr></table></figure>
+<h3 id="stringbuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h3><img src="http://www.plantuml.com/plantuml/svg/ZP3D3S8m38NFyHHPWFHU8IHWX1vH3svgIY1DGvfIYPyL684H44iXrY2SQAGAuTjxVlfaFx0eTrWHt-81XMfEm9JnvDOeYMVa56frn48JNwqstjiqIVg-5rQZyLsjXMpgF8SB04IWiAuYrDnQCkK7D7IN6tGPxJioGG2BvFGi19yNhNSeVUQTCjMYKxeabpxljzVr0UmB_ICDO_nnRlJthzpGvPFpRFm2O59ZsyQGq0wmq1iF4_fx0m00">
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">StringBuilder str = <span class="keyword">new</span> StringBuilder();</div></pre></td></tr></table></figure>
+
       
     </div>
 
