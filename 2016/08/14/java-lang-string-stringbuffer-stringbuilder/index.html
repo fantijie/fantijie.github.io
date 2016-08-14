@@ -7,32 +7,20 @@
   <title>java.lang.String , StringBuilder , StringBuffer 源码解析 | Fan Ti Jie&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="String
-String &amp;#x7684;UML&amp;#x56FE;
-
-
-1String
-StringBufferStringBuilder">
+String 的UML图">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java.lang.String , StringBuilder , StringBuffer 源码解析">
 <meta property="og:url" content="https://fantijie.github.io/2016/08/14/java-lang-string-stringbuffer-stringbuilder/index.html">
 <meta property="og:site_name" content="Fan Ti Jie's Blog">
 <meta property="og:description" content="String
-String &amp;#x7684;UML&amp;#x56FE;
-
-
-1String
-StringBufferStringBuilder">
-<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/hPBFIiD04CRFsQUOewBj0vJYGLz0g3VnCDrkahNhRirk2beBHNhm87gGwgruwacbuAMYhvCKty99Mh715b7CPVzyl_dc6xAiXRo9WO13R6DPcWxpf7OYyf4Bg8b8efAdM5S2M9Un0XmxgGhuZZbgOPJ1rRsjRxX27HJn4AEQE8w5fWFp2isgP-Kor5maTL19deRJgp7plkoNoujsom2kqDhv9GNnIk1BZGeu5K8RLIps3w02oUFTz66K3iRJrtvEKM88qOQPTdEHJ2wJtXi96tEhjNKIqc7_lNUVthwapuD5RRQ0YMIGzShGP39AhizN5Io6-HszcGSrlc-5c-svYRNxsOHG6foRXjWrjBT_DggVE05ekPIVQKAPtVsxuShA4dIiGoTv5zf6DkZN2jxSfcODcvlHdDcoP4GbTE12CcOUFLoWZnxm1m00">
-<meta property="og:updated_time" content="2016-08-13T19:14:48.000Z">
+String 的UML图">
+<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/hP8_Jm8n6CRdwwVeg56EdH07_G8ck166bzAxgvJslFOWYYJ4C3WO7Gow4IScDIGk6FqwTyHluNk0aOiOex5B_ppF--lpfYKXi2Rud1v26roXkyGHolB80yPfXKS2f3Y1kkIqMWsi3Kl5OgVJSKC9oiOjwJBTgjL8Zv0S9xP2vaXxkXL2b77A1pjVx0Zpy_O0eWe_Yhd23N5oESgdhaihDXBABoMFezdbX3YV-FNoAcwTWKamPdc8GPm2zOG2IHaMqZR8c5Thj4IJXzlP_JWTJcOlWxaB4zC0J91fr-V9z2BflwAmjKHjRAAGZWPl_RlqvZbz6gvgYudgIFZPNParcOwJgxFl2bR3_CwzFG-gFSzmkrWp7IlxCmIjs3ZJ3RwlSMt-3AeVMqx1C24-qWGYE_jtuBUL1Ter5gnWFThMee5Forbp5ozhc3aC-yocDIrAhdmR89Wu-74f3lp0xm00">
+<meta property="og:updated_time" content="2016-08-14T04:10:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java.lang.String , StringBuilder , StringBuffer 源码解析">
 <meta name="twitter:description" content="String
-String &amp;#x7684;UML&amp;#x56FE;
-
-
-1String
-StringBufferStringBuilder">
-<meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/hPBFIiD04CRFsQUOewBj0vJYGLz0g3VnCDrkahNhRirk2beBHNhm87gGwgruwacbuAMYhvCKty99Mh715b7CPVzyl_dc6xAiXRo9WO13R6DPcWxpf7OYyf4Bg8b8efAdM5S2M9Un0XmxgGhuZZbgOPJ1rRsjRxX27HJn4AEQE8w5fWFp2isgP-Kor5maTL19deRJgp7plkoNoujsom2kqDhv9GNnIk1BZGeu5K8RLIps3w02oUFTz66K3iRJrtvEKM88qOQPTdEHJ2wJtXi96tEhjNKIqc7_lNUVthwapuD5RRQ0YMIGzShGP39AhizN5Io6-HszcGSrlc-5c-svYRNxsOHG6foRXjWrjBT_DggVE05ekPIVQKAPtVsxuShA4dIiGoTv5zf6DkZN2jxSfcODcvlHdDcoP4GbTE12CcOUFLoWZnxm1m00">
+String 的UML图">
+<meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/hP8_Jm8n6CRdwwVeg56EdH07_G8ck166bzAxgvJslFOWYYJ4C3WO7Gow4IScDIGk6FqwTyHluNk0aOiOex5B_ppF--lpfYKXi2Rud1v26roXkyGHolB80yPfXKS2f3Y1kkIqMWsi3Kl5OgVJSKC9oiOjwJBTgjL8Zv0S9xP2vaXxkXL2b77A1pjVx0Zpy_O0eWe_Yhd23N5oESgdhaihDXBABoMFezdbX3YV-FNoAcwTWKamPdc8GPm2zOG2IHaMqZR8c5Thj4IJXzlP_JWTJcOlWxaB4zC0J91fr-V9z2BflwAmjKHjRAAGZWPl_RlqvZbz6gvgYudgIFZPNParcOwJgxFl2bR3_CwzFG-gFSzmkrWp7IlxCmIjs3ZJ3RwlSMt-3AeVMqx1C24-qWGYE_jtuBUL1Ter5gnWFThMee5Forbp5ozhc3aC-yocDIrAhdmR89Wu-74f3lp0xm00">
   
     <link rel="alternative" href="/atom.xml" title="Fan Ti Jie&#39;s Blog" type="application/atom+xml">
   
@@ -233,8 +221,9 @@ StringBufferStringBuilder">
         <h3 id="string"><a href="#String" class="headerlink" title="String"></a>String</h3><blockquote>
 <p>String &#x7684;UML&#x56FE;</p>
 </blockquote>
-<img src="http://www.plantuml.com/plantuml/svg/hPBFIiD04CRFsQUOewBj0vJYGLz0g3VnCDrkahNhRirk2beBHNhm87gGwgruwacbuAMYhvCKty99Mh715b7CPVzyl_dc6xAiXRo9WO13R6DPcWxpf7OYyf4Bg8b8efAdM5S2M9Un0XmxgGhuZZbgOPJ1rRsjRxX27HJn4AEQE8w5fWFp2isgP-Kor5maTL19deRJgp7plkoNoujsom2kqDhv9GNnIk1BZGeu5K8RLIps3w02oUFTz66K3iRJrtvEKM88qOQPTdEHJ2wJtXi96tEhjNKIqc7_lNUVthwapuD5RRQ0YMIGzShGP39AhizN5Io6-HszcGSrlc-5c-svYRNxsOHG6foRXjWrjBT_DggVE05ekPIVQKAPtVsxuShA4dIiGoTv5zf6DkZN2jxSfcODcvlHdDcoP4GbTE12CcOUFLoWZnxm1m00">
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String</div></pre></td></tr></table></figure>
+<img src="http://www.plantuml.com/plantuml/svg/hP8_Jm8n6CRdwwVeg56EdH07_G8ck166bzAxgvJslFOWYYJ4C3WO7Gow4IScDIGk6FqwTyHluNk0aOiOex5B_ppF--lpfYKXi2Rud1v26roXkyGHolB80yPfXKS2f3Y1kkIqMWsi3Kl5OgVJSKC9oiOjwJBTgjL8Zv0S9xP2vaXxkXL2b77A1pjVx0Zpy_O0eWe_Yhd23N5oESgdhaihDXBABoMFezdbX3YV-FNoAcwTWKamPdc8GPm2zOG2IHaMqZR8c5Thj4IJXzlP_JWTJcOlWxaB4zC0J91fr-V9z2BflwAmjKHjRAAGZWPl_RlqvZbz6gvgYudgIFZPNParcOwJgxFl2bR3_CwzFG-gFSzmkrWp7IlxCmIjs3ZJ3RwlSMt-3AeVMqx1C24-qWGYE_jtuBUL1Ter5gnWFThMee5Forbp5ozhc3aC-yocDIrAhdmR89Wu-74f3lp0xm00">
+<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String a = <span class="string">&quot;aaa&quot;</span>;</div></pre></td></tr></table></figure>
 <h3 id="stringbuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h3><h3 id="stringbuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h3>
       
     </div>
@@ -247,7 +236,7 @@ StringBufferStringBuilder">
   
   
     <a href="/2016/08/14/java-Void/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">java_Void</div>
+      <div class="article-nav-title">java.lang.Void</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
