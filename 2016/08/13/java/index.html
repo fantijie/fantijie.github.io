@@ -164,7 +164,7 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-java" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-java" class="article article-type-post .article2" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/08/13/java/" class="article-date">
@@ -202,14 +202,6 @@
     <div class="article-entry" itemprop="articleBody">
       
       
-          
-              <div id="toc" class="toc-article">
-              <a id="toc_btn" style="float: right;cursor:pointer;" onclick="javascript:$('.toc-title').toggle(300);$('.toc').toggle(300,function(){if($('#toc_btn').text()=='隐藏'){$('#toc_btn').text('显示');}else{$('#toc_btn').text('隐藏');}});">隐藏</a>
-                <strong class="toc-title">文章目录</strong>
-                  <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#java第一章"><span class="toc-number">1.</span> <span class="toc-text">java第一章</span></a></li></ol>
-              </div>
-          
-      
         <h5 id="java&#x7B2C;&#x4E00;&#x7AE0;"><a href="#java&#x7B2C;&#x4E00;&#x7AE0;" class="headerlink" title="java&#x7B2C;&#x4E00;&#x7AE0;"></a>java&#x7B2C;&#x4E00;&#x7AE0;</h5>
       
     </div>
@@ -240,6 +232,14 @@
   
 </article>
 
+          
+              <div id="toc" class="toc-article">
+              <a id="toc_toggle" style="float: right;cursor:pointer;" >显示</a>
+                <strong class="toc-title" style="display:none;">文章目录</strong>
+                  <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#java第一章"><span class="toc-number">1.</span> <span class="toc-text">java第一章</span></a></li></ol>
+              </div>
+          
+      
 
 
 
@@ -263,6 +263,9 @@
 	</script>
 	<!-- 多说公共JS代码 end -->
 </div>
+
+
+
 
 
 
@@ -330,6 +333,18 @@ MathJax.Hub.Queue(function() {
 </script>
 
 
+<script type="text/javascript">
+  $("#toc_toggle").bind("click",function(){
+  		$(".toc-title").toggle(0,function(){
+        	if($("#toc_toggle").text() == "显示"){
+        		$("#toc_toggle").text("隐藏");
+        	}else{
+        		$("#toc_toggle").text("显示");
+        	}
+        });
+        $(".toc").toggle(150);
+    });
+</script>
   </div>
 </body>
 </html>

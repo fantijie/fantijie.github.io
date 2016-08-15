@@ -163,7 +163,7 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-java-Long" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-java-Long" class="article article-type-post .article2" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/08/14/java-Long/" class="article-date">
@@ -201,14 +201,6 @@
     <div class="article-entry" itemprop="articleBody">
       
       
-          
-              <div id="toc" class="toc-article">
-              <a id="toc_btn" style="float: right;cursor:pointer;" onclick="javascript:$('.toc-title').toggle(300);$('.toc').toggle(300,function(){if($('#toc_btn').text()=='隐藏'){$('#toc_btn').text('显示');}else{$('#toc_btn').text('隐藏');}});">隐藏</a>
-                <strong class="toc-title">文章目录</strong>
-                  
-              </div>
-          
-      
         <img src="http://www.plantuml.com/plantuml/svg/AqXCpavCJrN8IYnBrClCh-RYpCmhIIrAIqnELGXEBSfCpCciIapAILM8ZiueAIcmqjSlBo_NAyX9p2ifpStHIyxFZOtbgkNYAa0sfxGaCmV59EVyt8B48f0vDY5s8EKeHjlKwEaf-9Nc9gKMMJrTD-zvtmOqyu2sfGFDu-9KyCdFIrVGhR63AbUmKdY-U_cpplr0AOGT40D1Ik76SIeavoGM5uC5WIO1ZU84ka81282k0G00">
       
     </div>
@@ -239,6 +231,14 @@
   
 </article>
 
+          
+              <div id="toc" class="toc-article">
+              <a id="toc_toggle" style="float: right;cursor:pointer;" >显示</a>
+                <strong class="toc-title" style="display:none;">文章目录</strong>
+                  
+              </div>
+          
+      
 
 
 
@@ -262,6 +262,9 @@
 	</script>
 	<!-- 多说公共JS代码 end -->
 </div>
+
+
+
 
 
 
@@ -329,6 +332,18 @@ MathJax.Hub.Queue(function() {
 </script>
 
 
+<script type="text/javascript">
+  $("#toc_toggle").bind("click",function(){
+  		$(".toc-title").toggle(0,function(){
+        	if($("#toc_toggle").text() == "显示"){
+        		$("#toc_toggle").text("隐藏");
+        	}else{
+        		$("#toc_toggle").text("显示");
+        	}
+        });
+        $(".toc").toggle(150);
+    });
+</script>
   </div>
 </body>
 </html>
