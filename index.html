@@ -103,7 +103,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a>
+						<a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/markdown/" style="font-size: 20px;">markdown</a>
 					</div>
 				</section>
 				
@@ -195,10 +195,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><blockquote>
-<p>String 的UML图</p>
-</blockquote>
-<img  src=http://www.plantuml.com/plantuml/svg/hP8_Jm8n6CRdwwVeg56EdH07_G8ck166bzAxgvJslFOWYYJ4C3WO7Gow4IScDIGk6FqwTyHluNk0aOiOex5B_ppF--lpfYKXi2Rud1v26roXkyGHolB80yPfXKS2f3Y1kkIqMWsi3Kl5OgVJSKC9oiOjwJBTgjL8Zv0S9xP2vaXxkXL2b77A1pjVx0Zpy_O0eWe_Yhd23N5oESgdhaihDXBABoMFezdbX3YV-FNoAcwTWKamPdc8GPm2zOG2IHaMqZR8c5Thj4IJXzlP_JWTJcOlWxaB4zC0J91fr-V9z2BflwAmjKHjRAAGZWPl_RlqvZbz6gvgYudgIFZPNParcOwJgxFl2bR3_CwzFG-gFSzmkrWp7IlxCmIjs3ZJ3RwlSMt-3AeVMqx1C24-qWGYE_jtuBUL1Ter5gnWFThMee5Forbp5ozhc3aC-yocDIrAhdmR89Wu-74f3lp0xm00>
+        <h3 id="String类"><a href="#String类" class="headerlink" title="String类"></a>String类</h3><h4 id="String类描述"><a href="#String类描述" class="headerlink" title="String类描述"></a>String类描述</h4><p>String是Java语言中的字符串，Java中所有字符串的字面值都是String类的实例。</p>
+<h4 id="String类的定义"><a href="#String类的定义" class="headerlink" title="String类的定义"></a>String类的定义</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span> <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span></span>&#123;</div><div class="line">	<span class="comment">//此处代码忽略</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上类的声明中可以看出String是final类型的，表示该类不能被继承</p>
+<h4 id="String类的UML图"><a href="#String类的UML图" class="headerlink" title="String类的UML图"></a>String类的UML图</h4><img  src=http://www.plantuml.com/plantuml/svg/hPBDIWCn58NNawUuIqNR1oZ5XRw0K7VYuZQJcOcDIPsa1Qs58bsu45r8TLTSTQLIwAQYhpDJV0llj1Lde4KKiydFEVVBkIIiYRo1eO1ZR6DPcWxpf7OY3f0Bg8bOefBdM5U2THahU1NgiE3UCoTDZ3DlzM2d84GOryHfIsZQC2zFXUf5kGmr5qiTLfANuUncpBnlq6evZrjbu0gjNHvIGgy4WTIeW5CXj56rnE4HL21vVfWzZTB1UFRMdxieCKHeeqoxkqgcrqdldOIj9MfZauHqsF_eFQRth-baaDSM4vXOXjbTcJMPZfBRotK5-J2_Ss_FWveWiC8jrjoqjFiPGbPgd1jVx1jQsp-3wcTE05ekvLUQI6Pd_mvSMrc2ZdNe9Ez2sqYVdbRmnYvTvjivZFhCfXKjAg535n6OUVIZWGRzx4y0>
+<p>从String类的声明中、UML图中我们可以得知该类实现了3个接口:</p>
+<ul>
+<li><a href="#">java.io.Serializable </a>（点击查看接口介绍）</li>
+<li><a href="#">java.lang.Comparable<T></a>（点击查看接口介绍）</li>
+<li><a href="#">java.lang.CharSequence</a>（点击查看接口介绍）</li>
+</ul>
+<h4 id="String类的属性"><a href="#String类的属性" class="headerlink" title="String类的属性"></a>String类的属性</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** The value is used for character storage. */</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</div></pre></td></tr></table></figure>
+<p>String包含一个char<a href="字符数组"></a>的属性用来存储字符串的内容，final关键字表示String的内容被初始化后就不可改变。<br>
       
     </div>
 

@@ -6,23 +6,26 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>java.lang.String , StringBuilder , StringBuffer 源码解析 | Fan Ti Jie&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="String
-String 的UML图">
+  <meta name="description" content="String类String类描述String是Java语言中的字符串，Java中所有字符串的字面值都是String类的实例。
+String类的定义123public final class String implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence&amp;#123;	//此处代码忽略&amp;#125;
+以上类的声">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java.lang.String , StringBuilder , StringBuffer 源码解析">
 <meta property="og:url" content="https://fantijie.github.io/2016/08/14/java-lang-string-stringbuffer-stringbuilder/index.html">
 <meta property="og:site_name" content="Fan Ti Jie's Blog">
-<meta property="og:description" content="String
-String 的UML图">
-<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/hP8_Jm8n6CRdwwVeg56EdH07_G8ck166bzAxgvJslFOWYYJ4C3WO7Gow4IScDIGk6FqwTyHluNk0aOiOex5B_ppF--lpfYKXi2Rud1v26roXkyGHolB80yPfXKS2f3Y1kkIqMWsi3Kl5OgVJSKC9oiOjwJBTgjL8Zv0S9xP2vaXxkXL2b77A1pjVx0Zpy_O0eWe_Yhd23N5oESgdhaihDXBABoMFezdbX3YV-FNoAcwTWKamPdc8GPm2zOG2IHaMqZR8c5Thj4IJXzlP_JWTJcOlWxaB4zC0J91fr-V9z2BflwAmjKHjRAAGZWPl_RlqvZbz6gvgYudgIFZPNParcOwJgxFl2bR3_CwzFG-gFSzmkrWp7IlxCmIjs3ZJ3RwlSMt-3AeVMqx1C24-qWGYE_jtuBUL1Ter5gnWFThMee5Forbp5ozhc3aC-yocDIrAhdmR89Wu-74f3lp0xm00">
+<meta property="og:description" content="String类String类描述String是Java语言中的字符串，Java中所有字符串的字面值都是String类的实例。
+String类的定义123public final class String implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence&amp;#123;	//此处代码忽略&amp;#125;
+以上类的声">
+<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/hPBDIWCn58NNawUuIqNR1oZ5XRw0K7VYuZQJcOcDIPsa1Qs58bsu45r8TLTSTQLIwAQYhpDJV0llj1Lde4KKiydFEVVBkIIiYRo1eO1ZR6DPcWxpf7OY3f0Bg8bOefBdM5U2THahU1NgiE3UCoTDZ3DlzM2d84GOryHfIsZQC2zFXUf5kGmr5qiTLfANuUncpBnlq6evZrjbu0gjNHvIGgy4WTIeW5CXj56rnE4HL21vVfWzZTB1UFRMdxieCKHeeqoxkqgcrqdldOIj9MfZauHqsF_eFQRth-baaDSM4vXOXjbTcJMPZfBRotK5-J2_Ss_FWveWiC8jrjoqjFiPGbPgd1jVx1jQsp-3wcTE05ekvLUQI6Pd_mvSMrc2ZdNe9Ez2sqYVdbRmnYvTvjivZFhCfXKjAg535n6OUVIZWGRzx4y0">
 <meta property="og:image" content="http://www.plantuml.com/plantuml/svg/ZP112i8m44NNcLFa0iPz4Q5wX2wBYp5EssYCCKqjQBs2H_08ugN4QnWNOWD5dDt_ytd3VB0eDrWIN-C1XTgTW2dZoHKeYMVa56frnAKcdkULzpOPZzks5LQZySrM2xdRBXPm1e085DPbX4gj9RDwW_hkl4ANqRuX4mImI4uw8NYwhBr3wJFlb2bdZT8hSidZTdrUxi2-q3_ICCJ_98kYXutU_X7hcNpKJOVF0vCQwpf2X6Q0XSvucD3T2m00">
 <meta property="og:image" content="http://www.plantuml.com/plantuml/svg/ZP3D3S8m38NFyHHPWFHU8IHWX1vH3svgIY1DGvfIYPyL684H44iXrY2SQAGAuTjxVlfaFx0eTrWHt-81XMfEm9JnvDOeYMVa56frn48JNwqstjiqIVg-5rQZyLsjXMpgF8SB04IWiAuYrDnQCkK7D7IN6tGPxJioGG2BvFGi19yNhNSeVUQTCjMYKxeabpxljzVr0UmB_ICDO_nnRlJthzpGvPFpRFm2O59ZsyQGq0wmq1iF4_fx0m00">
-<meta property="og:updated_time" content="2016-08-14T04:39:35.000Z">
+<meta property="og:updated_time" content="2016-08-15T10:25:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java.lang.String , StringBuilder , StringBuffer 源码解析">
-<meta name="twitter:description" content="String
-String 的UML图">
-<meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/hP8_Jm8n6CRdwwVeg56EdH07_G8ck166bzAxgvJslFOWYYJ4C3WO7Gow4IScDIGk6FqwTyHluNk0aOiOex5B_ppF--lpfYKXi2Rud1v26roXkyGHolB80yPfXKS2f3Y1kkIqMWsi3Kl5OgVJSKC9oiOjwJBTgjL8Zv0S9xP2vaXxkXL2b77A1pjVx0Zpy_O0eWe_Yhd23N5oESgdhaihDXBABoMFezdbX3YV-FNoAcwTWKamPdc8GPm2zOG2IHaMqZR8c5Thj4IJXzlP_JWTJcOlWxaB4zC0J91fr-V9z2BflwAmjKHjRAAGZWPl_RlqvZbz6gvgYudgIFZPNParcOwJgxFl2bR3_CwzFG-gFSzmkrWp7IlxCmIjs3ZJ3RwlSMt-3AeVMqx1C24-qWGYE_jtuBUL1Ter5gnWFThMee5Forbp5ozhc3aC-yocDIrAhdmR89Wu-74f3lp0xm00">
+<meta name="twitter:description" content="String类String类描述String是Java语言中的字符串，Java中所有字符串的字面值都是String类的实例。
+String类的定义123public final class String implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence&amp;#123;	//此处代码忽略&amp;#125;
+以上类的声">
+<meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/hPBDIWCn58NNawUuIqNR1oZ5XRw0K7VYuZQJcOcDIPsa1Qs58bsu45r8TLTSTQLIwAQYhpDJV0llj1Lde4KKiydFEVVBkIIiYRo1eO1ZR6DPcWxpf7OY3f0Bg8bOefBdM5U2THahU1NgiE3UCoTDZ3DlzM2d84GOryHfIsZQC2zFXUf5kGmr5qiTLfANuUncpBnlq6evZrjbu0gjNHvIGgy4WTIeW5CXj56rnE4HL21vVfWzZTB1UFRMdxieCKHeeqoxkqgcrqdldOIj9MfZauHqsF_eFQRth-baaDSM4vXOXjbTcJMPZfBRotK5-J2_Ss_FWveWiC8jrjoqjFiPGbPgd1jVx1jQsp-3wcTE05ekvLUQI6Pd_mvSMrc2ZdNe9Ez2sqYVdbRmnYvTvjivZFhCfXKjAg535n6OUVIZWGRzx4y0">
   
     <link rel="alternative" href="/atom.xml" title="Fan Ti Jie&#39;s Blog" type="application/atom+xml">
   
@@ -111,7 +114,7 @@ String 的UML图">
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a>
+						<a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/markdown/" style="font-size: 20px;">markdown</a>
 					</div>
 				</section>
 				
@@ -216,15 +219,25 @@ String 的UML图">
           
               <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#string"><span class="toc-number">1.</span> <span class="toc-text">String</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stringbuffer"><span class="toc-number">2.</span> <span class="toc-text">StringBuffer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stringbuilder"><span class="toc-number">3.</span> <span class="toc-text">StringBuilder</span></a></li></ol>
+                  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#string类"><span class="toc-number">1.</span> <span class="toc-text">String类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#string类描述"><span class="toc-number">1.1.</span> <span class="toc-text">String类描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#string类的定义"><span class="toc-number">1.2.</span> <span class="toc-text">String类的定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#string类的uml图"><span class="toc-number">1.3.</span> <span class="toc-text">String类的UML图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#string类的属性"><span class="toc-number">1.4.</span> <span class="toc-text">String类的属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stringbuffer"><span class="toc-number">2.</span> <span class="toc-text">StringBuffer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stringbuilder"><span class="toc-number">3.</span> <span class="toc-text">StringBuilder</span></a></li></ol>
               </div>
           
       
-        <h3 id="string"><a href="#String" class="headerlink" title="String"></a>String</h3><blockquote>
-<p>String &#x7684;UML&#x56FE;</p>
-</blockquote>
-<img src="http://www.plantuml.com/plantuml/svg/hP8_Jm8n6CRdwwVeg56EdH07_G8ck166bzAxgvJslFOWYYJ4C3WO7Gow4IScDIGk6FqwTyHluNk0aOiOex5B_ppF--lpfYKXi2Rud1v26roXkyGHolB80yPfXKS2f3Y1kkIqMWsi3Kl5OgVJSKC9oiOjwJBTgjL8Zv0S9xP2vaXxkXL2b77A1pjVx0Zpy_O0eWe_Yhd23N5oESgdhaihDXBABoMFezdbX3YV-FNoAcwTWKamPdc8GPm2zOG2IHaMqZR8c5Thj4IJXzlP_JWTJcOlWxaB4zC0J91fr-V9z2BflwAmjKHjRAAGZWPl_RlqvZbz6gvgYudgIFZPNParcOwJgxFl2bR3_CwzFG-gFSzmkrWp7IlxCmIjs3ZJ3RwlSMt-3AeVMqx1C24-qWGYE_jtuBUL1Ter5gnWFThMee5Forbp5ozhc3aC-yocDIrAhdmR89Wu-74f3lp0xm00">
-<a id="more"></a>
+        <h3 id="string&#x7C7B;"><a href="#String&#x7C7B;" class="headerlink" title="String&#x7C7B;"></a>String&#x7C7B;</h3><h4 id="string&#x7C7B;&#x63CF;&#x8FF0;"><a href="#String&#x7C7B;&#x63CF;&#x8FF0;" class="headerlink" title="String&#x7C7B;&#x63CF;&#x8FF0;"></a>String&#x7C7B;&#x63CF;&#x8FF0;</h4><p>String&#x662F;Java&#x8BED;&#x8A00;&#x4E2D;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;Java&#x4E2D;&#x6240;&#x6709;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5B57;&#x9762;&#x503C;&#x90FD;&#x662F;String&#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#x3002;</p>
+<h4 id="string&#x7C7B;&#x7684;&#x5B9A;&#x4E49;"><a href="#String&#x7C7B;&#x7684;&#x5B9A;&#x4E49;" class="headerlink" title="String&#x7C7B;&#x7684;&#x5B9A;&#x4E49;"></a>String&#x7C7B;&#x7684;&#x5B9A;&#x4E49;</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span> <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span></span>{</div><div class="line">	<span class="comment">//&#x6B64;&#x5904;&#x4EE3;&#x7801;&#x5FFD;&#x7565;</span></div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x4EE5;&#x4E0A;&#x7C7B;&#x7684;&#x58F0;&#x660E;&#x4E2D;&#x53EF;&#x4EE5;&#x770B;&#x51FA;String&#x662F;final&#x7C7B;&#x578B;&#x7684;&#xFF0C;&#x8868;&#x793A;&#x8BE5;&#x7C7B;&#x4E0D;&#x80FD;&#x88AB;&#x7EE7;&#x627F;</p>
+<h4 id="string&#x7C7B;&#x7684;uml&#x56FE;"><a href="#String&#x7C7B;&#x7684;UML&#x56FE;" class="headerlink" title="String&#x7C7B;&#x7684;UML&#x56FE;"></a>String&#x7C7B;&#x7684;UML&#x56FE;</h4><img src="http://www.plantuml.com/plantuml/svg/hPBDIWCn58NNawUuIqNR1oZ5XRw0K7VYuZQJcOcDIPsa1Qs58bsu45r8TLTSTQLIwAQYhpDJV0llj1Lde4KKiydFEVVBkIIiYRo1eO1ZR6DPcWxpf7OY3f0Bg8bOefBdM5U2THahU1NgiE3UCoTDZ3DlzM2d84GOryHfIsZQC2zFXUf5kGmr5qiTLfANuUncpBnlq6evZrjbu0gjNHvIGgy4WTIeW5CXj56rnE4HL21vVfWzZTB1UFRMdxieCKHeeqoxkqgcrqdldOIj9MfZauHqsF_eFQRth-baaDSM4vXOXjbTcJMPZfBRotK5-J2_Ss_FWveWiC8jrjoqjFiPGbPgd1jVx1jQsp-3wcTE05ekvLUQI6Pd_mvSMrc2ZdNe9Ez2sqYVdbRmnYvTvjivZFhCfXKjAg535n6OUVIZWGRzx4y0">
+<p>&#x4ECE;String&#x7C7B;&#x7684;&#x58F0;&#x660E;&#x4E2D;&#x3001;UML&#x56FE;&#x4E2D;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F97;&#x77E5;&#x8BE5;&#x7C7B;&#x5B9E;&#x73B0;&#x4E86;3&#x4E2A;&#x63A5;&#x53E3;:</p>
+<ul>
+<li><a href="#">java.io.Serializable </a>&#xFF08;&#x70B9;&#x51FB;&#x67E5;&#x770B;&#x63A5;&#x53E3;&#x4ECB;&#x7ECD;&#xFF09;</li>
+<li><a href="#">java.lang.Comparable<t></t></a>&#xFF08;&#x70B9;&#x51FB;&#x67E5;&#x770B;&#x63A5;&#x53E3;&#x4ECB;&#x7ECD;&#xFF09;</li>
+<li><a href="#">java.lang.CharSequence</a>&#xFF08;&#x70B9;&#x51FB;&#x67E5;&#x770B;&#x63A5;&#x53E3;&#x4ECB;&#x7ECD;&#xFF09;</li>
+</ul>
+<h4 id="string&#x7C7B;&#x7684;&#x5C5E;&#x6027;"><a href="#String&#x7C7B;&#x7684;&#x5C5E;&#x6027;" class="headerlink" title="String&#x7C7B;&#x7684;&#x5C5E;&#x6027;"></a>String&#x7C7B;&#x7684;&#x5C5E;&#x6027;</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** The value is used for character storage. */</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</div></pre></td></tr></table></figure>
+<p>String&#x5305;&#x542B;&#x4E00;&#x4E2A;char<a href="&#x5B57;&#x7B26;&#x6570;&#x7EC4;"></a>&#x7684;&#x5C5E;&#x6027;&#x7528;&#x6765;&#x5B58;&#x50A8;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5185;&#x5BB9;&#xFF0C;final&#x5173;&#x952E;&#x5B57;&#x8868;&#x793A;String&#x7684;&#x5185;&#x5BB9;&#x88AB;&#x521D;&#x59CB;&#x5316;&#x540E;&#x5C31;&#x4E0D;&#x53EF;&#x6539;&#x53D8;&#x3002;<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** Cache the hash code for the string */</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> hash; <span class="comment">// Default to 0</span></div></pre></td></tr></table></figure></p>
+<p>int&#x7C7B;&#x578B;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x7528;&#x6765;&#x7F13;&#x5B58;&#x5B57;&#x7B26;&#x4E32;&#x7684;HashCode&#x503C;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;0</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** use serialVersionUID from JDK 1.0.2 for interoperability */</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">6849794470754667710L</span>;</div><div class="line"></div><div class="line"><span class="comment">/** Class String is special cased within the Serialization Stream Protocol.*/</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ObjectStreamField[] serialPersistentFields = <span class="keyword">new</span> ObjectStreamField[<span class="number">0</span>];</div></pre></td></tr></table></figure>
+<p>String&#x7C7B;&#x5B9E;&#x73B0;&#x4E86;Serializable&#x63A5;&#x53E3;&#xFF0C;&#x6240;&#x4EE5;&#x652F;&#x6301;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x652F;&#x6301;&#x3002;Java&#x7684;&#x5E8F;&#x5217;&#x5316;&#x673A;&#x5236;&#x662F;&#x901A;&#x8FC7;&#x5728;&#x8FD0;&#x884C;&#x65F6;&#x5224;&#x65AD;&#x7C7B;&#x7684;serialVersionUID&#x6765;&#x9A8C;&#x8BC1;&#x7248;&#x672C;&#x4E00;&#x81F4;&#x6027;&#x7684;&#x3002;&#x5728;&#x8FDB;&#x884C;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x65F6;&#xFF0C;JVM&#x4F1A;&#x628A;&#x4F20;&#x6765;&#x7684;&#x5B57;&#x8282;&#x6D41;&#x4E2D;&#x7684;serialVersionUID&#x4E0E;&#x672C;&#x5730;&#x76F8;&#x5E94;&#x5B9E;&#x4F53;&#xFF08;&#x7C7B;&#xFF09;&#x7684;serialVersionUID&#x8FDB;&#x884C;&#x6BD4;&#x8F83;&#xFF0C;&#x5982;&#x679C;&#x76F8;&#x540C;&#x5C31;&#x8BA4;&#x4E3A;&#x662F;&#x4E00;&#x81F4;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#xFF0C;&#x5426;&#x5219;&#x5C31;&#x4F1A;&#x51FA;&#x73B0;&#x5E8F;&#x5217;&#x5316;&#x7248;&#x672C;&#x4E0D;&#x4E00;&#x81F4;&#x7684;&#x5F02;&#x5E38;(InvalidCastException)&#x3002;</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String str = <span class="string">&quot;aaa&quot;</span>;</div></pre></td></tr></table></figure>
 <h3 id="stringbuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h3><img src="http://www.plantuml.com/plantuml/svg/ZP112i8m44NNcLFa0iPz4Q5wX2wBYp5EssYCCKqjQBs2H_08ugN4QnWNOWD5dDt_ytd3VB0eDrWIN-C1XTgTW2dZoHKeYMVa56frnAKcdkULzpOPZzks5LQZySrM2xdRBXPm1e085DPbX4gj9RDwW_hkl4ANqRuX4mImI4uw8NYwhBr3wJFlb2bdZT8hSidZTdrUxi2-q3_ICCJ_98kYXutU_X7hcNpKJOVF0vCQwpf2X6Q0XSvucD3T2m00">
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">StringBuffer str = <span class="keyword">new</span> StringBuffer();</div></pre></td></tr></table></figure>
