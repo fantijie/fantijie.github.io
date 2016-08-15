@@ -1189,8 +1189,8 @@ a {
   border-radius: 5px;
   -webkit-border-radius: 5px;
   position: fixed;
-  top: 30px;
-  right: 3%;
+  top: 70px;
+  right: 20px;
 }
 .toc-article .toc-title {
   font-size: 120%;
@@ -1202,20 +1202,28 @@ ol.toc {
   width: 100%;
   margin: 1em 2em 0 0;
 }
-#toc {
-  z-index: 999;
-  line-height: 1.5em;
-  font-size: 1em;
-  float: right;
+@media screen and (min-width: 1100px) {
+  #toc {
+    z-index: 999;
+    line-height: 1.5em;
+    font-size: 1em;
+    float: right;
+  }
+  #toc .toc {
+    padding: 0;
+    display: none;
+  }
+  #toc .toc li {
+    list-style-type: none;
+  }
+  #toc .toc-child {
+    padding-left: 1.5em;
+  }
 }
-#toc .toc {
-  padding: 0;
-}
-#toc .toc li {
-  list-style-type: none;
-}
-#toc .toc-child {
-  padding-left: 1.5em;
+@media screen and (max-width: 1099px) {
+  #toc {
+    display: none;
+  }
 }
 #toc.toc-aside {
   display: none;
