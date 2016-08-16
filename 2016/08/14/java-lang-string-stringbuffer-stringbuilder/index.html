@@ -19,7 +19,7 @@ String类的定义123public final class String implements java.io.Serializable, 
 <meta property="og:image" content="http://www.plantuml.com/plantuml/svg/hPFDIWCn4CVFkq-HewBk0uXuK14yALIzY8TfEjsDnaGtQS4l4EcXWkX1QYyY7jIJYk35JtoQxE9REBkjs6955FUIPER__sKcsVYhm9SXHBO4LGY4tlGzeIp6PU382XWBa683YXBzRT_lqafGOPTwNA-iGfnfHsP7kn8Hn0LSgw2YXUzrKjd8LX2mWes52eVTpMbwSEjxdw3UwKvSBm6NO4mxI1LwGwmi54Z6oSYg82kuiCY6cRjkfbUNIUCsVQhbAggOHM2YB7TKT_VxRkSvJnWBLl0sHMeLCfFtC8-n4LhDJKrabiT3Ls-w_UDqhvwSN4rDVBLE5vUGMoeCOMLIe2nH7ItIJ4Oo5fNDuuQy0-qE-le9dfpMtdREakE7vAxHcMiDJCSYp7R8fEx-qXtkVcVeF8FVgGVpyz7bia7RcdDTKVPd24cfJwvBEADfRluCAgvRP62u41_LH2AB_JlmM-SGssnTw3QhQb6YFmhvyXXjLZ8vZFhCXXujIbIXZGYSK_hwWo18hi_TUSszlgID2z-ZvyNeesVs3W00">
 <meta property="og:image" content="http://www.plantuml.com/plantuml/svg/ZP112i8m44NNcLFa0iPz4Q5wX2wBYp5EssYCCKqjQBs2H_08ugN4QnWNOWD5dDt_ytd3VB0eDrWIN-C1XTgTW2dZoHKeYMVa56frnAKcdkULzpOPZzks5LQZySrM2xdRBXPm1e085DPbX4gj9RDwW_hkl4ANqRuX4mImI4uw8NYwhBr3wJFlb2bdZT8hSidZTdrUxi2-q3_ICCJ_98kYXutU_X7hcNpKJOVF0vCQwpf2X6Q0XSvucD3T2m00">
 <meta property="og:image" content="http://www.plantuml.com/plantuml/svg/ZP3D3S8m38NFyHHPWFHU8IHWX1vH3svgIY1DGvfIYPyL684H44iXrY2SQAGAuTjxVlfaFx0eTrWHt-81XMfEm9JnvDOeYMVa56frn48JNwqstjiqIVg-5rQZyLsjXMpgF8SB04IWiAuYrDnQCkK7D7IN6tGPxJioGG2BvFGi19yNhNSeVUQTCjMYKxeabpxljzVr0UmB_ICDO_nnRlJthzpGvPFpRFm2O59ZsyQGq0wmq1iF4_fx0m00">
-<meta property="og:updated_time" content="2016-08-15T12:44:51.000Z">
+<meta property="og:updated_time" content="2016-08-16T05:35:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java.lang.String , StringBuilder , StringBuffer 源码解析">
 <meta name="twitter:description" content="String类String类简介String是Java语言中的字符串，Java中所有字符串的字面值都是String类的实例。
@@ -49,6 +49,8 @@ String类的定义123public final class String implements java.io.Serializable, 
 
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Fan Ti Jie</a></h1>
+		  <h4 ><a href="#">onecloudlet@163.com</a></h4>
+
 		</hgroup>
 
 		
@@ -89,7 +91,7 @@ String类的定义123public final class String implements java.io.Serializable, 
 		
 
 		<div class="switch-area">
-			<div class="switch-wrap">
+			<div class="switch-wrap" style="transform: translate(-200%, 0px);">
 				<section class="switch-part switch-part1">
 					<nav class="header-menu">
 						<ul>
@@ -126,6 +128,15 @@ String类的定义123public final class String implements java.io.Serializable, 
 				<section class="switch-part switch-part3">
 				
 					<div id="js-aboutme">生命是无数次的裂岸骇浪，只为练习出一次完美的惊涛，谢天地赐我逆境！</div>
+					<nav class="header-nav" style="margin-top: 100px;">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/fantijie" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/5643004110" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
 				</section>
 				
 			</div>
@@ -290,7 +301,10 @@ String类的定义123public final class String implements java.io.Serializable, 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">valueOf</span><span class="params">(<span class="keyword">boolean</span> b)</span> </span>{</div><div class="line">      <span class="keyword">return</span> b ? <span class="string">&quot;true&quot;</span> : <span class="string">&quot;false&quot;</span>;</div><div class="line">  }</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">valueOf</span><span class="params">(<span class="keyword">char</span> c)</span> </span>{</div><div class="line">       <span class="keyword">char</span> data[] = {c};</div><div class="line">       <span class="keyword">return</span> <span class="keyword">new</span> String(data, <span class="keyword">true</span>);</div><div class="line">  }</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">valueOf</span><span class="params">(<span class="keyword">int</span> i)</span> </span>{</div><div class="line">      <span class="keyword">return</span> Integer.toString(i);</div><div class="line">  }</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">valueOf</span><span class="params">(<span class="keyword">long</span> l)</span> </span>{</div><div class="line">     <span class="keyword">return</span> Long.toString(l);</div><div class="line">  }</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">valueOf</span><span class="params">(<span class="keyword">float</span> f)</span> </span>{</div><div class="line">     <span class="keyword">return</span> Float.toString(f);</div><div class="line"> }</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">valueOf</span><span class="params">(<span class="keyword">double</span> d)</span> </span>{</div><div class="line">    <span class="keyword">return</span> Double.toString(d);</div><div class="line">}</div></pre></td></tr></table></figure>
 <p>&#x8FD9;&#x4E9B;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x5C06;&#x516D;&#x79CD;&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;&#x8F6C;&#x6362;&#x6210;String&#x7C7B;&#x578B;&#x3002;</p>
 <h4 id="intern&#x65B9;&#x6CD5;"><a href="#intern-&#x65B9;&#x6CD5;" class="headerlink" title="intern()&#x65B9;&#x6CD5;"></a>intern()&#x65B9;&#x6CD5;</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">intern</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
-<p>&#x8BE5;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x5BF9;&#x8C61;&#x7684;&#x5185;&#x90E8;&#x5316;&#x5F15;&#x7528;&#x3002; &#x4F17;&#x6240;&#x5468;&#x77E5;&#xFF1A;String&#x7C7B;&#x7EF4;&#x62A4;&#x4E00;&#x4E2A;&#x521D;&#x59CB;&#x4E3A;&#x7A7A;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5BF9;&#x8C61;&#x6C60;&#xFF0C;&#x5F53;intern&#x65B9;&#x6CD5;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x5BF9;&#x8C61;&#x6C60;&#x4E2D;&#x5DF2;&#x7ECF;&#x5305;&#x542B;&#x8FD9;&#x4E00;&#x4E2A;&#x76F8;&#x7B49;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x5BF9;&#x8C61;&#x5219;&#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x6C60;&#x4E2D;&#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x5426;&#x5219;&#x6DFB;&#x52A0;&#x5B57;&#x7B26;&#x4E32;&#x5230;&#x5BF9;&#x8C61;&#x6C60;&#x5E76;&#x8FD4;&#x56DE;&#x8BE5;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5F15;&#x7528;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x662F;&#x4E00;&#x4E2A; native &#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x201C;&#x5982;&#x679C;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x5B58;&#x5728;&#x5F53;&#x524D;&#x5B57;&#x7B26;&#x4E32;, &#x5C31;&#x4F1A;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x5F53;&#x524D;&#x5B57;&#x7B26;&#x4E32;. &#x5982;&#x679C;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x6CA1;&#x6709;&#x6B64;&#x5B57;&#x7B26;&#x4E32;, &#x4F1A;&#x5C06;&#x6B64;&#x5B57;&#x7B26;&#x4E32;&#x653E;&#x5165;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x540E;, &#x518D;&#x8FD4;&#x56DE;&#x201D;</p>
+<blockquote>
+<p>native&#x5B9E;&#x73B0;&#x4EE3;&#x7801;:<br>\openjdk7\jdk\src\share\native\java\lang\String.c<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;jvm.h&quot;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;java_lang_String.h&quot;</span></span></div><div class="line"></div><div class="line"><span class="function">JNIEXPORT jobject JNICALL</span></div><div class="line"><span class="title">Java_java_lang_String_intern</span><span class="params">(JNIEnv *env, jobject <span class="keyword">this</span>)</span></div><div class="line">{</div><div class="line">    <span class="keyword">return</span> JVM_InternString(env, <span class="keyword">this</span>);</div><div class="line">}</div></pre></td></tr></table></figure></p>
+</blockquote>
 <h4 id="string&#x5BF9;&#x7684;&#x91CD;&#x8F7D;"><a href="#String&#x5BF9;&#x201C;-&#x201D;&#x7684;&#x91CD;&#x8F7D;" class="headerlink" title="String&#x5BF9;&#x201C;+&#x201D;&#x7684;&#x91CD;&#x8F7D;"></a>String&#x5BF9;&#x201C;+&#x201D;&#x7684;&#x91CD;&#x8F7D;</h4><p>&#x6211;&#x4EEC;&#x77E5;&#x9053;&#xFF0C;Java&#x662F;&#x4E0D;&#x652F;&#x6301;&#x91CD;&#x8F7D;&#x8FD0;&#x7B97;&#x7B26;&#xFF0C;String&#x7684;&#x201C;+&#x201D;&#x662F;java&#x4E2D;&#x552F;&#x4E00;&#x7684;&#x4E00;&#x4E2A;&#x91CD;&#x8F7D;&#x8FD0;&#x7B97;&#x7B26;&#xFF0C;&#x90A3;&#x4E48;java&#x4F7F;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x8FD9;&#x4E2A;&#x52A0;&#x53F7;&#x7684;&#x5462;&#xFF1F;&#x6211;&#x4EEC;&#x5148;&#x770B;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</div><div class="line">    String string=<span class="string">&quot;hollis&quot;</span>;</div><div class="line">    String string2 = string + <span class="string">&quot;chuang&quot;</span>;</div><div class="line">}</div></pre></td></tr></table></figure>
 <p>&#x7136;&#x540E;&#x6211;&#x4EEC;&#x5C06;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x53CD;&#x7F16;&#x8BD1;&#xFF1A;</p>
