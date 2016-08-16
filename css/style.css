@@ -1208,7 +1208,7 @@ a {
   color: #fff;
   border-left: 1px solid;
   border-bottom: 1px solid;
-  background: #5c5c5c;
+  background: rgba(92,92,92,0.85);
   position: fixed;
   top: 0px;
   right: 40px;
