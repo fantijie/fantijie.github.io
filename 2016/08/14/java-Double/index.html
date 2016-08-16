@@ -246,10 +246,11 @@
 
           
             <div id="rig-menu" >
-              <a id="toc_toggle" href="javascript:void();"><img  src="/img/f0ca.png"/></a>
+              <div><a class="mulu" id="toc_toggle" href="javascript:void();"><img  src="/img/f0ca.png" /></a></div>
+
             </div>
-            <div id="toc" class="toc-article">
-                <strong class="toc-title" style="display:none;">文章目录</strong>
+            <div id="toc" class="toc-article" style="display:none;">
+                <strong class="toc-title" >文章目录</strong>
                   
             </div>
           
@@ -350,10 +351,8 @@ MathJax.Hub.Queue(function() {
 
 <script type="text/javascript">
   $("#toc_toggle").bind("click",function(){
-  		$(".toc-title").toggle(150,function(){
-        	
-        });
-        $(".toc").toggle(150);
+        $("#toc").fadeToggle(150);
+        $("#toc").css('display',''); 
     });
 </script>
   </div>

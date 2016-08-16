@@ -534,10 +534,8 @@ MathJax.Hub.Queue(function() {
 
 <script type="text/javascript">
   $("#toc_toggle").bind("click",function(){
-  		$(".toc-title").toggle(150,function(){
-        	
-        });
-        $(".toc").toggle(150);
+        $("#toc").fadeToggle(150);
+        $("#toc").css('display',''); 
     });
 </script>
   </div>

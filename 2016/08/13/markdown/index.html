@@ -260,10 +260,11 @@
 
           
             <div id="rig-menu" >
-              <a id="toc_toggle" href="javascript:void();"><img  src="/img/f0ca.png"/></a>
+              <div><a class="mulu" id="toc_toggle" href="javascript:void();"><img  src="/img/f0ca.png" /></a></div>
+
             </div>
-            <div id="toc" class="toc-article">
-                <strong class="toc-title" style="display:none;">文章目录</strong>
+            <div id="toc" class="toc-article" style="display:none;">
+                <strong class="toc-title" >文章目录</strong>
                   <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#markdown简介"><span class="toc-number">1.</span> <span class="toc-text">Markdown简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#uml"><span class="toc-number">1.1.</span> <span class="toc-text">UML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hello"><span class="toc-number">1.2.</span> <span class="toc-text">hello</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1"><span class="toc-number">1.3.</span> <span class="toc-text">1</span></a></li></ol></li></ol>
             </div>
           
@@ -364,10 +365,8 @@ MathJax.Hub.Queue(function() {
 
 <script type="text/javascript">
   $("#toc_toggle").bind("click",function(){
-  		$(".toc-title").toggle(150,function(){
-        	
-        });
-        $(".toc").toggle(150);
+        $("#toc").fadeToggle(150);
+        $("#toc").css('display',''); 
     });
 </script>
   </div>
