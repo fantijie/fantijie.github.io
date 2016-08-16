@@ -59,7 +59,7 @@ String类的定义123public final class String implements java.io.Serializable, 
 			<div class="switch-btn">
 				<div class="icon">
 					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
+						<div class="icon-wrap icon-house hide" data-idx="0">
 							<div class="birdhouse"></div>
 							<div class="birdhouse_holes"></div>
 						</div>
@@ -68,7 +68,7 @@ String类的定义123public final class String implements java.io.Serializable, 
 						</div>
 						
 						
-						<div class="icon-wrap icon-me hide" data-idx="3">
+						<div class="icon-wrap icon-me" data-idx="3">
 							<div class="user"></div>
 							<div class="shoulder"></div>
 						</div>
@@ -336,15 +336,18 @@ String类的定义123public final class String implements java.io.Serializable, 
 </nav>
 
   
-  
+
 </article>
 
           
-              <div id="toc" class="toc-article">
-              <a id="toc_toggle" style="float: right;cursor:pointer;" >显示</a>
+            <div id="rig-menu" >
+              <a id="toc_toggle" href="javascript:void();">目录</a></li>
+              
+              </div>
+            <div id="toc" class="toc-article">
                 <strong class="toc-title" style="display:none;">文章目录</strong>
                   <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#string类"><span class="toc-number">1.</span> <span class="toc-text">String类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#string类简介"><span class="toc-number">1.1.</span> <span class="toc-text">String类简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#string类的定义"><span class="toc-number">1.2.</span> <span class="toc-text">String类的定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#string类的uml图"><span class="toc-number">1.3.</span> <span class="toc-text">String类的UML图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#string类的属性"><span class="toc-number">1.4.</span> <span class="toc-text">String类的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#string类的构造方法"><span class="toc-number">1.5.</span> <span class="toc-text">String类的构造方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#string类的api"><span class="toc-number">1.6.</span> <span class="toc-text">String类的API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一个特殊的保护类型的构造方法"><span class="toc-number">1.7.</span> <span class="toc-text">一个特殊的保护类型的构造方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getbytes"><span class="toc-number">1.8.</span> <span class="toc-text">getBytes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#比较方法"><span class="toc-number">1.9.</span> <span class="toc-text">比较方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hashcode"><span class="toc-number">1.10.</span> <span class="toc-text">hashCode</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#substring方法"><span class="toc-number">1.11.</span> <span class="toc-text">substring方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#replacefirst-replaceall-replace区别"><span class="toc-number">1.12.</span> <span class="toc-text">replaceFirst、replaceAll、replace区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#copyvalueof-和-valueof"><span class="toc-number">1.13.</span> <span class="toc-text">copyValueOf 和 valueOf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#intern方法"><span class="toc-number">1.14.</span> <span class="toc-text">intern()方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#string对的重载"><span class="toc-number">1.15.</span> <span class="toc-text">String对“+”的重载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stringvalueof和integertostring的区别"><span class="toc-number">1.16.</span> <span class="toc-text">String.valueOf和Integer.toString的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stringbuffer"><span class="toc-number">2.</span> <span class="toc-text">StringBuffer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stringbuilder"><span class="toc-number">3.</span> <span class="toc-text">StringBuilder</span></a></li></ol>
-              </div>
+            </div>
           
       
 
@@ -444,11 +447,7 @@ MathJax.Hub.Queue(function() {
 <script type="text/javascript">
   $("#toc_toggle").bind("click",function(){
   		$(".toc-title").toggle(0,function(){
-        	if($("#toc_toggle").text() == "显示"){
-        		$("#toc_toggle").text("隐藏");
-        	}else{
-        		$("#toc_toggle").text("显示");
-        	}
+        	
         });
         $(".toc").toggle(150);
     });

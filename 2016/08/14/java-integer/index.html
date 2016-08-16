@@ -49,7 +49,7 @@
 			<div class="switch-btn">
 				<div class="icon">
 					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
+						<div class="icon-wrap icon-house hide" data-idx="0">
 							<div class="birdhouse"></div>
 							<div class="birdhouse_holes"></div>
 						</div>
@@ -58,7 +58,7 @@
 						</div>
 						
 						
-						<div class="icon-wrap icon-me hide" data-idx="3">
+						<div class="icon-wrap icon-me" data-idx="3">
 							<div class="user"></div>
 							<div class="shoulder"></div>
 						</div>
@@ -241,15 +241,18 @@
 </nav>
 
   
-  
+
 </article>
 
           
-              <div id="toc" class="toc-article">
-              <a id="toc_toggle" style="float: right;cursor:pointer;" >显示</a>
+            <div id="rig-menu" >
+              <a id="toc_toggle" href="javascript:void();">目录</a></li>
+              
+              </div>
+            <div id="toc" class="toc-article">
                 <strong class="toc-title" style="display:none;">文章目录</strong>
                   
-              </div>
+            </div>
           
       
 
@@ -349,11 +352,7 @@ MathJax.Hub.Queue(function() {
 <script type="text/javascript">
   $("#toc_toggle").bind("click",function(){
   		$(".toc-title").toggle(0,function(){
-        	if($("#toc_toggle").text() == "显示"){
-        		$("#toc_toggle").text("隐藏");
-        	}else{
-        		$("#toc_toggle").text("显示");
-        	}
+        	
         });
         $(".toc").toggle(150);
     });
