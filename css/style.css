@@ -1215,9 +1215,12 @@ a {
 }
 .toc-article .toc-title {
   font-size: 120%;
-  margin: 15px;
   display: inline-block;
   width: 100%;
+  background: rgba(30,21,16,0.45);
+  padding-top: 9px;
+  padding-left: 15px;
+  padding-bottom: 5px;
 }
 .toc-article strong {
   padding: 0.3em 1;
@@ -1244,11 +1247,17 @@ ol.toc {
   }
   #toc .toc {
     padding: 0;
-    display: none;
     margin: 0 15px;
   }
   #toc .toc li {
     list-style-type: none;
+  }
+  #toc .toc a:hover {
+    color: #f00;
+    -webkit-transition: color 0.1s ease-out;
+    -moz-transition: color 0.1s ease-out;
+    -ms-transition: color 0.1s ease-out;
+    transition: color 0.1s ease-out;
   }
   #toc .toc-child {
     padding-left: 1.5em;
@@ -1261,21 +1270,17 @@ ol.toc {
     top: 0;
     width: 40px;
   }
+  #rig-menu div {
+    background: rgba(30,21,16,0.45);
+  }
   #rig-menu a {
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
-    line-height: 40px;
-    padding-left: 3px;
     font-size: 100%;
-    padding: 10px 3px 10px 5px;
   }
   #rig-menu a img {
     height: 36px;
     width: 36px;
-    margin-left: -3px;
-  }
-  #rig-menu a:hover {
-    color: #f00;
   }
 }
 @media screen and (max-width: 1099px) {
