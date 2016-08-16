@@ -1237,6 +1237,9 @@ ol.toc {
     font-size: 1em;
     float: right;
     color: #fff;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
   #toc .toc {
     padding: 0;
@@ -1304,13 +1307,6 @@ ol.toc {
   padding: 0.3em 0;
   color: color-font;
 }
-#toc.toc-aside:hover {
-  -webkit-transition: opacity 0.3s ease-out;
-  -moz-transition: opacity 0.3s ease-out;
-  -ms-transition: opacity 0.3s ease-out;
-  transition: opacity 0.3s ease-out;
-  opacity: 1;
-}
 #toc.toc-aside a {
   -webkit-transition: color 1s ease-out;
   -moz-transition: color 1s ease-out;
@@ -1319,7 +1315,7 @@ ol.toc {
   color: #fff;
 }
 #toc.toc-aside a:hover {
-  color: color-theme;
+  color: #f00;
   -webkit-transition: color 0.3s ease-out;
   -moz-transition: color 0.3s ease-out;
   -ms-transition: color 0.3s ease-out;
