@@ -713,7 +713,9 @@ a {
   line-height: 30px;
 }
 .duoshuo {
-  padding: 0 15px;
+  padding-right: 45px;
+  padding-left: 15px;
+  padding-bottom: 10px;
 }
 #ds-thread #ds-reset li.ds-post {
   background: #fcfcfc;
@@ -1771,6 +1773,7 @@ pre .css ~ * .id {
 }
 .footer-right {
   float: right;
+  padding-right: 40px;
 }
 .share {
   padding: 0px 75px 30px 40px;
