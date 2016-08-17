@@ -1206,8 +1206,6 @@ a {
 .toc-article {
   margin: 0 0 0 0.2em;
   color: #fff;
-  border-left: 1px solid;
-  border-bottom: 1px solid;
   background: rgba(30,21,16,0.85);
   position: fixed;
   top: 0px;
