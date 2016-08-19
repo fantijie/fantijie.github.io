@@ -6,19 +6,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>lucene标准分析器StandardAnalyzer源码解析 | Fan Ti Jie&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="lucene&amp;#x6807;&amp;#x51C6;&amp;#x5206;&amp;#x6790;&amp;#x5668;&amp;#x4ECB;&amp;#x7ECD;
-&amp;#x7B49;&amp;#x6211;&amp;#x53D1;&amp;#x5E03;&amp;#x2026;&amp;#x2026;.">
+  <meta name="description" content="lucene标准分析器介绍
+等我发布…….">
 <meta property="og:type" content="article">
 <meta property="og:title" content="lucene标准分析器StandardAnalyzer源码解析">
 <meta property="og:url" content="https://fantijie.github.io/2016/08/19/lucene-StandardAnalyzer/index.html">
 <meta property="og:site_name" content="Fan Ti Jie's Blog">
-<meta property="og:description" content="lucene&amp;#x6807;&amp;#x51C6;&amp;#x5206;&amp;#x6790;&amp;#x5668;&amp;#x4ECB;&amp;#x7ECD;
-&amp;#x7B49;&amp;#x6211;&amp;#x53D1;&amp;#x5E03;&amp;#x2026;&amp;#x2026;.">
-<meta property="og:updated_time" content="2016-08-19T08:50:43.000Z">
+<meta property="og:description" content="lucene标准分析器介绍
+等我发布…….">
+<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/ZL7DJuCm53-Fl-8TDKOE9Zjwm8cQY3CHJBoHj_86TQKbRPb3m_zkSGCXaSJUtiVlwxL2jiESu1ttw0kKENnv2oujwIqoWg2sQYMK8Tm8SfF51UmLpu1rlRDpRz5whLUDERYQCWnee8CbcPaf9yoH3gnAvpwweY1Vr8ma-IXHD8QR3ii46aVPTJv90oyhGIL9Qs0gSGbRxfRWXMf3iTLeAMz0Zwjfc7bPlxPS_6h7LbKVIcUzXniqewoziR67LO4wq1gRc2oO4zpyExPlBCeCTJRsSEmCSht-d-QE9tSibhEJ9VTVS1lU1QzHaZu5Rsdo_1YkqoXStoSFS0rNo-MF_swjn4EYTYGZahajt70ErmK2zxps6m00">
+<meta property="og:updated_time" content="2016-08-19T09:09:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="lucene标准分析器StandardAnalyzer源码解析">
-<meta name="twitter:description" content="lucene&amp;#x6807;&amp;#x51C6;&amp;#x5206;&amp;#x6790;&amp;#x5668;&amp;#x4ECB;&amp;#x7ECD;
-&amp;#x7B49;&amp;#x6211;&amp;#x53D1;&amp;#x5E03;&amp;#x2026;&amp;#x2026;.">
+<meta name="twitter:description" content="lucene标准分析器介绍
+等我发布…….">
+<meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/ZL7DJuCm53-Fl-8TDKOE9Zjwm8cQY3CHJBoHj_86TQKbRPb3m_zkSGCXaSJUtiVlwxL2jiESu1ttw0kKENnv2oujwIqoWg2sQYMK8Tm8SfF51UmLpu1rlRDpRz5whLUDERYQCWnee8CbcPaf9yoH3gnAvpwweY1Vr8ma-IXHD8QR3ii46aVPTJv90oyhGIL9Qs0gSGbRxfRWXMf3iTLeAMz0Zwjfc7bPlxPS_6h7LbKVIcUzXniqewoziR67LO4wq1gRc2oO4zpyExPlBCeCTJRsSEmCSht-d-QE9tSibhEJ9VTVS1lU1QzHaZu5Rsdo_1YkqoXStoSFS0rNo-MF_swjn4EYTYGZahajt70ErmK2zxps6m00">
   
     <link rel="alternative" href="/atom.xml" title="Fan Ti Jie&#39;s Blog" type="application/atom+xml">
   
@@ -221,7 +223,8 @@
       
       
         <h3 id="lucene&#x6807;&#x51C6;&#x5206;&#x6790;&#x5668;&#x4ECB;&#x7ECD;"><a href="#lucene&#x6807;&#x51C6;&#x5206;&#x6790;&#x5668;&#x4ECB;&#x7ECD;" class="headerlink" title="lucene&#x6807;&#x51C6;&#x5206;&#x6790;&#x5668;&#x4ECB;&#x7ECD;"></a>lucene&#x6807;&#x51C6;&#x5206;&#x6790;&#x5668;&#x4ECB;&#x7ECD;</h3><blockquote>
-<p>&#x7B49;&#x6211;&#x53D1;&#x5E03;&#x2026;&#x2026;.</p>
+<p>&#x7B49;&#x6211;&#x53D1;&#x5E03;&#x2026;&#x2026;.<br><a id="more"></a></p>
+<h4 id="standardanalyzer&#x7C7B;&#x7684;uml&#x56FE;"><a href="#StandardAnalyzer&#x7C7B;&#x7684;UML&#x56FE;" class="headerlink" title="StandardAnalyzer&#x7C7B;&#x7684;UML&#x56FE;"></a>StandardAnalyzer&#x7C7B;&#x7684;UML&#x56FE;</h4><img src="http://www.plantuml.com/plantuml/svg/ZL7DJuCm53-Fl-8TDKOE9Zjwm8cQY3CHJBoHj_86TQKbRPb3m_zkSGCXaSJUtiVlwxL2jiESu1ttw0kKENnv2oujwIqoWg2sQYMK8Tm8SfF51UmLpu1rlRDpRz5whLUDERYQCWnee8CbcPaf9yoH3gnAvpwweY1Vr8ma-IXHD8QR3ii46aVPTJv90oyhGIL9Qs0gSGbRxfRWXMf3iTLeAMz0Zwjfc7bPlxPS_6h7LbKVIcUzXniqewoziR67LO4wq1gRc2oO4zpyExPlBCeCTJRsSEmCSht-d-QE9tSibhEJ9VTVS1lU1QzHaZu5Rsdo_1YkqoXStoSFS0rNo-MF_swjn4EYTYGZahajt70ErmK2zxps6m00">
 </blockquote>
 
       
@@ -252,7 +255,7 @@
             </div>
             <div id="toc" class="toc-article" style="display:none;">
                 <strong class="toc-title" >文章目录</strong>
-                  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#lucene标准分析器介绍"><span class="toc-number">1.</span> <span class="toc-text">lucene标准分析器介绍</span></a></li></ol>
+                  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#lucene标准分析器介绍"><span class="toc-number">1.</span> <span class="toc-text">lucene标准分析器介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#standardanalyzer类的uml图"><span class="toc-number">1.1.</span> <span class="toc-text">StandardAnalyzer类的UML图</span></a></li></ol></li></ol>
             </div>
           
       
