@@ -4,17 +4,21 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>java.lang.Void | Fan Ti Jie&#39;s Blog</title>
+  <title>Java类加载器ClassLoader | Fan Ti Jie&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="java.lang.Void">
-<meta property="og:url" content="https://fantijie.github.io/2016/08/14/java-Void/index.html">
+  <meta name="description" content="Java&amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x5668;ClassLoader&amp;#x7B80;&amp;#x4ECB;
+Java&amp;#x4E2D;&amp;#x6240;&amp;#x6709;&amp;#x7684;.class&amp;#x548C;jar&amp;#x6587;&amp;#x4EF6;&amp;#x90FD;&amp;#x662F;&amp;#x901A;&amp;#x8FC7;&amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x5668;Cla">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java类加载器ClassLoader">
+<meta property="og:url" content="https://fantijie.github.io/2016/08/19/java-ClassLoader/index.html">
 <meta property="og:site_name" content="Fan Ti Jie's Blog">
-<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/u-8gI4pEJanFLSXAB4lKoqdCIw_cukJYL4ZEIImkLWZBpqm1ye42jLnS2a30LSi50000">
-<meta property="og:updated_time" content="2016-08-14T04:17:12.000Z">
+<meta property="og:description" content="Java&amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x5668;ClassLoader&amp;#x7B80;&amp;#x4ECB;
+Java&amp;#x4E2D;&amp;#x6240;&amp;#x6709;&amp;#x7684;.class&amp;#x548C;jar&amp;#x6587;&amp;#x4EF6;&amp;#x90FD;&amp;#x662F;&amp;#x901A;&amp;#x8FC7;&amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x5668;Cla">
+<meta property="og:updated_time" content="2016-08-19T08:07:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java.lang.Void">
-<meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/u-8gI4pEJanFLSXAB4lKoqdCIw_cukJYL4ZEIImkLWZBpqm1ye42jLnS2a30LSi50000">
+<meta name="twitter:title" content="Java类加载器ClassLoader">
+<meta name="twitter:description" content="Java&amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x5668;ClassLoader&amp;#x7B80;&amp;#x4ECB;
+Java&amp;#x4E2D;&amp;#x6240;&amp;#x6709;&amp;#x7684;.class&amp;#x548C;jar&amp;#x6587;&amp;#x4EF6;&amp;#x90FD;&amp;#x662F;&amp;#x901A;&amp;#x8FC7;&amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x5668;Cla">
   
     <link rel="alternative" href="/atom.xml" title="Fan Ti Jie&#39;s Blog" type="application/atom+xml">
   
@@ -174,11 +178,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-java-Void" class="article article-type-post .article2" itemscope itemprop="blogPost" style="">
+      <div class="body-wrap"><article id="post-java-ClassLoader" class="article article-type-post .article2" itemscope itemprop="blogPost" style="">
   
     <div class="article-meta">
-      <a href="/2016/08/14/java-Void/" class="article-date">
-  	<time datetime="2016-08-13T18:15:19.000Z" itemprop="datePublished">2016-08-14</time>
+      <a href="/2016/08/19/java-ClassLoader/" class="article-date">
+  	<time datetime="2016-08-19T07:51:25.000Z" itemprop="datePublished">2016-08-19</time>
 </a>
     </div>
   
@@ -195,7 +199,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      java.lang.Void
+      Java类加载器ClassLoader
     </h1>
   
 
@@ -203,6 +207,10 @@
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
         
 
         <div class="clearfix"></div>
@@ -212,8 +220,10 @@
     <div class="article-entry" itemprop="articleBody">
       
       
-        <img src="http://www.plantuml.com/plantuml/svg/u-8gI4pEJanFLSXAB4lKoqdCIw_cukJYL4ZEIImkLWZBpqm1ye42jLnS2a30LSi50000">
-<a id="more"></a>
+        <h3 id="java&#x7C7B;&#x52A0;&#x8F7D;&#x5668;classloader&#x7B80;&#x4ECB;"><a href="#Java&#x7C7B;&#x52A0;&#x8F7D;&#x5668;ClassLoader&#x7B80;&#x4ECB;" class="headerlink" title="Java&#x7C7B;&#x52A0;&#x8F7D;&#x5668;ClassLoader&#x7B80;&#x4ECB;"></a>Java&#x7C7B;&#x52A0;&#x8F7D;&#x5668;ClassLoader&#x7B80;&#x4ECB;</h3><blockquote>
+<p>Java&#x4E2D;&#x6240;&#x6709;&#x7684;.class&#x548C;jar&#x6587;&#x4EF6;&#x90FD;&#x662F;&#x901A;&#x8FC7;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;ClassLoader&#x52A0;&#x8F7D;&#x8FDB;Jvm&#x4E2D;&#x7684;&#x3002;.class&#x6587;&#x4EF6;&#x662F;java&#x4E2D;&#x7F16;&#x8BD1;&#x8FC7;&#x540E;&#x7684;&#x5B57;&#x8282;&#x7801;&#x6587;&#x4EF6;&#x3002;.jar&#x6587;&#x4EF6;&#x5C5E;&#x4E8E;java&#x4E2D;&#x7684;&#x5305;&#x6587;&#x4EF6;&#xFF0C;&#x5176;&#x4E2D;&#x5305;&#x5185;&#x5C31;&#x662F;.class&#x6587;&#x4EF6;&#x7684;&#x96C6;&#x5408;</p>
+</blockquote>
+
       
     </div>
 
@@ -223,18 +233,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/08/14/java-lang-string-stringbuffer-stringbuilder/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          java.lang.String , StringBuilder , StringBuffer 源码解析
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/08/14/java-Long/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">java.lang.Long</div>
+    <a href="/2016/08/19/java-Launcher/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java的Launcher与ClassLoader</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -251,7 +252,7 @@
             </div>
             <div id="toc" class="toc-article" style="display:none;">
                 <strong class="toc-title" >文章目录</strong>
-                  
+                  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#java类加载器classloader简介"><span class="toc-number">1.</span> <span class="toc-text">Java类加载器ClassLoader简介</span></a></li></ol>
             </div>
           
       
@@ -263,7 +264,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="java-Void" data-title="java.lang.Void" data-url="https://fantijie.github.io/2016/08/14/java-Void/"></div>
+	<div class="ds-thread" data-thread-key="java-ClassLoader" data-title="Java类加载器ClassLoader" data-url="https://fantijie.github.io/2016/08/19/java-ClassLoader/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
