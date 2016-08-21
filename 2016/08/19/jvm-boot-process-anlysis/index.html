@@ -14,7 +14,7 @@ Java虚拟机（英语：Java VirtualMachine，缩写为JVM），一种能够运
 <meta property="og:site_name" content="Fan Ti Jie's Blog">
 <meta property="og:description" content="Jvm简介此处我所涉及的代码是以openjdk1.7的Hotpost为准。
 Java虚拟机（英语：Java VirtualMachine，缩写为JVM），一种能够运行Java字节码的虚拟机，以堆栈结构机器来进行实做。Java虚拟机有自己完善的硬体架构，如处理器、堆栈、寄存器等，还具有相应的指令系统。JVM屏蔽了与具体操作系统平台相关的信息，使得Java程序只需生成在Java虚拟机上运行的目标代码（">
-<meta property="og:updated_time" content="2016-08-21T14:21:49.000Z">
+<meta property="og:updated_time" content="2016-08-21T14:24:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jvm启动过程分析">
 <meta name="twitter:description" content="Jvm简介此处我所涉及的代码是以openjdk1.7的Hotpost为准。
@@ -109,7 +109,7 @@ Java虚拟机（英语：Java VirtualMachine，缩写为JVM），一种能够运
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 15px;">markdown</a>
+						<a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 15px;">markdown</a>
 					</div>
 				</section>
 				
@@ -302,7 +302,7 @@ Java虚拟机（英语：Java VirtualMachine，缩写为JVM），一种能够运
 <p>Manifest&#x6570;&#x636E;&#x7ED3;&#x6784;<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * Information returned from the Manifest file by the ParseManifest() routine.</div><div class="line"> * Certainly (much) more could be returned, but this is the information</div><div class="line"> * currently of interest to the C based Java utilities (particularly the</div><div class="line"> * Java launcher).</div><div class="line"> */</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> manifest_info {  <span class="comment">/* Interesting fields from the Manifest */</span></div><div class="line">    <span class="keyword">char</span>        *manifest_version;      <span class="comment">/* Manifest-Version string */</span></div><div class="line">    <span class="keyword">char</span>        *main_class;            <span class="comment">/* Main-Class entry */</span></div><div class="line">    <span class="keyword">char</span>        *jre_version;           <span class="comment">/* Appropriate J2SE release spec */</span></div><div class="line">    <span class="keyword">char</span>        jre_restrict_search;    <span class="comment">/* Restricted JRE search */</span></div><div class="line">    <span class="keyword">char</span>        *splashscreen_image_file_name; <span class="comment">/* splashscreen image file */</span></div><div class="line">} manifest_info;</div></pre></td></tr></table></figure></p>
 </blockquote>
 <p>&#x793A;&#x4F8B;&#x9009;&#x62E9;jre&#x7248;&#x672C;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -v -version:1.7.0_79-b15</div></pre></td></tr></table></figure></p>
-<p>&#x81F3;&#x4E8E;&#x9650;&#x5236;&#x641C;&#x7D22;&#x76EE;&#x5F55;-jre-restrict-search&#x7B49;&#x64CD;&#x4F5C;&#xFF0C;&#x81EA;&#x884C;&#x5B66;&#x4E60;&#x548C;&#x6D4B;&#x8BD5;&#x5427;&#xFF01;&#x8FD9;&#x91CC;&#x4E0D;&#x9519;&#x505A;&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</p>
+<p>&#x81F3;&#x4E8E;&#x9650;&#x5236;&#x641C;&#x7D22;&#x76EE;&#x5F55;-jre-restrict-search&#x7B49;&#x64CD;&#x4F5C;&#xFF0C;&#x81EA;&#x884C;&#x5B66;&#x4E60;&#x548C;&#x6D4B;&#x8BD5;&#x5427;&#xFF01;&#x8FD9;&#x91CC;&#x4E0D;&#x505A;&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</p>
 <blockquote>
 <p>&#x5982;&#x679C;&#x89E3;&#x6790;&#x51FA;&#x7684;jre&#x7248;&#x672C;&#x4E0E;java&#x7A0B;&#x5E8F;&#x7684;jre&#x7248;&#x672C;&#x4E0D;&#x4E00;&#x81F4;,&#x8C03;&#x7528;linux&#x7684;execv&#x51FD;&#x6570;&#x7EC8;&#x6B62;&#x5F53;&#x524D;&#x8FDB;&#x51FA;&#x5E76;&#x4E14;&#x4F7F;&#x7528;&#x65B0;&#x7684;jre&#x7248;&#x672C;&#x91CD;&#x65B0;&#x8FD0;&#x884C;&#x8FD9;&#x4E2A;java&#x7A0B;&#x5E8F;&#xFF0C;&#x4F46;&#x662F;&#x8FDB;&#x7A0B;ID&#x4E0D;&#x4F1A;&#x6539;&#x53D8;</p>
 </blockquote>
@@ -322,6 +322,15 @@ Java虚拟机（英语：Java VirtualMachine，缩写为JVM），一种能够运
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/08/21/hotspot-jvm-classloader/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          HotSpot虚拟机(JVM)classloader(类加载)
+        
+      </div>
+    </a>
   
   
     <a href="/2016/08/19/lucene-StandardAnalyzer/" id="article-nav-older" class="article-nav-link-wrap">

@@ -105,7 +105,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 15px;">markdown</a>
+						<a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 15px;">markdown</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,77 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-hotspot-jvm-classloader" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
+  
+    <div class="article-meta">
+      <a href="/2016/08/21/hotspot-jvm-classloader/" class="article-date">
+  	<time datetime="2016-08-21T14:59:22.000Z" itemprop="datePublished">2016-08-21</time>
+</a>
+    </div>
+  
+
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+
+
+
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/21/hotspot-jvm-classloader/">HotSpot虚拟机(JVM)classloader(类加载)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="HotSpot虚拟机简介"><a href="#HotSpot虚拟机简介" class="headerlink" title="HotSpot虚拟机简介"></a>HotSpot虚拟机简介</h4><p>HotSpot的正式发布名称为”Java HotSpot Performance Engine”，是Java虚拟机的一个实现，包含了服务器版和桌面应用程序版，现时由Oracle维护并发布。它利用JIT及自适应优化技术（自动查找性能热点并进行动态优化，这也是HotSpot名字的由来）来提高性能，(摘自维基百科)</p>
+<h5 id="Java中的类加载器"><a href="#Java中的类加载器" class="headerlink" title="Java中的类加载器"></a>Java中的类加载器</h5><p>Java中提供了<a href="/2016/08/19/java-ClassLoader/">3种类加载器</a>，在这里我们说的是Bootstrap ClassLoader(启动类加载器),Bootstrap ClassLoader类加载器主要是在Jvm启动的过程中将JAVA_HOME下的的类库加载到Jvm中。Java代码中是无法获取到此加载器来加载类！<br>
+      
+    </div>
+
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jvm/">jvm</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/08/21/hotspot-jvm-classloader/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
   
     <article id="post-jvm-boot-process-anlysis" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
   
@@ -798,69 +869,6 @@
       
       
         <img src="http://www.plantuml.com/plantuml/svg/AqXCpavCJrN8IYnBrClCh-RYpCmhIIrAIqnELGXEBSfCpCciIapAILM8ZiueAIcmqjSlBo_NAyX9p2ifpStHIyxFZOtbgkNYAa0sfxGaCmV59EVyt8B48f0vDY5s8EKeHjlKwEaf-9Nc9gKMMJrTD-zvtmOqyu2sfGFDu-9KyCdFIrVGhR63AbUmKdY-U_cpplr0AOGT40D1Ik76SIeavoGM5uC5WIO1ZU84ka81282k0G00">
-      
-    </div>
-
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java-Byte" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
-  
-    <div class="article-meta">
-      <a href="/2016/08/14/java-Byte/" class="article-date">
-  	<time datetime="2016-08-13T18:15:09.000Z" itemprop="datePublished">2016-08-14</time>
-</a>
-    </div>
-  
-
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-
-
-
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/14/java-Byte/">java.lang.Byte</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        <img src="http://www.plantuml.com/plantuml/svg/AqXCpavCJrN8IYnBrClCh-RYpCmhIIrAIqnELGXEBSfCpCciIapAILM8ZiueAIcmqjSlBo_NAyX9p2ifpStHIyxFZOtbgkNYAa0sfxGaCmV59EVyt8B48f0vDY5s8EKeHjlKwEaf-9Nc9gKMMJrTD-zvtmOqyu2sfGFDu-9KSAeiILNGhR63AbUmKdY-U_cpplr0AOGT40D1Ik76SIeavoGM5uC5WIO1ZU84ka81282k0G00">
       
     </div>
 
