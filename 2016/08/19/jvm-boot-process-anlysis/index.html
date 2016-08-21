@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Jvm启动过程分析 | Fan Ti Jie&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Jvm简介此处我所涉及的代码是以openjdk1.7的Hotpost为准。
+Java虚拟机（英语：Java VirtualMachine，缩写为JVM），一种能够运行Java字节码的虚拟机，以堆栈结构机器来进行实做。Java虚拟机有自己完善的硬体架构，如处理器、堆栈、寄存器等，还具有相应的指令系统。JVM屏蔽了与具体操作系统平台相关的信息，使得Java程序只需生成在Java虚拟机上运行的目标代码（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jvm启动过程分析">
+<meta property="og:url" content="https://fantijie.github.io/2016/08/19/jvm-boot-process-anlysis/index.html">
+<meta property="og:site_name" content="Fan Ti Jie's Blog">
+<meta property="og:description" content="Jvm简介此处我所涉及的代码是以openjdk1.7的Hotpost为准。
+Java虚拟机（英语：Java VirtualMachine，缩写为JVM），一种能够运行Java字节码的虚拟机，以堆栈结构机器来进行实做。Java虚拟机有自己完善的硬体架构，如处理器、堆栈、寄存器等，还具有相应的指令系统。JVM屏蔽了与具体操作系统平台相关的信息，使得Java程序只需生成在Java虚拟机上运行的目标代码（">
+<meta property="og:updated_time" content="2016-08-21T14:21:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jvm启动过程分析">
+<meta name="twitter:description" content="Jvm简介此处我所涉及的代码是以openjdk1.7的Hotpost为准。
+Java虚拟机（英语：Java VirtualMachine，缩写为JVM），一种能够运行Java字节码的虚拟机，以堆栈结构机器来进行实做。Java虚拟机有自己完善的硬体架构，如处理器、堆栈、寄存器等，还具有相应的指令系统。JVM屏蔽了与具体操作系统平台相关的信息，使得Java程序只需生成在Java虚拟机上运行的目标代码（">
+  
+    <link rel="alternative" href="/atom.xml" title="Fan Ti Jie&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://tva3.sinaimg.cn/crop.0.1.1242.1242.180/0069Tt9kjw8ex50m4q0xdj30yi0ykjvc.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Fan Ti Jie</a></h1>
+		  <h4 ><a href="#">onecloudlet@163.com</a></h4>
+
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap" style="transform: translate(-200%, 0px);">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/fantijie" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/5643004110" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 15px;">markdown</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">生命是无数次的裂岸骇浪，只为练习出一次完美的惊涛，谢天地赐我逆境！</div>
+					<nav class="header-nav" style="margin-top: 100px;">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/fantijie" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/5643004110" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Fan Ti Jie</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img lazy-src="http://tva3.sinaimg.cn/crop.0.1.1242.1242.180/0069Tt9kjw8ex50m4q0xdj30yi0ykjvc.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Fan Ti Jie</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/fantijie" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/5643004110" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-jvm-boot-process-anlysis" class="article article-type-post .article2" itemscope itemprop="blogPost" style="">
+  
+    <div class="article-meta">
+      <a href="/2016/08/19/jvm-boot-process-anlysis/" class="article-date">
+  	<time datetime="2016-08-19T10:16:44.000Z" itemprop="datePublished">2016-08-19</time>
+</a>
+    </div>
+  
+
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+
+
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Jvm启动过程分析
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jvm/">jvm</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h3 id="jvm&#x7B80;&#x4ECB;"><a href="#Jvm&#x7B80;&#x4ECB;" class="headerlink" title="Jvm&#x7B80;&#x4ECB;"></a>Jvm&#x7B80;&#x4ECB;</h3><p>&#x6B64;&#x5904;&#x6211;&#x6240;&#x6D89;&#x53CA;&#x7684;&#x4EE3;&#x7801;&#x662F;&#x4EE5;openjdk1.7&#x7684;Hotpost&#x4E3A;&#x51C6;&#x3002;</p>
+<p>Java&#x865A;&#x62DF;&#x673A;&#xFF08;&#x82F1;&#x8BED;&#xFF1A;Java VirtualMachine&#xFF0C;&#x7F29;&#x5199;&#x4E3A;JVM&#xFF09;&#xFF0C;&#x4E00;&#x79CD;&#x80FD;&#x591F;&#x8FD0;&#x884C;Java&#x5B57;&#x8282;&#x7801;&#x7684;&#x865A;&#x62DF;&#x673A;&#xFF0C;&#x4EE5;&#x5806;&#x6808;&#x7ED3;&#x6784;&#x673A;&#x5668;&#x6765;&#x8FDB;&#x884C;&#x5B9E;&#x505A;&#x3002;<br>Java&#x865A;&#x62DF;&#x673A;&#x6709;&#x81EA;&#x5DF1;&#x5B8C;&#x5584;&#x7684;&#x786C;&#x4F53;&#x67B6;&#x6784;&#xFF0C;&#x5982;&#x5904;&#x7406;&#x5668;&#x3001;&#x5806;&#x6808;&#x3001;&#x5BC4;&#x5B58;&#x5668;&#x7B49;&#xFF0C;&#x8FD8;&#x5177;&#x6709;&#x76F8;&#x5E94;&#x7684;&#x6307;&#x4EE4;&#x7CFB;&#x7EDF;&#x3002;JVM&#x5C4F;&#x853D;&#x4E86;&#x4E0E;&#x5177;&#x4F53;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5E73;&#x53F0;&#x76F8;&#x5173;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x4F7F;&#x5F97;Java&#x7A0B;&#x5E8F;&#x53EA;&#x9700;&#x751F;&#x6210;&#x5728;Java&#x865A;&#x62DF;&#x673A;&#x4E0A;&#x8FD0;&#x884C;&#x7684;&#x76EE;&#x6807;&#x4EE3;&#x7801;&#xFF08;&#x5B57;&#x8282;&#x7801;&#xFF09;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5728;&#x591A;&#x79CD;&#x5E73;&#x53F0;&#x4E0A;&#x4E0D;&#x52A0;&#x4FEE;&#x6539;&#x5730;&#x8FD0;&#x884C;&#x3002;&#x901A;&#x8FC7;&#x5BF9;&#x4E2D;&#x592E;&#x5904;&#x7406;&#x5668;&#xFF08;CPU&#xFF09;&#x6240;&#x6267;&#x884C;&#x7684;&#x8F6F;&#x4EF6;&#x5B9E;&#x4F5C;&#xFF0C;&#x5B9E;&#x73B0;&#x80FD;&#x6267;&#x884C;&#x7F16;&#x8BD1;&#x8FC7;&#x7684;Java&#x7A0B;&#x5E8F;&#x7801;&#xFF08;Applet&#x4E0E;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#xFF09;&#x3002;</p>
+<p>&#x4F5C;&#x4E3A;&#x4E00;&#x79CD;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#x7684;&#x865A;&#x62DF;&#x673A;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x4E0D;&#x53EA;&#x662F;&#x4E13;&#x7528;&#x4E8E;Java&#x8BED;&#x8A00;&#xFF0C;&#x53EA;&#x8981;&#x751F;&#x6210;&#x7684;&#x7F16;&#x8BD1;&#x6587;&#x4EF6;&#x5339;&#x914D;JVM&#x5BF9;&#x8F7D;&#x5165;&#x7F16;&#x8BD1;&#x6587;&#x4EF6;&#x683C;&#x5F0F;&#x8981;&#x6C42;&#xFF0C;&#x4EFB;&#x4F55;&#x8BED;&#x8A00;&#x90FD;&#x53EF;&#x4EE5;&#x7531;JVM&#x7F16;&#x8BD1;&#x8FD0;&#x884C;&#x3002;&#xFF08;&#x6B64;&#x5904;&#x6458;&#x81EA;&#x7EF4;&#x57FA;&#x767E;&#x79D1;&#xFF09;</p>
+<h4 id="jvm&#x542F;&#x52A8;&#x5165;&#x53E3;"><a href="#JVM&#x542F;&#x52A8;&#x5165;&#x53E3;" class="headerlink" title="JVM&#x542F;&#x52A8;&#x5165;&#x53E3;"></a>JVM&#x542F;&#x52A8;&#x5165;&#x53E3;</h4><blockquote>
+<p>&#x6211;&#x4EEC;&#x5E73;&#x5E38;&#x5199;&#x7684;java&#x4EE3;&#x7801;&#xFF0C;&#x662F;&#x901A;&#x8FC7;javac *.java&#x6765;&#x7F16;&#x8BD1;&#xFF0C;&#x5E76;&#x4E14;&#x901A;&#x8FC7;java&#x547D;&#x4EE4;&#x6765;&#x8FD0;&#x884C;&#x6211;&#x4EEC;&#x7F16;&#x5199;&#x7684;&#x4EE3;&#x7801;&#x3002;&#x5F53;&#x8F93;&#x5165;java&#x547D;&#x4EE4;&#x56DE;&#x8F66;&#x7684;&#x540C;&#x65F6;&#xFF0C;&#x6B64;&#x65F6;&#x5C31;&#x610F;&#x5473;&#x7740;&#x4E00;&#x4E2A;java&#x865A;&#x62DF;&#x673A;&#x7684;&#x542F;&#x52A8;&#xFF0C;&#x4EE5;&#x53CA;&#x52A0;&#x8F7D;&#x6211;&#x4EEC;&#x7F16;&#x8BD1;&#x8FC7;&#x540E;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x6267;&#x884C;&#x3002;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x5C31;&#x6765;&#x5206;&#x6790;java&#x865A;&#x62DF;&#x673A;&#x7684;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x3002;&#x6B64;&#x6587;&#x53EA;&#x5BF9;jvm&#x7684;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x8FDB;&#x884C;&#x5206;&#x6790;&#x3002;</p>
+</blockquote>
+<p><font color="red">&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;&#x4E3A;jdk1.7&#x4E2D;&#x7684;main.c&#x4E2D;&#x7684;&#x6E90;&#x4EE3;&#x7801;</font><br>main.c&#x7684;&#x8DEF;&#x5F84;&#x4E3A;<font color="blue">openjdk/jdk/src/share/bin/main.c</font><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> WINAPI</span></div><div class="line"><span class="title">WinMain</span><span class="params">(HINSTANCE inst, HINSTANCE previnst, LPSTR cmdline, <span class="keyword">int</span> cmdshow)</span></div><div class="line">{</div><div class="line">    <span class="keyword">int</span> margc;</div><div class="line">    <span class="keyword">char</span>** margv;</div><div class="line">    <span class="keyword">const</span> jboolean const_javaw = JNI_TRUE;</div><div class="line"></div><div class="line">    <span class="number">__</span>initenv = <span class="number">_</span>environ;</div><div class="line">    margc = <span class="number">__</span>argc;</div><div class="line">    margv = <span class="number">__</span>argv;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">else</span> <span class="comment">/* JAVAW */</span></span></div><div class="line"><span class="function"><span class="keyword">int</span></span></div><div class="line"><span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> ** argv)</span></div><div class="line">{</div><div class="line">    <span class="keyword">int</span> margc;</div><div class="line">    <span class="keyword">char</span>** margv;</div><div class="line">    <span class="keyword">const</span> jboolean const_javaw = JNI_FALSE;</div><div class="line"></div><div class="line">    margc = argc;</div><div class="line">    margv = argv;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* JAVAW */</span></span></div><div class="line">    <span class="keyword">return</span> JLI_Launch(margc, margv,</div><div class="line">                   <span class="keyword">sizeof</span>(const_jargs) / <span class="keyword">sizeof</span>(<span class="keyword">char</span> *), const_jargs,</div><div class="line">                   <span class="keyword">sizeof</span>(const_appclasspath) / <span class="keyword">sizeof</span>(<span class="keyword">char</span> *), const_appclasspath,</div><div class="line">                   FULL_VERSION,</div><div class="line">                   DOT_VERSION,</div><div class="line">                   (const_progname != <span class="literal">NULL</span>) ? const_progname : *margv,</div><div class="line">                   (const_launcher != <span class="literal">NULL</span>) ? const_launcher : *margv,</div><div class="line">                   (const_jargs != <span class="literal">NULL</span>) ? JNI_TRUE : JNI_FALSE,</div><div class="line">                   const_cpwildcard, const_javaw, const_ergo_class);</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<blockquote>
+<p>&#x5982;&#x4E0A;&#x4EE3;&#x7801;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F97;&#x77E5;&#x8C03;&#x7528;&#x4E86;<font color="red">JLI_Launch</font>&#x8FD9;&#x4E2A;&#x51FD;&#x6570;,&#x662F;&#x4E0D;&#x662F;&#x60F3;&#x5230;&#x4E86;java&#x4E2D;&#x7684;Launcher.java&#x8FD9;&#x4E2A;&#x7C7B;&#x5462;&#xFF01;</p>
+</blockquote>
+<h4 id="jli_launch&#x65B9;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;"><a href="#JLI-Launch&#x65B9;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;" class="headerlink" title="JLI_Launch&#x65B9;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;"></a>JLI_Launch&#x65B9;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * Entry point.</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">int</span></span></div><div class="line"><span class="title">JLI_Launch</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> ** argv,              <span class="comment">/* main argc, argc */</span></span></div><div class="line">        <span class="keyword">int</span> jargc, <span class="keyword">const</span> <span class="keyword">char</span>** jargv,          <span class="comment">/* java args */</span></div><div class="line">        <span class="keyword">int</span> appclassc, <span class="keyword">const</span> <span class="keyword">char</span>** appclassv,  <span class="comment">/* app classpath */</span></div><div class="line">        <span class="keyword">const</span> <span class="keyword">char</span>* fullversion,                <span class="comment">/* full version defined */</span></div><div class="line">        <span class="keyword">const</span> <span class="keyword">char</span>* dotversion,                 <span class="comment">/* dot version defined */</span></div><div class="line">        <span class="keyword">const</span> <span class="keyword">char</span>* pname,                      <span class="comment">/* program name */</span></div><div class="line">        <span class="keyword">const</span> <span class="keyword">char</span>* lname,                      <span class="comment">/* launcher name */</span></div><div class="line">        jboolean javaargs,                      <span class="comment">/* JAVA_ARGS */</span></div><div class="line">        jboolean cpwildcard,                    <span class="comment">/* classpath wildcard*/</span></div><div class="line"></div><div class="line">        jboolean javaw,                         <span class="comment">/* windows-only javaw */</span></div><div class="line">        jint ergo                               <span class="comment">/* ergonomics class policy */</span></div><div class="line">)</div><div class="line">{</div><div class="line">    <span class="keyword">int</span> mode = LM_UNKNOWN;</div><div class="line">    <span class="keyword">char</span> *what = <span class="literal">NULL</span>;</div><div class="line">    <span class="keyword">char</span> *cpath = <span class="number">0</span>;</div><div class="line">    <span class="keyword">char</span> *main_class = <span class="literal">NULL</span>;</div><div class="line">    <span class="keyword">int</span> ret;</div><div class="line">    InvocationFunctions ifn;</div><div class="line">    jlong start, end;</div><div class="line">    <span class="keyword">char</span> jvmpath[MAXPATHLEN];</div><div class="line">    <span class="keyword">char</span> jrepath[MAXPATHLEN];</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    <span class="number">_f</span>Version = fullversion;</div><div class="line">    <span class="number">_</span>dVersion = dotversion;</div><div class="line">    <span class="number">_l</span>auncher_name = lname;</div><div class="line">    <span class="number">_</span>program_name = pname;</div><div class="line">    <span class="number">_</span>is_java_args = javaargs;</div><div class="line">    <span class="number">_</span>wc_enabled = cpwildcard;</div><div class="line">    <span class="number">_</span>ergo_policy = ergo;</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    InitLauncher(javaw);</div><div class="line">    DumpState();</div><div class="line">	<span class="comment">/*</span></div><div class="line">     * Make sure the specified version of the JRE is running.</div><div class="line">     * There are three things to note about the SelectVersion() routine:</div><div class="line">     *  1) If the version running isn&apos;t correct, this routine doesn&apos;t</div><div class="line">     *     return (either the correct version has been exec&apos;d or an error</div><div class="line">     *     was issued).</div><div class="line">     *  2) Argc and Argv in this scope are *not* altered by this routine.</div><div class="line">     *     It is the responsibility of subsequent code to ignore the</div><div class="line">     *     arguments handled by this routine.</div><div class="line">     *  3) As a side-effect, the variable &quot;main_class&quot; is guaranteed to</div><div class="line">     *     be set (if it should ever be set).  This isn&apos;t exactly the</div><div class="line">     *     poster child for structured programming, but it is a small</div><div class="line">     *     price to pay for not processing a jar file operand twice.</div><div class="line">     *     (Note: This side effect has been disabled.  See comment on</div><div class="line">     *     bugid 5030265 below.)		*/</div><div class="line">    SelectVersion(argc, argv, &amp;main_class);</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    <span class="keyword">if</span> (JLI_IsTraceLauncher()) {</div><div class="line">        <span class="keyword">int</span> i;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Command line args:\n&quot;</span>);</div><div class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; argc ; i++) {</div><div class="line">            <span class="built_in">printf</span>(<span class="string">&quot;argv[%d] = %s\n&quot;</span>, i, argv[i]);</div><div class="line">        }</div><div class="line">        AddOption(<span class="string">&quot;-Dsun.java.launcher.diag=true&quot;</span>, <span class="literal">NULL</span>);</div><div class="line">    }</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    CreateExecutionEnvironment(&amp;argc, &amp;argv,</div><div class="line">                               jrepath, <span class="keyword">sizeof</span>(jrepath),</div><div class="line">                               jvmpath, <span class="keyword">sizeof</span>(jvmpath));</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    ifn.CreateJavaVM = <span class="number">0</span>;</div><div class="line">    ifn.GetDefaultJavaVMInitArgs = <span class="number">0</span>;</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    <span class="keyword">if</span> (JLI_IsTraceLauncher()) {</div><div class="line">        start = CounterGet();</div><div class="line">    }</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    <span class="keyword">if</span> (!LoadJavaVM(jvmpath, &amp;ifn)) {</div><div class="line">        <span class="keyword">return</span>(<span class="number">6</span>);</div><div class="line">    }</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    <span class="keyword">if</span> (JLI_IsTraceLauncher()) {</div><div class="line">        end   = CounterGet();</div><div class="line">    }</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    JLI_TraceLauncher(<span class="string">&quot;%ld micro seconds to LoadJavaVM\n&quot;</span>,</div><div class="line">             (<span class="keyword">long</span>)(jint)Counter2Micros(end-start));</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    ++argv;</div><div class="line">    --argc;</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    <span class="keyword">if</span> (IsJavaArgs()) {</div><div class="line">        <span class="comment">/* Preprocess wrapper arguments */</span></div><div class="line">        TranslateApplicationArgs(jargc, jargv, &amp;argc, &amp;argv);</div><div class="line">        <span class="keyword">if</span> (!AddApplicationOptions(appclassc, appclassv)) {</div><div class="line">            <span class="keyword">return</span>(<span class="number">1</span>);</div><div class="line">        }</div><div class="line">    } <span class="keyword">else</span> {</div><div class="line">        <span class="comment">/* Set default CLASSPATH */</span></div><div class="line">        cpath = getenv(<span class="string">&quot;CLASSPATH&quot;</span>);</div><div class="line">        <span class="keyword">if</span> (cpath == <span class="literal">NULL</span>) {</div><div class="line">            cpath = <span class="string">&quot;.&quot;</span>;</div><div class="line">        }</div><div class="line">        SetClassPath(cpath);</div><div class="line">    }</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    <span class="comment">/* Parse command line options; if the return value of</span></div><div class="line">     * ParseArguments is false, the program should exit.</div><div class="line">     */</div><div class="line">    <span class="keyword">if</span> (!ParseArguments(&amp;argc, &amp;argv, &amp;mode, &amp;what, &amp;ret, jrepath))</div><div class="line">    {</div><div class="line">        <span class="keyword">return</span>(ret);</div><div class="line">    }</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    <span class="comment">/* Override class path if -jar flag was specified */</span></div><div class="line">    <span class="keyword">if</span> (mode == LM_JAR) {</div><div class="line">        SetClassPath(what);     <span class="comment">/* Override class path */</span></div><div class="line">    }</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    <span class="comment">/* set the -Dsun.java.command pseudo property */</span></div><div class="line">    SetJavaCommandLineProp(what, argc, argv);</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    <span class="comment">/* Set the -Dsun.java.launcher pseudo property */</span></div><div class="line">    SetJavaLauncherProp();</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    <span class="comment">/* set the -Dsun.java.launcher.* platform properties */</span></div><div class="line">    SetJavaLauncherPlatformProps();</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    <span class="comment">/* Show the splash screen if needed */</span></div><div class="line">    ShowSplashScreen();</div><div class="line">	<span class="comment">/* ------------------------------ */</span></div><div class="line">    <span class="keyword">return</span> ContinueInNewThread(&amp;ifn, argc, argv, mode, what, ret);</div><div class="line">}</div></pre></td></tr></table></figure>
+<h4 id="jli_launch&#x53C2;&#x6570;&#x8BF4;&#x660E;"><a href="#JLI-Launch&#x53C2;&#x6570;&#x8BF4;&#x660E;" class="headerlink" title="JLI_Launch&#x53C2;&#x6570;&#x8BF4;&#x660E;"></a>JLI_Launch&#x53C2;&#x6570;&#x8BF4;&#x660E;</h4><table>
+<thead>
+<tr>
+<th>&#x53C2;&#x6570;&#x540D;&#x79F0;</th>
+<th>&#x53C2;&#x6570;&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>argc</td>
+<td>main&#x51FD;&#x6570;&#x6570;&#x91CF;</td>
+</tr>
+<tr>
+<td>argv</td>
+<td>main&#x51FD;&#x6570;&#x6570;&#x7EC4;</td>
+</tr>
+<tr>
+<td>jargc</td>
+<td>java main&#x6570;&#x91CF;</td>
+</tr>
+<tr>
+<td>jargv</td>
+<td>java main&#x53C2;&#x6570;&#x6570;&#x7EC4;</td>
+</tr>
+<tr>
+<td>fullversion</td>
+<td>&#x5B8C;&#x6574;&#x7684;&#x7248;&#x672C;&#x5B9A;&#x4E49;</td>
+</tr>
+<tr>
+<td>dotversion</td>
+<td></td>
+</tr>
+<tr>
+<td>pname</td>
+<td></td>
+</tr>
+<tr>
+<td>lname</td>
+<td></td>
+</tr>
+<tr>
+<td>javaargs</td>
+<td></td>
+</tr>
+<tr>
+<td>cpwildcard</td>
+<td></td>
+</tr>
+<tr>
+<td>javaw</td>
+<td></td>
+</tr>
+<tr>
+<td>ergo</td>
+</tr>
+</tbody>
+</table>
+<h4 id="jli_launch&#x64CD;&#x4F5C;&#x8FC7;&#x7A0B;&#x5206;&#x6790;"><a href="#JLI-Launch&#x64CD;&#x4F5C;&#x8FC7;&#x7A0B;&#x5206;&#x6790;" class="headerlink" title="JLI_Launch&#x64CD;&#x4F5C;&#x8FC7;&#x7A0B;&#x5206;&#x6790;"></a>JLI_Launch&#x64CD;&#x4F5C;&#x8FC7;&#x7A0B;&#x5206;&#x6790;</h4><p> &#x9996;&#x5148;&#x6211;&#x4EEC;&#x4ECE;&#x4E0A;&#x81F3;&#x4E0B;&#x7684;&#x68B3;&#x7406;&#xFF0C;&#x770B;&#x770B;JLI_Launch&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x90FD;&#x8FDB;&#x884C;&#x4E86;&#x4EC0;&#x4E48;&#x64CD;&#x4F5C;&#x3002;</p>
+<h5 id="initlauncher&#x51FD;&#x6570;"><a href="#InitLauncher&#x51FD;&#x6570;" class="headerlink" title="InitLauncher&#x51FD;&#x6570;"></a>InitLauncher&#x51FD;&#x6570;</h5><p>1.InitLauncher&#x51FD;&#x6570;&#x7684;&#x8C03;&#x7528;&#xFF0C;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x4F5C;&#x7528;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x521D;&#x59CB;&#x5316;&#x542F;&#x52A8;&#x5668;&#x3002;&#x5177;&#x4F53;&#x7684;&#x5B9E;&#x73B0;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;&#x5E73;&#x53F0;&#x4E0D;&#x4E00;&#x6837;&#xFF0C;&#x6211;&#x8FD9;&#x91CC;&#x4EE5;/openjdk/jdk/src/soaris/bin/java_md.c&#x6765;&#x5206;&#x6790;&#x7684;<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span></span></div><div class="line"><span class="title">InitLauncher</span><span class="params">(jboolean javaw)</span></div><div class="line">{</div><div class="line">	<span class="comment">/* &#x8BBE;&#x7F6E;&#x6253;&#x5370;&#x8F93;&#x51FA;&#x8C03;&#x8BD5;&#x4FE1;&#x606F; */</span></div><div class="line">    JLI_SetTraceLauncher();</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<h5 id="jli_settracelauncher&#x51FD;&#x6570;"><a href="#JLI-SetTraceLauncher&#x51FD;&#x6570;" class="headerlink" title="JLI_SetTraceLauncher&#x51FD;&#x6570;"></a>JLI_SetTraceLauncher&#x51FD;&#x6570;</h5><p>JLI_SetTraceLauncher&#x4ECE;&#x5B9A;&#x4E49;&#x7684;&#x540D;&#x5B57;&#x4E0A;&#x6765;&#x7406;&#x89E3;&#x5C31;&#x662F;&#x8BBE;&#x7F6E;&#x8DDF;&#x8E2A;&#x542F;&#x52A8;&#x5668;&#xFF0C;&#x5177;&#x4F53;&#x7684;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x8BBE;&#x7F6E;&#x6253;&#x5370;&#x8F93;&#x51FA;debug&#x4FE1;&#x606F;&#x3002;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x7684;&#x4EE3;&#x7801;&#x5728;/openjdk/jdk/src/share/bin/jli_util.c&#x6587;&#x4EF6;&#x4E2D;<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span></span></div><div class="line"><span class="title">JLI_SetTraceLauncher</span><span class="params">()</span></div><div class="line">{</div><div class="line">	<span class="comment">/* &#x8BFB;&#x53D6;&#x73AF;&#x5883;&#x53D8;&#x91CF;_JAVA_LAUNCHER_DEBUG, &#x6765;&#x8BBE;&#x7F6E;&#x662F;&#x5426;&#x6253;&#x5370;debug&#x4FE1;&#x606F;    */</span></div><div class="line">   <span class="keyword">if</span> (getenv(<span class="string">&quot;_JAVA_LAUNCHER_DEBUG&quot;</span>) != <span class="number">0</span>) {</div><div class="line">   		<span class="comment">/* &#x8FDB;&#x884C;&#x8D4B;&#x503C;&#x64CD;&#x4F5C; */</span></div><div class="line">        <span class="number">_l</span>auncher_debug = JNI_TRUE;</div><div class="line">        JLI_TraceLauncher(<span class="string">&quot;----_JAVA_LAUNCHER_DEBUG----\n&quot;</span>);</div><div class="line">   }</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p>JLI_SetTraceLauncher()&#x51FD;&#x6570;&#x5C31;&#x662F;&#x83B7;&#x53D6;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x5982;&#x679C;&#x4E0D;&#x7B49;&#x4E8E;0&#x5219;&#x8BBE;&#x7F6E;_launcher_debug = JNI_TRUE<br>java&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x5E94;&#x8BE5;&#x90FD;&#x914D;&#x7F6E;&#x8FC7;&#x3002;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x6765;&#x8BBE;&#x7F6E;&#x4E00;&#x4E0B;&#x8FD9;&#x4E2A;_JAVA_LAUNCHER_DEBUG&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x4E3A;1&#x3002;&#x5728;&#x8FDB;&#x884C;java -version &#x547D;&#x4EE4;&#x884C;&#x64CD;&#x4F5C;<br>&#x6211;&#x8FD9;&#x91CC;&#x662F;liunx&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x7684;&#x914D;&#x7F6E;&#x65B9;&#x6CD5;(&#x4E34;&#x65F6;)&#xFF0C;windows&#x8BF7;&#x81EA;&#x884C;google<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> _JAVA_LAUNCHER_DEBUG=1</div></pre></td></tr></table></figure></p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5728;java&#x547D;&#x4EE4;&#x884C;&#x4E2D;&#x51FA;&#x5165;java -version&#x7684;&#x8F93;&#x51FA;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">----_JAVA_LAUNCHER_DEBUG----</div><div class="line">Launcher state:</div><div class="line">	debug:on</div><div class="line">	javargs:off</div><div class="line">	program name:java</div><div class="line">	launcher name:java</div><div class="line">	javaw:off</div><div class="line">	fullversion:1.7.0_79-b15</div><div class="line">	dotversion:1.7</div><div class="line">	ergo_policy:DEFAULT_ERGONOMICS_POLICY</div><div class="line">Command line args:</div><div class="line">argv[0] = java</div><div class="line">argv[1] = -v</div><div class="line">JRE path is /Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home/jre</div><div class="line">jvm.cfg[0] = -&gt;-server&lt;-</div><div class="line">jvm.cfg[1] = -&gt;-client&lt;-</div><div class="line">jvm.cfg[2] = -&gt;-hotspot&lt;-</div><div class="line">jvm.cfg[3] = -&gt;-classic&lt;-</div><div class="line">jvm.cfg[4] = -&gt;-native&lt;-</div><div class="line">jvm.cfg[5] = -&gt;-green&lt;-</div><div class="line">42 micro seconds to parse jvm.cfg</div><div class="line">Default VM: server</div><div class="line">Does `/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home/jre/lib/server/libjvm.dylib<span class="string">&apos; exist ... yes.</span></div><div class="line">----_JAVA_LAUNCHER_DEBUG----</div><div class="line">Launcher state:</div><div class="line">	debug:on</div><div class="line">	javargs:off</div><div class="line">	program name:java</div><div class="line">	launcher name:java</div><div class="line">	javaw:off</div><div class="line">	fullversion:1.7.0_79-b15</div><div class="line">	dotversion:1.7</div><div class="line">	ergo_policy:DEFAULT_ERGONOMICS_POLICY</div><div class="line">Command line args:</div><div class="line">argv[0] = java</div><div class="line">argv[1] = -v</div><div class="line">JRE path is /Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home/jre</div><div class="line">jvm.cfg[0] = -&gt;-server&lt;-</div><div class="line">jvm.cfg[1] = -&gt;-client&lt;-</div><div class="line">jvm.cfg[2] = -&gt;-hotspot&lt;-</div><div class="line">jvm.cfg[3] = -&gt;-classic&lt;-</div><div class="line">jvm.cfg[4] = -&gt;-native&lt;-</div><div class="line">jvm.cfg[5] = -&gt;-green&lt;-</div><div class="line">23 micro seconds to parse jvm.cfg</div><div class="line">Default VM: server</div><div class="line">Does `/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home/jre/lib/server/libjvm.dylib&apos; exist ... yes.</div><div class="line">JVM path is /Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home/jre/lib/server/libjvm.dylib</div><div class="line">1816 micro seconds to LoadJavaVM</div><div class="line">JavaVM args:</div><div class="line">    version 0x00010002, ignoreUnrecognized is JNI_FALSE, nOptions is 5</div><div class="line">    option[ 0] = <span class="string">&apos;-Dsun.java.launcher.diag=true&apos;</span></div><div class="line">    option[ 1] = <span class="string">&apos;-Dsun.java.launcher.diag=true&apos;</span></div><div class="line">    option[ 2] = <span class="string">&apos;-Djava.class.path=.&apos;</span></div><div class="line">    option[ 3] = <span class="string">&apos;-v&apos;</span></div><div class="line">    option[ 4] = <span class="string">&apos;-Dsun.java.launcher=SUN_STANDARD&apos;</span></div><div class="line">Unrecognized option: -v</div><div class="line">Error: Could not create the Java Virtual Machine.</div><div class="line">Error: A fatal exception has occurred. Program will exit.</div></pre></td></tr></table></figure></p>
+<p>&#x4EE5;&#x4E0A;debug&#x4FE1;&#x606F;&#x7684;&#x8F93;&#x51FA;&#x662F;jvm&#x5728;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x6240;&#x6709;debug&#x4FE1;&#x606F;</p>
+<h5 id="dumpstate&#x51FD;&#x6570;"><a href="#DumpState&#x51FD;&#x6570;" class="headerlink" title="DumpState&#x51FD;&#x6570;"></a>DumpState&#x51FD;&#x6570;</h5><p>2.DumpState()&#x51FD;&#x6570;&#x5C31;&#x662F;&#x628A;&#x542F;&#x52A8;&#x5668;&#x7684;&#x72B6;&#x6001;&#x4FE1;&#x606F;&#x8FDB;&#x884C;&#x6253;&#x5370;&#x3002;&#x5177;&#x4F53;&#x6253;&#x5370;&#x793A;&#x4F8B;&#x8BF7;&#x770B;<a href="#jli_settracelauncher&#x51FD;&#x6570;">&#x4E0A;&#x9762;</a>&#x8BF4;&#x660E;,&#x9644;&#x4E0A;&#x5B9E;&#x73B0;&#x6E90;&#x7801;&#xFF1A;<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span></span></div><div class="line"><span class="title">DumpState</span><span class="params">()</span></div><div class="line">{</div><div class="line">	<span class="comment">/* &#x9996;&#x5148;&#x5224;&#x65AD;&#x662F;&#x5426;&#x5F00;&#x542F;&#x542F;&#x52A8;&#x5668;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;&#x6253;&#x5370;*/</span></div><div class="line">    <span class="keyword">if</span> (!JLI_IsTraceLauncher()) <span class="keyword">return</span> ;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Launcher state:\n&quot;</span>);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\tdebug:%s\n&quot;</span>, (JLI_IsTraceLauncher() == JNI_TRUE) ? <span class="string">&quot;on&quot;</span> : <span class="string">&quot;off&quot;</span>);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\tjavargs:%s\n&quot;</span>, (<span class="number">_</span>is_java_args == JNI_TRUE) ? <span class="string">&quot;on&quot;</span> : <span class="string">&quot;off&quot;</span>);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\tprogram name:%s\n&quot;</span>, GetProgramName());</div><div class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\tlauncher name:%s\n&quot;</span>, GetLauncherName());</div><div class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\tjavaw:%s\n&quot;</span>, (IsJavaw() == JNI_TRUE) ? <span class="string">&quot;on&quot;</span> : <span class="string">&quot;off&quot;</span>);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\tfullversion:%s\n&quot;</span>, GetFullVersion());</div><div class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\tdotversion:%s\n&quot;</span>, GetDotVersion());</div><div class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\tergo_policy:&quot;</span>);</div><div class="line">    <span class="keyword">switch</span>(GetErgoPolicy()) {</div><div class="line">        <span class="keyword">case</span> NEVER_SERVER_CLASS:</div><div class="line">            <span class="built_in">printf</span>(<span class="string">&quot;NEVER_ACT_AS_A_SERVER_CLASS_MACHINE\n&quot;</span>);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> ALWAYS_SERVER_CLASS:</div><div class="line">            <span class="built_in">printf</span>(<span class="string">&quot;ALWAYS_ACT_AS_A_SERVER_CLASS_MACHINE\n&quot;</span>);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            <span class="built_in">printf</span>(<span class="string">&quot;DEFAULT_ERGONOMICS_POLICY\n&quot;</span>);</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p>DumpState()&#x51FD;&#x6570;&#x5C31;&#x662F;&#x8FD9;&#x4E48;easy&#x3002;&#x5C31;&#x6CA1;&#x5FC5;&#x8981;&#x591A;&#x505A;&#x8BF4;&#x660E;&#x4E86;&#xFF01;</p>
+<h5 id="selectversion&#x51FD;&#x6570;"><a href="#SelectVersion&#x51FD;&#x6570;" class="headerlink" title="SelectVersion&#x51FD;&#x6570;"></a>SelectVersion&#x51FD;&#x6570;</h5><p>SelectVersion&#x51FD;&#x6570;&#x4E3B;&#x8981;&#x5C31;&#x662F;&#x9009;&#x62E9;&#x6B63;&#x786E;&#x7684;jre&#x7248;&#x672C;&#x6765;&#x8FD0;&#x884C;java&#x7A0B;&#x5E8F;&#xFF0C;&#x6E90;&#x7801;&#x6BD4;&#x8F83;&#x957F;&#x5C31;&#x4E0D;&#x8D34;&#x4E86;.&#x9996;&#x5148;&#x4F1A;&#x8BFB;&#x53D6;&#x73AF;&#x5883;&#x53D8;&#x91CF;_JAVA_VERSION_SET&#xFF0C;&#x5982;&#x679C;&#x5B58;&#x5728;&#xFF0C;&#x5C31;&#x8868;&#x793A;&#x5DF2;&#x7ECF;&#x9009;&#x62E9;&#x4E86;jre&#x7248;&#x672C;&#x3002;&#x5426;&#x5219;&#xFF0C;&#x5C31;&#x53BB;&#x6309;&#x7167;java&#x8FD0;&#x884C;&#x76EE;&#x5F55;&#x53BB;&#x67E5;&#x627E;,&#x5047;&#x5982;&#x6307;&#x5B9A;&#x7248;&#x672C;&#x548C;&#x9650;&#x5236;&#x4E86;&#x641C;&#x7D22;&#x76EE;&#x5F55;&#x7B49;&#x3002;&#x5982;&#x679C;&#x6267;&#x884C;&#x7684;&#x662F;&#x4E00;&#x4E2A;jar&#x6587;&#x4EF6;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x7EEA;&#x9700;&#x8981;&#x89E3;&#x6790;manifest&#x6587;&#x4EF6;&#x6765;&#x83B7;&#x53D6;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#xFF0C;&#x5BF9;&#x5E94;Manifest&#x6587;&#x4EF6;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x901A;&#x8FC7;&#x51FD;&#x6570;ParseManifest&#x89E3;&#x6790;&#xFF0C;&#x5177;&#x4F53;&#x8BF7;&#x770B;&#x4E0B;&#x9762;&#x6CE8;&#x91CA;</p>
+<blockquote>
+<p>Manifest&#x6570;&#x636E;&#x7ED3;&#x6784;<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * Information returned from the Manifest file by the ParseManifest() routine.</div><div class="line"> * Certainly (much) more could be returned, but this is the information</div><div class="line"> * currently of interest to the C based Java utilities (particularly the</div><div class="line"> * Java launcher).</div><div class="line"> */</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> manifest_info {  <span class="comment">/* Interesting fields from the Manifest */</span></div><div class="line">    <span class="keyword">char</span>        *manifest_version;      <span class="comment">/* Manifest-Version string */</span></div><div class="line">    <span class="keyword">char</span>        *main_class;            <span class="comment">/* Main-Class entry */</span></div><div class="line">    <span class="keyword">char</span>        *jre_version;           <span class="comment">/* Appropriate J2SE release spec */</span></div><div class="line">    <span class="keyword">char</span>        jre_restrict_search;    <span class="comment">/* Restricted JRE search */</span></div><div class="line">    <span class="keyword">char</span>        *splashscreen_image_file_name; <span class="comment">/* splashscreen image file */</span></div><div class="line">} manifest_info;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>&#x793A;&#x4F8B;&#x9009;&#x62E9;jre&#x7248;&#x672C;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -v -version:1.7.0_79-b15</div></pre></td></tr></table></figure></p>
+<p>&#x81F3;&#x4E8E;&#x9650;&#x5236;&#x641C;&#x7D22;&#x76EE;&#x5F55;-jre-restrict-search&#x7B49;&#x64CD;&#x4F5C;&#xFF0C;&#x81EA;&#x884C;&#x5B66;&#x4E60;&#x548C;&#x6D4B;&#x8BD5;&#x5427;&#xFF01;&#x8FD9;&#x91CC;&#x4E0D;&#x9519;&#x505A;&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</p>
+<blockquote>
+<p>&#x5982;&#x679C;&#x89E3;&#x6790;&#x51FA;&#x7684;jre&#x7248;&#x672C;&#x4E0E;java&#x7A0B;&#x5E8F;&#x7684;jre&#x7248;&#x672C;&#x4E0D;&#x4E00;&#x81F4;,&#x8C03;&#x7528;linux&#x7684;execv&#x51FD;&#x6570;&#x7EC8;&#x6B62;&#x5F53;&#x524D;&#x8FDB;&#x51FA;&#x5E76;&#x4E14;&#x4F7F;&#x7528;&#x65B0;&#x7684;jre&#x7248;&#x672C;&#x91CD;&#x65B0;&#x8FD0;&#x884C;&#x8FD9;&#x4E2A;java&#x7A0B;&#x5E8F;&#xFF0C;&#x4F46;&#x662F;&#x8FDB;&#x7A0B;ID&#x4E0D;&#x4F1A;&#x6539;&#x53D8;</p>
+</blockquote>
+<h5 id="createexecutionenvironment&#x51FD;&#x6570;"><a href="#CreateExecutionEnvironment&#x51FD;&#x6570;" class="headerlink" title="CreateExecutionEnvironment&#x51FD;&#x6570;"></a>CreateExecutionEnvironment&#x51FD;&#x6570;</h5><p>CreateExecutionEnvironment&#x51FD;&#x6570;&#x7684;&#x4F5C;&#x7528;&#x4ECE;&#x540D;&#x5B57;&#x4E0A;&#x5C31;&#x53EF;&#x770B;&#x51FA;&#x6765;&#xFF0C;&#x90A3;&#x5C31;&#x662F;&#x521B;&#x5EFA;&#x6267;&#x884C;&#x73AF;&#x5883;&#x3002;&#x8FD9;&#x91CC;&#x6307;&#x7684;&#x662F;jvm&#x7684;&#x73AF;&#x5883;&#x3002;&#x5728;java_md.c&#x91CC;&#x9762;&#x5DF2;&#x7ECF;&#x505A;&#x4E86;&#x8BF4;&#x660E;&#xFF0C;&#x4F8B;&#x5982;&#x9700;&#x8981;&#x786E;&#x5B9A;&#x6570;&#x636E;&#x6A21;&#x578B;&#xFF0C;&#x662F;32&#x4F4D;&#x8FD8;&#x662F;64&#x4F4D;&#x548C;jvm&#x672C;&#x8EAB;&#x7684;&#x4E00;&#x4E9B;&#x914D;&#x7F6E;&#x5728;jvm.cfg&#x6587;&#x4EF6;&#x4E2D;&#x8BFB;&#x53D6;&#x548C;&#x89E3;&#x6790;&#xFF0C;&#x6E90;&#x7801;&#x4E2D;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x5224;&#x65AD;&#x7B49;&#x903B;&#x8F91;&#x6BD4;&#x8F83;&#x591A;&#x3002;&#x8FD9;&#x91CC;&#x5C31;&#x5927;&#x6982;&#x7684;&#x8BF4;&#x660E;&#x4E00;&#x4E0B;&#x5176;&#x4E2D;&#x4F5C;&#x7528;&#x3002;<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Values for vmdesc.flag */</span></div><div class="line"><span class="comment">/*&#x4EE5;&#x4E0B;&#x662F;jvm&#x7684;&#x51E0;&#x79CD;&#x7C7B;&#x578B;*/</span></div><div class="line"><span class="keyword">enum</span> vmdesc_flag {</div><div class="line">    VM_UNKNOWN = <span class="number">-1</span>,</div><div class="line">    VM_KNOWN,</div><div class="line">    VM_ALIASED_TO,</div><div class="line">    VM_WARN,</div><div class="line">    VM_ERROR,</div><div class="line">    VM_IF_SERVER_CLASS,</div><div class="line">    VM_IGNORE</div><div class="line">};</div><div class="line"><span class="comment">/* jvm&#x63CF;&#x8FF0;&#x6570;&#x636E;&#x7ED3;&#x6784; */</span></div><div class="line"><span class="keyword">struct</span> vmdesc {</div><div class="line">    <span class="keyword">char</span> *name;</div><div class="line">    <span class="keyword">int</span> flag;</div><div class="line">    <span class="keyword">char</span> *alias;</div><div class="line">    <span class="keyword">char</span> *server_class;</div><div class="line">};</div></pre></td></tr></table></figure></p>
+<h5 id="loadjavavm&#x51FD;&#x6570;"><a href="#LoadJavaVM&#x51FD;&#x6570;" class="headerlink" title="LoadJavaVM&#x51FD;&#x6570;"></a>LoadJavaVM&#x51FD;&#x6570;</h5><p>&#x52A8;&#x6001;&#x52A0;&#x8F7D;jvm.so&#x8FD9;&#x4E2A;&#x5171;&#x4EAB;&#x5E93;&#xFF0C;&#x5E76;&#x628A;jvm.so&#x4E2D;&#x7684;&#x76F8;&#x5173;&#x51FD;&#x6570;&#x5BFC;&#x51FA;&#x5E76;&#x4E14;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x4F8B;&#x5982;JNI_CreateJavaVM&#x51FD;&#x6570;&#x3002;&#x540E;&#x671F;&#x542F;&#x52A8;&#x771F;&#x6B63;&#x7684;java&#x865A;&#x62DF;&#x5C31;&#x662F;&#x901A;&#x8FC7;&#x8FD9;&#x91CC;&#x9762;&#x52A0;&#x8F7D;&#x7684;&#x51FD;&#x6570;.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div></pre></td><td class="code"><pre><div class="line">LoadJavaVM(<span class="keyword">const</span> <span class="keyword">char</span> *jvmpath, InvocationFunctions *ifn)</div><div class="line">{</div><div class="line">    Dl_info dlinfo;</div><div class="line">    <span class="keyword">void</span> *libjvm;</div><div class="line"></div><div class="line">    JLI_TraceLauncher(<span class="string">&quot;JVM path is %s\n&quot;</span>, jvmpath);</div><div class="line">	<span class="comment">/* &#x88C5;&#x8F7D;&#x52A8;&#x6001;&#x94FE;&#x63A5;&#x5E93;, jre/lib/libjvm.so */</span></div><div class="line">    libjvm = dlopen(jvmpath, RTLD_NOW + RTLD_GLOBAL);</div><div class="line">    <span class="keyword">if</span> (libjvm == <span class="literal">NULL</span>) {</div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> defined(__solaris__) &amp;&amp; defined(__sparc) &amp;&amp; !defined(_LP64) <span class="comment">/* i.e. 32-bit sparc */</span></span></div><div class="line">      FILE * fp;</div><div class="line">      Elf32_Ehdr elf_head;</div><div class="line">      <span class="keyword">int</span> count;</div><div class="line">      <span class="keyword">int</span> location;</div><div class="line"></div><div class="line">      fp = fopen(jvmpath, <span class="string">&quot;r&quot;</span>);</div><div class="line">      <span class="keyword">if</span> (fp == <span class="literal">NULL</span>) {</div><div class="line">        JLI_ReportErrorMessage(DLL_ERROR2, jvmpath, dlerror());</div><div class="line">        <span class="keyword">return</span> JNI_FALSE;</div><div class="line">      }</div><div class="line"></div><div class="line">      <span class="comment">/* read in elf header */</span></div><div class="line">      count = fread((<span class="keyword">void</span>*)(&amp;elf_head), <span class="keyword">sizeof</span>(Elf32_Ehdr), <span class="number">1</span>, fp);</div><div class="line">      fclose(fp);</div><div class="line">      <span class="keyword">if</span> (count &lt; <span class="number">1</span>) {</div><div class="line">        JLI_ReportErrorMessage(DLL_ERROR2, jvmpath, dlerror());</div><div class="line">        <span class="keyword">return</span> JNI_FALSE;</div><div class="line">      }</div><div class="line"></div><div class="line">      <span class="comment">/*</span></div><div class="line">       * Check for running a server vm (compiled with -xarch=v8plus)</div><div class="line">       * on a stock v8 processor.  In this case, the machine type in</div><div class="line">       * the elf header would not be included the architecture list</div><div class="line">       * provided by the isalist command, which is turn is gotten from</div><div class="line">       * sysinfo.  This case cannot occur on 64-bit hardware and thus</div><div class="line">       * does not have to be checked for in binaries with an LP64 data</div><div class="line">       * model.</div><div class="line">       */</div><div class="line">      <span class="keyword">if</span> (elf_head.e_machine == EM_SPARC32PLUS) {</div><div class="line">        <span class="keyword">char</span> buf[<span class="number">257</span>];  <span class="comment">/* recommended buffer size from sysinfo man</span></div><div class="line">                           page */</div><div class="line">        <span class="keyword">long</span> length;</div><div class="line">        <span class="keyword">char</span>* location;</div><div class="line"></div><div class="line">        length = sysinfo(SI_ISALIST, buf, <span class="number">257</span>);</div><div class="line">        <span class="keyword">if</span> (length &gt; <span class="number">0</span>) {</div><div class="line">            location = JLI_StrStr(buf, <span class="string">&quot;sparcv8plus &quot;</span>);</div><div class="line">          <span class="keyword">if</span> (location == <span class="literal">NULL</span>) {</div><div class="line">            JLI_ReportErrorMessage(JVM_ERROR3);</div><div class="line">            <span class="keyword">return</span> JNI_FALSE;</div><div class="line">          }</div><div class="line">        }</div><div class="line">      }</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">        JLI_ReportErrorMessage(DLL_ERROR1, <span class="number">__L</span>INE__);</div><div class="line">        JLI_ReportErrorMessage(DLL_ERROR2, jvmpath, dlerror());</div><div class="line">        <span class="keyword">return</span> JNI_FALSE;</div><div class="line">    }</div><div class="line">	<span class="comment">/* &#x5BFC;&#x51FA;&#x52A8;&#x6001;&#x94FE;&#x63A5;&#x5E93;&#x51FD;&#x6570;JNI_CreateJavaVM, &#x6302;&#x8F7D;&#x5230;ifn */</span></div><div class="line">    ifn-&gt;CreateJavaVM = (CreateJavaVM_t)</div><div class="line">        dlsym(libjvm, <span class="string">&quot;JNI_CreateJavaVM&quot;</span>);</div><div class="line">    <span class="comment">/* &#x5224;&#x65AD; */</span></div><div class="line">    <span class="keyword">if</span> (ifn-&gt;CreateJavaVM == <span class="literal">NULL</span>) {</div><div class="line">        JLI_ReportErrorMessage(DLL_ERROR2, jvmpath, dlerror());</div><div class="line">        <span class="keyword">return</span> JNI_FALSE;</div><div class="line">    }</div><div class="line">	<span class="comment">/* &#x5BFC;&#x51FA;&#x52A8;&#x6001;&#x94FE;&#x63A5;&#x5E93;&#x51FD;&#x6570;JNI_GetDefaultJavaVMInitArgs, &#x6302;&#x8F7D;&#x5230;ifn */</span></div><div class="line">    ifn-&gt;GetDefaultJavaVMInitArgs = (GetDefaultJavaVMInitArgs_t)</div><div class="line">        dlsym(libjvm, <span class="string">&quot;JNI_GetDefaultJavaVMInitArgs&quot;</span>);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (ifn-&gt;GetDefaultJavaVMInitArgs == <span class="literal">NULL</span>) {</div><div class="line">        JLI_ReportErrorMessage(DLL_ERROR2, jvmpath, dlerror());</div><div class="line">        <span class="keyword">return</span> JNI_FALSE;</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">return</span> JNI_TRUE;</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p>&#x8FD9;&#x6837;,jvm&#x5C31;&#x7B97;&#x521D;&#x59CB;&#x5316;&#x4E86;&#x3002;</p>
+<h5 id="parsearguments&#x51FD;&#x6570;"><a href="#ParseArguments&#x51FD;&#x6570;" class="headerlink" title="ParseArguments&#x51FD;&#x6570;"></a>ParseArguments&#x51FD;&#x6570;</h5><p>&#x4E3B;&#x8981;&#x89E3;&#x6790;&#x547D;&#x4EE4;&#x884C;&#x53C2;&#x6570;&#xFF0C;&#x81EA;&#x884C;&#x53C2;&#x8003;&#x6E90;&#x7801;&#x5427;</p>
+<h5 id="continueinnewthread&#x51FD;&#x6570;"><a href="#ContinueInNewThread&#x51FD;&#x6570;" class="headerlink" title="ContinueInNewThread&#x51FD;&#x6570;"></a>ContinueInNewThread&#x51FD;&#x6570;</h5><p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x7EBF;&#x7A0B;&#x6765;&#x6267;&#x884C;JavaMain&#x51FD;&#x6570;</p>
+<h5 id="javamain&#x51FD;&#x6570;"><a href="#JavaMain&#x51FD;&#x6570;" class="headerlink" title="JavaMain&#x51FD;&#x6570;"></a>JavaMain&#x51FD;&#x6570;</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> JNICALL</span></div><div class="line"><span class="title">JavaMain</span><span class="params">(<span class="keyword">void</span> * <span class="number">_</span>args)</span></div><div class="line">{</div><div class="line">    JavaMainArgs *args = (JavaMainArgs *)<span class="number">_</span>args;</div><div class="line">    <span class="keyword">int</span> argc = args-&gt;argc;</div><div class="line">    <span class="keyword">char</span> **argv = args-&gt;argv;</div><div class="line">    <span class="keyword">int</span> mode = args-&gt;mode;</div><div class="line">    <span class="keyword">char</span> *what = args-&gt;what;</div><div class="line">    InvocationFunctions ifn = args-&gt;ifn;</div><div class="line">    JavaVM *vm = <span class="number">0</span>;</div><div class="line">    JNIEnv *env = <span class="number">0</span>;</div><div class="line">    jclass mainClass = <span class="literal">NULL</span>;</div><div class="line">    jmethodID mainID;</div><div class="line">    jobjectArray mainArgs;</div><div class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</div><div class="line">    jlong start, end;</div><div class="line">    <span class="comment">/* Initialize the virtual machine */</span></div><div class="line">    <span class="comment">/* &#x521D;&#x59CB;&#x5316;&#x865A;&#x62DF;&#x673A; */</span></div><div class="line">    start = CounterGet();</div><div class="line">    <span class="keyword">if</span> (!InitializeJVM(&amp;vm, &amp;env, &amp;ifn)) {</div><div class="line">        JLI_ReportErrorMessage(JVM_ERROR1);</div><div class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</div><div class="line">    }</div><div class="line">    <span class="keyword">if</span> (printVersion || showVersion) {</div><div class="line">        PrintJavaVersion(env, showVersion);</div><div class="line">        CHECK_EXCEPTION_LEAVE(<span class="number">0</span>);</div><div class="line">        <span class="keyword">if</span> (printVersion) {</div><div class="line">            LEAVE();</div><div class="line">        }</div><div class="line">    }</div><div class="line">    <span class="keyword">if</span> (showSettings != <span class="literal">NULL</span>) {</div><div class="line">        ShowSettings(env, showSettings);</div><div class="line">        CHECK_EXCEPTION_LEAVE(<span class="number">1</span>);</div><div class="line">    }</div><div class="line">    <span class="comment">/* If the user specified neither a class name nor a JAR file */</span></div><div class="line">    <span class="keyword">if</span> (printXUsage || printUsage || what == <span class="number">0</span> || mode == LM_UNKNOWN) {</div><div class="line">        PrintUsage(env, printXUsage);</div><div class="line">        CHECK_EXCEPTION_LEAVE(<span class="number">1</span>);</div><div class="line">        LEAVE();</div><div class="line">    }</div><div class="line">    FreeKnownVMs();  <span class="comment">/* after last possible PrintUsage() */</span></div><div class="line">    <span class="keyword">if</span> (JLI_IsTraceLauncher()) {</div><div class="line">        end = CounterGet();</div><div class="line">        JLI_TraceLauncher(<span class="string">&quot;%ld micro seconds to InitializeJVM\n&quot;</span>,</div><div class="line">               (<span class="keyword">long</span>)(jint)Counter2Micros(end-start));</div><div class="line">    }</div><div class="line">    <span class="comment">/* At this stage, argc/argv have the application&apos;s arguments */</span></div><div class="line">    <span class="keyword">if</span> (JLI_IsTraceLauncher()){</div><div class="line">        <span class="keyword">int</span> i;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s is &apos;%s&apos;\n&quot;</span>, launchModeNames[mode], what);</div><div class="line">        <span class="built_in">printf</span>(<span class="string">&quot;App&apos;s argc is %d\n&quot;</span>, argc);</div><div class="line">        <span class="keyword">for</span> (i=<span class="number">0</span>; i &lt; argc; i++) {</div><div class="line">            <span class="built_in">printf</span>(<span class="string">&quot;    argv[%2d] = &apos;%s&apos;\n&quot;</span>, i, argv[i]);</div><div class="line">        }</div><div class="line">    }</div><div class="line">    ret = <span class="number">1</span>;</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * Get the application&apos;s main class.</div><div class="line">     *</div><div class="line">     * See bugid 5030265.  The Main-Class name has already been parsed</div><div class="line">     * from the manifest, but not parsed properly for UTF-8 support.</div><div class="line">     * Hence the code here ignores the value previously extracted and</div><div class="line">     * uses the pre-existing code to reextract the value.  This is</div><div class="line">     * possibly an end of release cycle expedient.  However, it has</div><div class="line">     * also been discovered that passing some character sets through</div><div class="line">     * the environment has &quot;strange&quot; behavior on some variants of</div><div class="line">     * Windows.  Hence, maybe the manifest parsing code local to the</div><div class="line">     * launcher should never be enhanced.</div><div class="line">     *</div><div class="line">     * Hence, future work should either:</div><div class="line">     *     1)   Correct the local parsing code and verify that the</div><div class="line">     *          Main-Class attribute gets properly passed through</div><div class="line">     *          all environments,</div><div class="line">     *     2)   Remove the vestages of maintaining main_class through</div><div class="line">     *          the environment (and remove these comments).</div><div class="line">     */</div><div class="line">     <span class="comment">/* &#x52A0;&#x8F7D;&#x4E3B;&#x7C7B; */</span></div><div class="line">    mainClass = LoadMainClass(env, mode, what);</div><div class="line">    CHECK_EXCEPTION_NULL_LEAVE(mainClass);</div><div class="line"></div><div class="line">    <span class="comment">/*</span></div><div class="line">     * The LoadMainClass not only loads the main class, it will also ensure</div><div class="line">     * that the main method&apos;s signature is correct, therefore further checking</div><div class="line">     * is not required. The main method is invoked here so that extraneous java</div><div class="line">     * stacks are not in the application stack trace.</div><div class="line">     */</div><div class="line">     <span class="comment">/* &#x83B7;&#x53D6;&#x4E3B;&#x7C7B;&#x7684;main()&#x65B9;&#x6CD5;id */</span></div><div class="line">    mainID = (*env)-&gt;GetStaticMethodID(env, mainClass, <span class="string">&quot;main&quot;</span>,</div><div class="line">                                       <span class="string">&quot;([Ljava/lang/String;)V&quot;</span>);</div><div class="line">    CHECK_EXCEPTION_NULL_LEAVE(mainID);</div><div class="line">    <span class="comment">/* Build argument array */</span></div><div class="line">    <span class="comment">/* &#x6784;&#x5EFA;main&#x65B9;&#x6CD5;&#x53C2;&#x6570; */</span></div><div class="line">    mainArgs = NewPlatformStringArray(env, argv, argc);</div><div class="line">    CHECK_EXCEPTION_NULL_LEAVE(mainArgs);</div><div class="line">    <span class="comment">/* Invoke main method. */</span></div><div class="line">    <span class="comment">/* &#x8C03;&#x7528;main&#x65B9;&#x6CD5; */</span></div><div class="line">    (*env)-&gt;CallStaticVoidMethod(env, mainClass, mainID, mainArgs);</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * The launcher&apos;s exit code (in the absence of calls to</div><div class="line">     * System.exit) will be non-zero if main threw an exception.</div><div class="line">     */</div><div class="line">     <span class="comment">/* main&#x65B9;&#x6CD5;&#x9000;&#x51FA; */</span></div><div class="line">    ret = (*env)-&gt;ExceptionOccurred(env) == <span class="literal">NULL</span> ? <span class="number">0</span> : <span class="number">1</span>;</div><div class="line">     <span class="comment">/* &#x9500;&#x6BC1;&#x865A;&#x62DF;&#x673A; */</span></div><div class="line">    LEAVE();</div><div class="line">}</div></pre></td></tr></table></figure>
+<h6 id="loadmainclass&#x51FD;&#x6570;"><a href="#LoadMainClass&#x51FD;&#x6570;" class="headerlink" title="LoadMainClass&#x51FD;&#x6570;"></a>LoadMainClass&#x51FD;&#x6570;</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> jclass</span></div><div class="line"><span class="title">LoadMainClass</span><span class="params">(JNIEnv *env, <span class="keyword">int</span> mode, <span class="keyword">char</span> *name)</span></div><div class="line">{</div><div class="line">    jmethodID mid;</div><div class="line">    jstring str;</div><div class="line">    jobject result;</div><div class="line">    jlong start, end;</div><div class="line">    <span class="comment">/* &#x83B7;&#x53D6;sun.launcher.LauncherHelper&#x7C7B; */</span></div><div class="line">    jclass cls = GetLauncherHelperClass(env);</div><div class="line">    NULL_CHECK0(cls);</div><div class="line">    <span class="keyword">if</span> (JLI_IsTraceLauncher()) {</div><div class="line">        start = CounterGet();</div><div class="line">    }</div><div class="line">    <span class="comment">/* &#x83B7;&#x53D6;&#x65B9;&#x6CD5;ID */</span></div><div class="line">    NULL_CHECK0(mid = (*env)-&gt;GetStaticMethodID(env, cls,</div><div class="line">                <span class="string">&quot;checkAndLoadMain&quot;</span>,</div><div class="line">                <span class="string">&quot;(ZILjava/lang/String;)Ljava/lang/Class;&quot;</span>));</div><div class="line"></div><div class="line">    <span class="keyword">switch</span> (mode) {</div><div class="line">        <span class="keyword">case</span> LM_CLASS:</div><div class="line">            str = NewPlatformString(env, name);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            str = (*env)-&gt;NewStringUTF(env, name);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    }</div><div class="line">    <span class="comment">/* &#x8C03;&#x7528;LauncherHelper&#x7C7B;&#x7684;checkAndLoadMain()&#x65B9;&#x6CD5;&#x68C0;&#x67E5;&#x5E76;&#x52A0;&#x8F7D;&#x4E3B;&#x7C7B; */</span></div><div class="line">    result = (*env)-&gt;CallStaticObjectMethod(env, cls, mid, USE_STDERR, mode, str);</div><div class="line">    <span class="keyword">if</span> (JLI_IsTraceLauncher()) {</div><div class="line">        end   = CounterGet();</div><div class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%ld micro seconds to load main class\n&quot;</span>,</div><div class="line">               (<span class="keyword">long</span>)(jint)Counter2Micros(end-start));</div><div class="line">        <span class="built_in">printf</span>(<span class="string">&quot;----_JAVA_LAUNCHER_DEBUG----\n&quot;</span>);</div><div class="line">    }</div><div class="line">    <span class="keyword">return</span> (jclass)result;</div><div class="line">}</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">static</span> jclass</span></div><div class="line"><span class="title">GetLauncherHelperClass</span><span class="params">(JNIEnv *env)</span> {</div><div class="line">    <span class="keyword">if</span> (helperClass == <span class="literal">NULL</span>) {</div><div class="line">        NULL_CHECK0(helperClass = FindBootStrapClass(env,</div><div class="line">                <span class="string">&quot;sun/launcher/LauncherHelper&quot;</span>));</div><div class="line">    }</div><div class="line">    <span class="keyword">return</span> helperClass;</div><div class="line">}</div></pre></td></tr></table></figure>
+<h4 id="jvm&#x542F;&#x52A8;uml&#x56FE;"><a href="#JVM&#x542F;&#x52A8;UML&#x56FE;" class="headerlink" title="JVM&#x542F;&#x52A8;UML&#x56FE;"></a>JVM&#x542F;&#x52A8;UML&#x56FE;</h4>
+      
+    </div>
+
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/08/19/lucene-StandardAnalyzer/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">lucene标准分析器StandardAnalyzer源码解析</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+          
+            <div id="rig-menu" >
+              <div><a class="mulu" id="toc_toggle" href="javascript:void();"><img  src="/img/f0ca.png" /></a></div>
+
+            </div>
+            <div id="toc" class="toc-article" style="display:none;">
+                <strong class="toc-title" >文章目录</strong>
+                  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#jvm简介"><span class="toc-number">1.</span> <span class="toc-text">Jvm简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#jvm启动入口"><span class="toc-number">1.1.</span> <span class="toc-text">JVM启动入口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jli_launch方法的实现"><span class="toc-number">1.2.</span> <span class="toc-text">JLI_Launch方法的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jli_launch参数说明"><span class="toc-number">1.3.</span> <span class="toc-text">JLI_Launch参数说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jli_launch操作过程分析"><span class="toc-number">1.4.</span> <span class="toc-text">JLI_Launch操作过程分析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#initlauncher函数"><span class="toc-number">1.4.1.</span> <span class="toc-text">InitLauncher函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#jli_settracelauncher函数"><span class="toc-number">1.4.2.</span> <span class="toc-text">JLI_SetTraceLauncher函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#dumpstate函数"><span class="toc-number">1.4.3.</span> <span class="toc-text">DumpState函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#selectversion函数"><span class="toc-number">1.4.4.</span> <span class="toc-text">SelectVersion函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#createexecutionenvironment函数"><span class="toc-number">1.4.5.</span> <span class="toc-text">CreateExecutionEnvironment函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#loadjavavm函数"><span class="toc-number">1.4.6.</span> <span class="toc-text">LoadJavaVM函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#parsearguments函数"><span class="toc-number">1.4.7.</span> <span class="toc-text">ParseArguments函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#continueinnewthread函数"><span class="toc-number">1.4.8.</span> <span class="toc-text">ContinueInNewThread函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#javamain函数"><span class="toc-number">1.4.9.</span> <span class="toc-text">JavaMain函数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#loadmainclass函数"><span class="toc-number">1.4.9.1.</span> <span class="toc-text">LoadMainClass函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jvm启动uml图"><span class="toc-number">1.5.</span> <span class="toc-text">JVM启动UML图</span></a></li></ol></li></ol>
+            </div>
+          
+      
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="jvm-boot-process-anlysis" data-title="Jvm启动过程分析" data-url="https://fantijie.github.io/2016/08/19/jvm-boot-process-anlysis/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"fantijie"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Fan Ti Jie
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: 'https://fantijie.github.io/'
+	}
+</script>
+<script src="https://www.cdnjs.net/ajax/libs/require.js/2.1.6/require.min.js"></script>
+
+<script src="https://www.cdnjs.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://www.cdnjs.net/ajax/libs/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script type="text/javascript">
+  $("#toc_toggle").bind("click",function(){
+        $("#toc").fadeToggle(150);
+        $("#toc").css('display',''); 
+    });
+</script>
+  </div>
+</body>
+</html>
