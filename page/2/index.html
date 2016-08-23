@@ -105,7 +105,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 15px;">markdown</a>
+						<a href="/tags/design/" style="font-size: 20px;">design</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 13.33px;">markdown</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,583 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-lucene-StandardAnalyzer" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
+  
+    <div class="article-meta">
+      <a href="/2016/08/19/lucene-StandardAnalyzer/" class="article-date">
+  	<time datetime="2016-08-19T08:42:04.000Z" itemprop="datePublished">2016-08-19</time>
+</a>
+    </div>
+  
+
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+
+
+
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/19/lucene-StandardAnalyzer/">lucene标准分析器StandardAnalyzer源码解析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="lucene标准分析器介绍"><a href="#lucene标准分析器介绍" class="headerlink" title="lucene标准分析器介绍"></a>lucene标准分析器介绍</h3><blockquote>
+<p>等我发布…….<br>
+      
+    </div>
+
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lucene/">lucene</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/08/19/lucene-StandardAnalyzer/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java-ClassLoader" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
+  
+    <div class="article-meta">
+      <a href="/2016/08/19/java-ClassLoader/" class="article-date">
+  	<time datetime="2016-08-19T07:51:25.000Z" itemprop="datePublished">2016-08-19</time>
+</a>
+    </div>
+  
+
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+
+
+
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/19/java-ClassLoader/">Java类加载器ClassLoader</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h3 id="java&#x7C7B;&#x52A0;&#x8F7D;&#x5668;classloader&#x7B80;&#x4ECB;"><a href="#Java&#x7C7B;&#x52A0;&#x8F7D;&#x5668;ClassLoader&#x7B80;&#x4ECB;" class="headerlink" title="Java&#x7C7B;&#x52A0;&#x8F7D;&#x5668;ClassLoader&#x7B80;&#x4ECB;"></a>Java&#x7C7B;&#x52A0;&#x8F7D;&#x5668;ClassLoader&#x7B80;&#x4ECB;</h3><blockquote>
+<p>Java&#x4E2D;&#x6240;&#x6709;&#x7684;.class&#x548C;jar&#x6587;&#x4EF6;&#x90FD;&#x662F;&#x901A;&#x8FC7;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;ClassLoader&#x52A0;&#x8F7D;&#x8FDB;Jvm&#x4E2D;&#x7684;&#x3002;.class&#x6587;&#x4EF6;&#x662F;java&#x4E2D;&#x7F16;&#x8BD1;&#x8FC7;&#x540E;&#x7684;&#x5B57;&#x8282;&#x7801;&#x6587;&#x4EF6;&#x3002;.jar&#x6587;&#x4EF6;&#x5C5E;&#x4E8E;java&#x4E2D;&#x7684;&#x5305;&#x6587;&#x4EF6;&#xFF0C;&#x5176;&#x4E2D;&#x5305;&#x5185;&#x5C31;&#x662F;.class&#x6587;&#x4EF6;&#x7684;&#x96C6;&#x5408;</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java-Launcher" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
+  
+    <div class="article-meta">
+      <a href="/2016/08/19/java-Launcher/" class="article-date">
+  	<time datetime="2016-08-19T06:15:23.000Z" itemprop="datePublished">2016-08-19</time>
+</a>
+    </div>
+  
+
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+
+
+
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/19/java-Launcher/">Java的Launcher与ClassLoader</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Launcher简介"><a href="#Launcher简介" class="headerlink" title="Launcher简介"></a>Launcher简介</h3><p>补充完整的包名类名：<font color=blue>sun.misc.Launcher</font>，jdk版本:1.7</p>
+<blockquote>
+<p>首先呢，说明一下这个类的作用。<font color=blue>sun.misc.Launcher</font>类主要作用就是“加载类”和执行<font color=blue>main()</font>方法，加载的类文件就是我们写的<font color=red>.java</font>文件编译后的<font color=red>.class</font>文件了！当然，还有<font color=red>.jar</font>文件。</p>
+</blockquote>
+<h4 id="Launcher类的定义"><a href="#Launcher类的定义" class="headerlink" title="Launcher类的定义"></a>Launcher类的定义</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</div><div class="line"> * This class is used by the system to launch the main application.Launcher */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Launcher</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> URLStreamHandlerFactory factory = <span class="keyword">new</span> Launcher.Factory();</div><div class="line">    <span class="comment">//</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Launcher launcher = <span class="keyword">new</span> Launcher();</div><div class="line">    <span class="comment">//引导类路径</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String bootClassPath = System.getProperty(<span class="string">"sun.boot.class.path"</span>);</div><div class="line">    <span class="comment">//类加载器</span></div><div class="line">    <span class="keyword">private</span> ClassLoader loader;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> URLStreamHandler fileHandler;</div><div class="line">    <span class="comment">//后续实现自行查看......</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由此看出，Launcher类的很多属性都是私有的，而且是静态的，但是Launcher类本身并不是一个终极类（final类）<br>
+      
+    </div>
+
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/08/19/java-Launcher/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-manage-Java-environment" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
+  
+    <div class="article-meta">
+      <a href="/2016/08/19/manage-Java-environment/" class="article-date">
+  	<time datetime="2016-08-19T02:32:34.000Z" itemprop="datePublished">2016-08-19</time>
+</a>
+    </div>
+  
+
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+
+
+
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/19/manage-Java-environment/">Java多版本切换</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>在工作中或者学习过程中，有一些特殊情况我们需要来切换java版本来做比较，比如一些新特性等等。可能你已经有你自己编写的shell脚本可以很方便的来实现，当然也可以通过类似Intellij Idea这样的工具来配置你的model的java版本。然而这也许并不是你想要的，你需要在命令行中来进行你所做的学习，那么你就该考虑更简单的来实现java版本的切换工作了，简单最美嘛！^_^</p>
+<p>总之我是个懒人，所以我选择了第三方工具来做这件事，因为我的系统的Mac，所以我这里就以Mac系统为准来配置。Liunx上的配置我相信也不会难到你</p>
+<h4 id="jenv工具"><a href="#jenv工具" class="headerlink" title="jenv工具"></a>jenv工具</h4><p>jenv是一个在github上的开源project，先附上“官方地址” <a href="http://www.jenv.be/">http://www.jenv.be/</a> 😊请笑纳！！更多的介绍官方比我说的更清楚。挤不瞎扯淡了。</p>
+<h4 id="jenv工具的安装"><a href="#jenv工具的安装" class="headerlink" title="jenv工具的安装"></a>jenv工具的安装</h4><p>官方提供了2中安装方式，一种是git直接clone代码，另外一种是（Mac）brew安装，此处我使用的是brew安装，因为我是mac😢，</p>
+<p>mac中支持git、brew两种安装方式，而liunx只支持git安装<br>Linux / OS X<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/gcuisinier/jenv.git ~/.jenv</div></pre></td></tr></table></figure></p>
+<p>Mac OS X via Homebrew<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install jenv</div></pre></td></tr></table></figure></p>
+      
+    </div>
+
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/08/19/manage-Java-environment/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-dnsmasq" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
+  
+    <div class="article-meta">
+      <a href="/2016/08/17/dnsmasq/" class="article-date">
+  	<time datetime="2016-08-17T06:10:26.000Z" itemprop="datePublished">2016-08-17</time>
+</a>
+    </div>
+  
+
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+
+
+
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/17/dnsmasq/">Dnsmasq使用</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Dnsmasq简介"><a href="#Dnsmasq简介" class="headerlink" title="Dnsmasq简介"></a>Dnsmasq简介</h3><blockquote>
+<p>Dnsmasq是一个开源的轻量级DNS转发和DHCP、TFTP服务器，使用C语言编写。Dnsmasq针对家庭局域网等小型局域网设计，资源占用低，易于配置。支持的平台包括Debian、Fedora、Smoothwall、IP-Cop、floppyfw、Firebox、LEAF、Freesco, fli4l、CoyoteLinux及Android等，并且在dd-wrt、openwrt路由器系统中也有使用。</p>
+</blockquote>
+<h4 id="Dnsmasq官方地址"><a href="#Dnsmasq官方地址" class="headerlink" title="Dnsmasq官方地址"></a>Dnsmasq官方地址</h4><p><a href="http://www.thekelleys.org.uk/">http://www.thekelleys.org.uk/</a></p>
+<h4 id="Dnsmasq下载地址"><a href="#Dnsmasq下载地址" class="headerlink" title="Dnsmasq下载地址"></a>Dnsmasq下载地址</h4><p><a href="http://www.thekelleys.org.uk/dnsmasq/">http://www.thekelleys.org.uk/dnsmasq/</a>(根据自己的需要选择版本进行下载….)</p>
+<h4 id="Dnsmasq源码安装"><a href="#Dnsmasq源码安装" class="headerlink" title="Dnsmasq源码安装"></a>Dnsmasq源码安装</h4><p>此处先通过wget命令将dnsmasq源码下载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://www.thekelleys.org.uk/dnsmasq/dnsmasq-2.76.tar.gz</div></pre></td></tr></table></figure></p>
+      
+    </div>
+
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dns/">dns</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/08/17/dnsmasq/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java-lang-string-stringbuffer-stringbuilder" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
+  
+    <div class="article-meta">
+      <a href="/2016/08/14/java-lang-string-stringbuffer-stringbuilder/" class="article-date">
+  	<time datetime="2016-08-14T04:08:52.000Z" itemprop="datePublished">2016-08-14</time>
+</a>
+    </div>
+  
+
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+
+
+
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/14/java-lang-string-stringbuffer-stringbuilder/">java.lang.String , StringBuilder , StringBuffer 源码解析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- aaa -->
+<h3 id="String类"><a href="#String类" class="headerlink" title="String类"></a>String类</h3><h4 id="String类简介"><a href="#String类简介" class="headerlink" title="String类简介"></a>String类简介</h4><p>String是Java语言中的字符串，Java中所有字符串的字面值都是String类的实例。</p>
+<h4 id="String类的定义"><a href="#String类的定义" class="headerlink" title="String类的定义"></a>String类的定义</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span> <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span></span>&#123;</div><div class="line">	<span class="comment">//此处代码忽略</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上类的声明中可以看出String是final类型的，表示该类不能被继承</p>
+<h4 id="String类的UML图"><a href="#String类的UML图" class="headerlink" title="String类的UML图"></a>String类的UML图</h4><img  src=http://www.plantuml.com/plantuml/svg/hPFDIWCn4CVFkq-HewBk0uXuK14yALIzY8TfEjsDnaGtQS4l4EcXWkX1QYyY7jIJYk35JtoQxE9REBkjs6955FUIPER__sKcsVYhm9SXHBO4LGY4tlGzeIp6PU382XWBa683YXBzRT_lqafGOPTwNA-iGfnfHsP7kn8Hn0LSgw2YXUzrKjd8LX2mWes52eVTpMbwSEjxdw3UwKvSBm6NO4mxI1LwGwmi54Z6oSYg82kuiCY6cRjkfbUNIUCsVQhbAggOHM2YB7TKT_VxRkSvJnWBLl0sHMeLCfFtC8-n4LhDJKrabiT3Ls-w_UDqhvwSN4rDVBLE5vUGMoeCOMLIe2nH7ItIJ4Oo5fNDuuQy0-qE-le9dfpMtdREakE7vAxHcMiDJCSYp7R8fEx-qXtkVcVeF8FVgGVpyz7bia7RcdDTKVPd24cfJwvBEADfRluCAgvRP62u41_LH2AB_JlmM-SGssnTw3QhQb6YFmhvyXXjLZ8vZFhCXXujIbIXZGYSK_hwWo18hi_TUSszlgID2z-ZvyNeesVs3W00>
+<p>从String类的声明中、UML图中我们可以得知该类实现了3个接口:</p>
+<ul>
+<li><a href="#">java.io.Serializable </a>（点击查看接口介绍）</li>
+<li><a href="#">java.lang.Comparable<T></a>（点击查看接口介绍）</li>
+<li><a href="#">java.lang.CharSequence</a>（点击查看接口介绍）</li>
+</ul>
+<h4 id="String类的属性"><a href="#String类的属性" class="headerlink" title="String类的属性"></a>String类的属性</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** The value is used for character storage. */</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</div></pre></td></tr></table></figure>
+<p>String包含一个char<a href="字符数组"></a>的属性用来存储字符串的内容，final关键字表示String的内容被初始化后就不可改变。<br>
+      
+    </div>
+
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/08/14/java-lang-string-stringbuffer-stringbuilder/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java-Void" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
+  
+    <div class="article-meta">
+      <a href="/2016/08/14/java-Void/" class="article-date">
+  	<time datetime="2016-08-13T18:15:19.000Z" itemprop="datePublished">2016-08-14</time>
+</a>
+    </div>
+  
+
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+
+
+
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/14/java-Void/">java.lang.Void</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img  src=http://www.plantuml.com/plantuml/svg/u-8gI4pEJanFLSXAB4lKoqdCIw_cukJYL4ZEIImkLWZBpqm1ye42jLnS2a30LSi50000>
+      
+    </div>
+
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/08/14/java-Void/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java-Long" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
+  
+    <div class="article-meta">
+      <a href="/2016/08/14/java-Long/" class="article-date">
+  	<time datetime="2016-08-13T18:15:15.000Z" itemprop="datePublished">2016-08-14</time>
+</a>
+    </div>
+  
+
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+
+
+
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/14/java-Long/">java.lang.Long</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <img src="http://www.plantuml.com/plantuml/svg/AqXCpavCJrN8IYnBrClCh-RYpCmhIIrAIqnELGXEBSfCpCciIapAILM8ZiueAIcmqjSlBo_NAyX9p2ifpStHIyxFZOtbgkNYAa0sfxGaCmV59EVyt8B48f0vDY5s8EKeHjlKwEaf-9Nc9gKMMJrTD-zvtmOqyu2sfGFDu-9KyCdFIrVGhR63AbUmKdY-U_cpplr0AOGT40D1Ik76SIeavoGM5uC5WIO1ZU84ka81282k0G00">
+      
+    </div>
+
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
   
     <article id="post-java-Byte" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
   
@@ -280,524 +857,6 @@
       
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java-Float" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
-  
-    <div class="article-meta">
-      <a href="/2016/08/14/java-Float/" class="article-date">
-  	<time datetime="2016-08-13T18:13:59.000Z" itemprop="datePublished">2016-08-14</time>
-</a>
-    </div>
-  
-
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-
-
-
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/14/java-Float/">java_Float</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-    </div>
-
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java-Double" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
-  
-    <div class="article-meta">
-      <a href="/2016/08/14/java-Double/" class="article-date">
-  	<time datetime="2016-08-13T18:13:53.000Z" itemprop="datePublished">2016-08-14</time>
-</a>
-    </div>
-  
-
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-
-
-
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/14/java-Double/">java_Double</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-    </div>
-
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java-Boolean" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
-  
-    <div class="article-meta">
-      <a href="/2016/08/14/java-Boolean/" class="article-date">
-  	<time datetime="2016-08-13T18:13:48.000Z" itemprop="datePublished">2016-08-14</time>
-</a>
-    </div>
-  
-
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-
-
-
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/14/java-Boolean/">java_Boolean</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-    </div>
-
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java-integer" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
-  
-    <div class="article-meta">
-      <a href="/2016/08/14/java-integer/" class="article-date">
-  	<time datetime="2016-08-13T18:13:38.000Z" itemprop="datePublished">2016-08-14</time>
-</a>
-    </div>
-  
-
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-
-
-
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/14/java-integer/">java_integer</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-    </div>
-
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java-io" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
-  
-    <div class="article-meta">
-      <a href="/2016/08/14/java-io/" class="article-date">
-  	<time datetime="2016-08-13T18:13:05.000Z" itemprop="datePublished">2016-08-14</time>
-</a>
-    </div>
-  
-
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-
-
-
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/14/java-io/">java.io</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-    </div>
-
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-git" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
-  
-    <div class="article-meta">
-      <a href="/2016/08/14/git/" class="article-date">
-  	<time datetime="2016-08-13T16:10:50.000Z" itemprop="datePublished">2016-08-14</time>
-</a>
-    </div>
-  
-
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-
-
-
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/14/git/">git</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-    </div>
-
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
-  
-    <div class="article-meta">
-      <a href="/2016/08/13/hello-world/" class="article-date">
-  	<time datetime="2016-08-13T05:08:56.000Z" itemprop="datePublished">2016-08-13</time>
-</a>
-    </div>
-  
-
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-
-
-
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/13/hello-world/">Markdown简介</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Markdown简介"><a href="#Markdown简介" class="headerlink" title="Markdown简介"></a>Markdown简介</h2><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><img  src=http://www.plantuml.com/plantuml/svg/SyfFKj2rKt3CoKnELR1Iy4ZDoSdNKSZ8BrT8B4fLgCmlvO980TKu0PLQARXbvgNgA9Ha9EPbWwHr51BpKa0CUoukMrk5bvrRdirjVZbZsxDrMnLiRRbGT5ifl5Y__Td69Yud94kj59xkcl9yxHImzcTJDpphNVTaHzUJFGl0sha0>
-      
-    </div>
-
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/">markdown</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/08/13/hello-world/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-markdown" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
-  
-    <div class="article-meta">
-      <a href="/2016/08/13/markdown/" class="article-date">
-  	<time datetime="2016-08-13T05:08:56.000Z" itemprop="datePublished">2016-08-13</time>
-</a>
-    </div>
-  
-
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-
-
-
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/13/markdown/">Markdown简介</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Markdown简介"><a href="#Markdown简介" class="headerlink" title="Markdown简介"></a>Markdown简介</h2><h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><img  src=http://www.plantuml.com/plantuml/svg/SyfFKj2rKt3CoKnELR1Iy4ZDoSdNKSZ8BrT8B4fLgCmlvO980TKu0PLQARXbvgNgA9Ha9EPbWwHr51BpKa0CUoukMrk5bvrRdirjVZbZsxDrMnLiRRbGT5ifl5Y__Td69Yud94kj59xkcl9yxHImzcTJDpphNVTaHzUJFGl0sW40>
-      
-    </div>
-
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/">markdown</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/08/13/markdown/#more">more >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

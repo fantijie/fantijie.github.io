@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>设计模式:职责链模式(chain of responsibility) | Fan Ti Jie&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="职责链模式简介职责链模式是常用设计模式中行为型模式中其中之一。如果从事过java web开发，那么肯定对对java web中的Filter拦截器比较熟悉。Filter就是一个很典型的职责链模式。当然，职责链模式分为了纯、不纯的职责链模式两种。
+假设代码片段这里示例一个用户名长度的验证示例代码：1234567891011121314public class Test &amp;#123;    public">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式:职责链模式(chain of responsibility)">
+<meta property="og:url" content="https://fantijie.github.io/2016/08/22/design-chain-of-responsibility/index.html">
+<meta property="og:site_name" content="Fan Ti Jie's Blog">
+<meta property="og:description" content="职责链模式简介职责链模式是常用设计模式中行为型模式中其中之一。如果从事过java web开发，那么肯定对对java web中的Filter拦截器比较熟悉。Filter就是一个很典型的职责链模式。当然，职责链模式分为了纯、不纯的职责链模式两种。
+假设代码片段这里示例一个用户名长度的验证示例代码：1234567891011121314public class Test &amp;#123;    public">
+<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/2qlCoKn9BCdCprFGrRLJy2lDoGc32rafbAGMbt2X2Ye0bVbcvlcavgMNP62enI83DjWtiGAx3W00">
+<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/2qlCoKn9BCdCprFGrRLJy2lDoGc32rafbAGMbt2X2Ye0bVbcvlcavgMNP62enI83DjWtiO847JQwkjXr5AMMb1RbeRi8h1oRaw3AqPIYUnAY2W00">
+<meta property="og:updated_time" content="2016-08-23T11:55:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式:职责链模式(chain of responsibility)">
+<meta name="twitter:description" content="职责链模式简介职责链模式是常用设计模式中行为型模式中其中之一。如果从事过java web开发，那么肯定对对java web中的Filter拦截器比较熟悉。Filter就是一个很典型的职责链模式。当然，职责链模式分为了纯、不纯的职责链模式两种。
+假设代码片段这里示例一个用户名长度的验证示例代码：1234567891011121314public class Test &amp;#123;    public">
+<meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/2qlCoKn9BCdCprFGrRLJy2lDoGc32rafbAGMbt2X2Ye0bVbcvlcavgMNP62enI83DjWtiGAx3W00">
+  
+    <link rel="alternative" href="/atom.xml" title="Fan Ti Jie&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://tva3.sinaimg.cn/crop.0.1.1242.1242.180/0069Tt9kjw8ex50m4q0xdj30yi0ykjvc.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Fan Ti Jie</a></h1>
+		  <h4 ><a href="#">onecloudlet@163.com</a></h4>
+
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap" style="transform: translate(-200%, 0px);">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/fantijie" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/5643004110" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/design/" style="font-size: 20px;">design</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 13.33px;">markdown</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">生命是无数次的裂岸骇浪，只为练习出一次完美的惊涛，谢天地赐我逆境！</div>
+					<nav class="header-nav" style="margin-top: 100px;">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/fantijie" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/5643004110" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Fan Ti Jie</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img lazy-src="http://tva3.sinaimg.cn/crop.0.1.1242.1242.180/0069Tt9kjw8ex50m4q0xdj30yi0ykjvc.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Fan Ti Jie</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/fantijie" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/5643004110" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-design-chain-of-responsibility" class="article article-type-post .article2" itemscope itemprop="blogPost" style="">
+  
+    <div class="article-meta">
+      <a href="/2016/08/22/design-chain-of-responsibility/" class="article-date">
+  	<time datetime="2016-08-22T05:53:55.000Z" itemprop="datePublished">2016-08-22</time>
+</a>
+    </div>
+  
+
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+
+
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设计模式:职责链模式(chain of responsibility)
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design/">design</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h4 id="&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x7B80;&#x4ECB;"><a href="#&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x7B80;&#x4ECB;" class="headerlink" title="&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x7B80;&#x4ECB;"></a>&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x7B80;&#x4ECB;</h4><p>&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x662F;&#x5E38;&#x7528;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x4E2D;&#x884C;&#x4E3A;&#x578B;&#x6A21;&#x5F0F;&#x4E2D;&#x5176;&#x4E2D;&#x4E4B;&#x4E00;&#x3002;&#x5982;&#x679C;&#x4ECE;&#x4E8B;&#x8FC7;java web&#x5F00;&#x53D1;&#xFF0C;&#x90A3;&#x4E48;&#x80AF;&#x5B9A;&#x5BF9;&#x5BF9;java web&#x4E2D;&#x7684;Filter&#x62E6;&#x622A;&#x5668;&#x6BD4;&#x8F83;&#x719F;&#x6089;&#x3002;Filter&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x5F88;&#x5178;&#x578B;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x5206;&#x4E3A;&#x4E86;&#x7EAF;&#x3001;&#x4E0D;&#x7EAF;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x4E24;&#x79CD;&#x3002;</p>
+<h5 id="&#x5047;&#x8BBE;&#x4EE3;&#x7801;&#x7247;&#x6BB5;"><a href="#&#x5047;&#x8BBE;&#x4EE3;&#x7801;&#x7247;&#x6BB5;" class="headerlink" title="&#x5047;&#x8BBE;&#x4EE3;&#x7801;&#x7247;&#x6BB5;"></a>&#x5047;&#x8BBE;&#x4EE3;&#x7801;&#x7247;&#x6BB5;</h5><p>&#x8FD9;&#x91CC;&#x793A;&#x4F8B;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x540D;&#x957F;&#x5EA6;&#x7684;&#x9A8C;&#x8BC1;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>{</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</div><div class="line">        <span class="comment">//&#x7528;&#x6237;&#x540D;</span></div><div class="line">        String userName = <span class="string">&quot;&quot;</span>;</div><div class="line">        <span class="keyword">if</span> (userName.length() &lt; <span class="number">6</span>) {</div><div class="line">            System.out.println(<span class="string">&quot;&#x7528;&#x6237;&#x540D;&#x957F;&#x5EA6;&#x4E0D;&#x80FD;&#x5C0F;&#x4E8E;6&#x4F4D;!&quot;</span>);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        }</div><div class="line">        <span class="keyword">if</span> (userName.length() &gt; <span class="number">12</span>) {</div><div class="line">            System.out.println(<span class="string">&quot;&#x7528;&#x6237;&#x540D;&#x957F;&#x5EA6;&#x4E0D;&#x80FD;&#x5927;&#x4E8E;12&#x4F4D;!&quot;</span>);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p>&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x867D;&#x7136;&#x53EA;&#x662F;&#x9A8C;&#x8BC1;&#x4E86;&#x7528;&#x6237;&#x540D;&#x957F;&#x5EA6;&#x3002;&#x4F46;&#x662F;&#x5E94;&#x8BE5;&#x53EF;&#x4EE5;&#x8054;&#x60F3;&#x5230;&#x8FD8;&#x8981;&#x8FDB;&#x884C;&#x5927;&#x5C0F;&#x5199;&#x3001;&#x7279;&#x6B8A;&#x5B57;&#x7B26;&#x3001;&#x6B63;&#x5219;&#x9A8C;&#x8BC1;&#x3001;&#x5F53;&#x7136;&#x8FD8;&#x6709;&#x6BD4;&#x8F83;&#x91CD;&#x8981;&#x7684;&#x91CD;&#x590D;&#x7528;&#x6237;&#x540D;&#x9A8C;&#x8BC1;&#x7B49;&#x3002;<br><a id="more"></a></p>
+<p>1.&#x8FD9;&#x6837;&#x4E0B;&#x6765;&#x6211;&#x4EEC;&#x7684;&#x7C7B;&#x5C31;&#x53D8;&#x5F97;&#x5F88;&#x5E9E;&#x5927;&#x3002;&#x5404;&#x79CD;&#x9A8C;&#x8BC1;&#x90FD;&#x96C6;&#x4E2D;&#x5728;&#x4E86;&#x4E00;&#x4E2A;&#x7C7B;&#x4E2D;&#x3002;&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x867D;&#x7136;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x662F;&#x96BE;&#x514D;&#x8FD8;&#x6709;&#x66F4;&#x4E3A;&#x590D;&#x6742;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x8BA9;&#x7EF4;&#x62A4;&#x5DE5;&#x4F5C;&#x53D8;&#x5F97;&#x66F4;&#x52A0;&#x56F0;&#x96BE;&#x3002;<br>2.&#x5047;&#x5982;&#x6211;&#x4EEC;&#x8981;&#x5728;&#x5176;&#x4E2D;&#x52A0;&#x5165;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x8D1F;&#x8D23;&#x7684;&#x9A8C;&#x8BC1;&#x3002;&#x90A3;&#x4E48;&#x5C31;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x6E90;&#x7801;&#x6765;&#x5B8C;&#x6210;&#x8FD9;&#x6837;&#x7684;&#x9700;&#x6C42;&#x3002;&#x5982;&#x6B64;&#x4FBF;&#x8FDD;&#x53CD;&#x4E86;<a href="#">&#x5F00;&#x95ED;&#x539F;&#x5219;</a>,<br>3.&#x540C;&#x6837;&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x4E2D;&#x5404;&#x79CD;&#x7C7B;&#x578B;&#x7684;&#x9A8C;&#x8BC1;&#x90FD;&#x96C6;&#x4E2D;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x8FDD;&#x53CD;&#x4E86;<a href="#">&#x5355;&#x4E00;&#x804C;&#x8D23;&#x539F;&#x5219;</a>&#x3002;</p>
+<h5 id="&#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;&#x767B;&#x573A;"><a href="#&#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;&#x767B;&#x573A;" class="headerlink" title="&#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;&#x767B;&#x573A;"></a>&#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;&#x767B;&#x573A;</h5><p>&#x9996;&#x5148;&#x5BF9;&#x4EE3;&#x7801;&#x7247;&#x6BB5;1&#x7684;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x6539;&#x9020;&#xFF0C;&#x5982;&#x4E0B;&#x6240;&#x793A;:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>{</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</div><div class="line">        <span class="comment">//&#x7528;&#x6237;&#x540D;</span></div><div class="line">        String userName = <span class="string">&quot;user&quot;</span>;</div><div class="line">        <span class="comment">//&#x7A7A;&#x9A8C;&#x8BC1;</span></div><div class="line">        Validation validation = <span class="keyword">new</span> NullValidation();</div><div class="line">        <span class="comment">//&#x6700;&#x5C0F;&#x957F;&#x5EA6;&#x9A8C;&#x8BC1;</span></div><div class="line">        MinLengthValidation minLengthValidation = <span class="keyword">new</span> MinLengthValidation();</div><div class="line">        <span class="comment">//&#x8BBE;&#x7F6E;&#x7A7A;&#x9A8C;&#x8BC1;&#x901A;&#x8FC7;&#x540E;&#x8FDB;&#x884C;&#x6700;&#x5C0F;&#x957F;&#x5EA6;&#x9A8C;&#x8BC1;</span></div><div class="line">        validation.setNextValidation(minLengthValidation);</div><div class="line">        <span class="comment">//&#x6700;&#x5927;&#x957F;&#x5EA6;&#x9A8C;&#x8BC1;</span></div><div class="line">        MaxLengthValidation maxLengthValidation = <span class="keyword">new</span> MaxLengthValidation();</div><div class="line">        <span class="comment">//&#x8BBE;&#x7F6E;&#x6700;&#x5C0F;&#x957F;&#x5EA6;&#x9A8C;&#x8BC1;&#x540E;&#x8FDB;&#x884C;&#x6700;&#x5927;&#x957F;&#x5EA6;&#x9A8C;&#x8BC1;</span></div><div class="line">        minLengthValidation.setNextValidation(maxLengthValidation);</div><div class="line">        <span class="comment">//&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;</span></div><div class="line">        validation.test(userName);</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x62BD;&#x8C61;&#x9A8C;&#x8BC1;&#x7C7B;</span></div><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Validation</span></span>{</div><div class="line">    <span class="comment">//&#x4E0B;&#x7EA7;&#x9A8C;&#x8BC1;</span></div><div class="line">    <span class="keyword">protected</span> Validation nextValidation;</div><div class="line">    <span class="comment">//&#x9A8C;&#x8BC1;&#x65B9;&#x6CD5;</span></div><div class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(String userName)</span></span>;</div><div class="line">    <span class="comment">//&#x8BBE;&#x7F6E;&#x4E0B;&#x7EA7;&#x9A8C;&#x8BC1;</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNextValidation</span><span class="params">(Validation nextValidation)</span> </span>{</div><div class="line">        <span class="keyword">this</span>.nextValidation = nextValidation;</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x7A7A;&#x9A8C;&#x8BC1;&#x5B9E;&#x73B0;&#x7C7B;</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NullValidation</span> <span class="keyword">extends</span> <span class="title">Validation</span> </span>{</div><div class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(String userName)</span> </span>{</div><div class="line">        <span class="keyword">if</span> (userName != <span class="keyword">null</span> ) {</div><div class="line">            <span class="keyword">if</span> (nextValidation != <span class="keyword">null</span>) {</div><div class="line">                nextValidation.test(userName);</div><div class="line">            }</div><div class="line">        }<span class="keyword">else</span>{</div><div class="line">            System.out.println(<span class="string">&quot;&#x7528;&#x6237;&#x540D;&#x4E0D;&#x80FD;&#x4E3A;&#x7A7A;!&quot;</span>);</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x6700;&#x5C0F;&#x9A8C;&#x8BC1;&#x5B9E;&#x73B0;&#x7C7B;</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinLengthValidation</span> <span class="keyword">extends</span> <span class="title">Validation</span> </span>{</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(String userName)</span> </span>{</div><div class="line">        <span class="keyword">if</span> (userName.length() &gt; <span class="number">6</span> ) {</div><div class="line">            <span class="keyword">if</span> (nextValidation != <span class="keyword">null</span>) {</div><div class="line">                nextValidation.test(userName);</div><div class="line">            }</div><div class="line">        }<span class="keyword">else</span>{</div><div class="line">            System.out.println(<span class="string">&quot;&#x7528;&#x6237;&#x540D;&#x957F;&#x5EA6;&#x4E0D;&#x80FD;&#x5C0F;&#x4E8E;6&#x4F4D;!&quot;</span>);</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x6700;&#x5927;&#x9A8C;&#x8BC1;&#x5B9E;&#x73B0;&#x7C7B;</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MaxLengthValidation</span> <span class="keyword">extends</span> <span class="title">Validation</span> </span>{</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(String userName)</span> </span>{</div><div class="line">        <span class="keyword">if</span> (userName.length() &lt;= <span class="number">12</span> ) {</div><div class="line">            <span class="keyword">if</span> (nextValidation != <span class="keyword">null</span>) {</div><div class="line">                nextValidation.test(userName);</div><div class="line">            }</div><div class="line">        }<span class="keyword">else</span>{</div><div class="line">            System.out.println(<span class="string">&quot;&#x7528;&#x6237;&#x540D;&#x957F;&#x5EA6;&#x4E0D;&#x80FD;&#x5927;&#x4E8E;12&#x4F4D;!&quot;</span>);</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>&#x5728;&#x4FEE;&#x6539;&#x8FC7;&#x540E;&#x7684;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x62BD;&#x8C61;&#x9A8C;&#x8BC1;&#x7C7B;&#xFF0C;&#x4E5F;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x9A8C;&#x8BC1;&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x5177;&#x4F53;&#x7684;&#x9A8C;&#x8BC1;&#x7C7B;&#x662F;&#x6839;&#x636E;&#x9700;&#x8981;&#x81EA;&#x5DF1;&#x8FDB;&#x884C;&#x5B9E;&#x73B0;&#x91CD;&#x5199;&#x65B9;&#x6CD5;&#x6765;&#x5B9E;&#x73B0;&#x7684;&#x3002;&#x8FD9;&#x4E5F;&#x5C31;&#x662F;&#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;&#x7684;&#x6838;&#x5FC3;&#xFF0C;&#x4F9D;&#x8D56;&#x4E8E;&#x62BD;&#x8C61;&#x7C7B;&#x7684;&#x5177;&#x4F53;&#x7ED3;&#x6784;&#xFF01;&#x4FEE;&#x6539;&#x8FC7;&#x540E;&#x7684;&#x4EE3;&#x7801;&#x4E2D;&#x6211;&#x4EEC;&#x786E;&#x5B9E;&#x4FDD;&#x8BC1;&#x4E86;<a href="#">&#x5355;&#x4E00;&#x804C;&#x8D23;&#x539F;&#x5219;</a>&#xFF0C;&#x540C;&#x6837;&#x5982;&#x679C;&#x67D0;&#x4E00;&#x4E2A;&#x5B9E;&#x73B0;&#x7531;&#x53D8;&#x52A8;&#x6211;&#x4EEC;&#x4E5F;&#x4E0D;&#x9700;&#x8981;&#x53BB;&#x4FEE;&#x6539;&#x539F;&#x6765;&#x7684;&#x7C7B;&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x4EE3;&#x7801;&#x3002;&#x8FD9;&#x6837;&#x5C31;&#x4FDD;&#x8BC1;&#x4E86;<a href="#">&#x5F00;&#x95ED;&#x539F;&#x5219;</a>&#x3002;</p>
+</blockquote>
+<h5 id="&#x793A;&#x4F8B;&#x4EE3;&#x7801;uml&#x56FE;"><a href="#&#x793A;&#x4F8B;&#x4EE3;&#x7801;UML&#x56FE;" class="headerlink" title="&#x793A;&#x4F8B;&#x4EE3;&#x7801;UML&#x56FE;"></a>&#x793A;&#x4F8B;&#x4EE3;&#x7801;UML&#x56FE;</h5><img src="http://www.plantuml.com/plantuml/svg/2qlCoKn9BCdCprFGrRLJy2lDoGc32rafbAGMbt2X2Ye0bVbcvlcavgMNP62enI83DjWtiGAx3W00">
+<p>&#x901A;&#x8FC7;UML&#x56FE;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x4E2D;&#x7684;&#x6D41;&#x7A0B;&#x5C31;&#x662F;&#x5728;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x540E;&#x5C31;&#x8FDB;&#x884C;&#x4E0B;&#x4E00;&#x7EA7;&#x7684;&#x5904;&#x7406;&#xFF01;&#x91CD;&#x70B9;&#x5728;&#x4E8E;&#x6211;&#x4EEC;&#x6784;&#x5EFA;&#x8FD9;&#x4E2A;&#x201C;&#x94FE;&#x201D;&#x7684;&#x7ED3;&#x6784;&#xFF01;&#x5728;&#x4EE5;&#x4E0A;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#x4E2D;&#x6211;&#x4EEC;&#x7684;&#x9A8C;&#x8BC1;&#x65B9;&#x6CD5;&#x5E76;&#x6CA1;&#x6709;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x4F46;&#x662F;&#x5728;&#x5B9E;&#x9645;&#x60C5;&#x51B5;&#x4E2D;&#x5F80;&#x5F80;&#x662F;&#x9700;&#x8981;&#x6709;&#x8FD4;&#x56DE;&#x503C;&#x7684;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x8868;&#x793A;&#x8D23;&#x4EFB;&#x94FE;&#x6A21;&#x5F0F;&#x7684;&#x5165;&#x53E3;&#x65E2;&#x662F;&#x51FA;&#x53E3;&#xFF0C;&#x5F62;&#x6210;&#x4E86;&#x4E00;&#x4E2A;&#x4E0D;&#x95ED;&#x73AF;&#x7684;&#x5F62;&#x5F0F;&#xFF01;</p>
+<font color="red">main&#x65B9;&#x6CD5;&#x4E2D;&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x4E86;&#x94FE;&#x7684;&#x6784;&#x9020;&#xFF01;</font>
+
+<h5 id="&#x5165;&#x53E3;&#x5373;&#x662F;&#x51FA;&#x53E3;"><a href="#&#x5165;&#x53E3;&#x5373;&#x662F;&#x51FA;&#x53E3;" class="headerlink" title="&#x5165;&#x53E3;&#x5373;&#x662F;&#x51FA;&#x53E3;"></a>&#x5165;&#x53E3;&#x5373;&#x662F;&#x51FA;&#x53E3;</h5><p>&#x901A;&#x8FC7;&#x4FEE;&#x6539;&#x4EE3;&#x7801;&#x6765;&#x6784;&#x9020;&#x4E00;&#x4E2A;&#x5165;&#x53E3;&#x5373;&#x662F;&#x51FA;&#x53E3;&#x7684;&#x804C;&#x8D23;&#x94FE;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>{</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</div><div class="line">        <span class="comment">//&#x7528;&#x6237;&#x540D;</span></div><div class="line">        String userName = <span class="string">&quot;user&quot;</span>;</div><div class="line">        <span class="comment">//&#x7A7A;&#x9A8C;&#x8BC1;</span></div><div class="line">        Validation validation = <span class="keyword">new</span> NullValidation();</div><div class="line">        <span class="comment">//&#x6700;&#x5C0F;&#x957F;&#x5EA6;&#x9A8C;&#x8BC1;</span></div><div class="line">        MinLengthValidation minLengthValidation = <span class="keyword">new</span> MinLengthValidation();</div><div class="line">        <span class="comment">//&#x8BBE;&#x7F6E;&#x7A7A;&#x9A8C;&#x8BC1;&#x901A;&#x8FC7;&#x540E;&#x8FDB;&#x884C;&#x6700;&#x5C0F;&#x957F;&#x5EA6;&#x9A8C;&#x8BC1;</span></div><div class="line">        validation.setNextValidation(minLengthValidation);</div><div class="line">        <span class="comment">//&#x6700;&#x5927;&#x957F;&#x5EA6;&#x9A8C;&#x8BC1;</span></div><div class="line">        MaxLengthValidation maxLengthValidation = <span class="keyword">new</span> MaxLengthValidation();</div><div class="line">        <span class="comment">//&#x8BBE;&#x7F6E;&#x6700;&#x5C0F;&#x957F;&#x5EA6;&#x9A8C;&#x8BC1;&#x540E;&#x8FDB;&#x884C;&#x6700;&#x5927;&#x957F;&#x5EA6;&#x9A8C;&#x8BC1;</span></div><div class="line">        minLengthValidation.setNextValidation(maxLengthValidation);</div><div class="line">        <span class="comment">//&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;</span></div><div class="line">        System.out.println(validation.test(userName));</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x62BD;&#x8C61;&#x9A8C;&#x8BC1;&#x7C7B;</span></div><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Validation</span></span>{</div><div class="line">    <span class="comment">//&#x4E0B;&#x7EA7;&#x9A8C;&#x8BC1;</span></div><div class="line">    <span class="keyword">protected</span> Validation nextValidation;</div><div class="line">    <span class="comment">//&#x9A8C;&#x8BC1;&#x65B9;&#x6CD5;</span></div><div class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">public</span> String <span class="title">test</span><span class="params">(String userName)</span></span>;</div><div class="line">    <span class="comment">//&#x8BBE;&#x7F6E;&#x4E0B;&#x7EA7;&#x9A8C;&#x8BC1;</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNextValidation</span><span class="params">(Validation nextValidation)</span> </span>{</div><div class="line">        <span class="keyword">this</span>.nextValidation = nextValidation;</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x7A7A;&#x9A8C;&#x8BC1;&#x5B9E;&#x73B0;&#x7C7B;</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NullValidation</span> <span class="keyword">extends</span> <span class="title">Validation</span> </span>{</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">(String userName)</span> </span>{</div><div class="line">        <span class="keyword">if</span> (userName != <span class="keyword">null</span> ) {</div><div class="line">            <span class="keyword">if</span> (nextValidation != <span class="keyword">null</span>) {</div><div class="line">                <span class="keyword">return</span> nextValidation.test(userName);</div><div class="line">            }</div><div class="line">        }<span class="keyword">else</span>{</div><div class="line">            <span class="keyword">return</span> <span class="string">&quot;&#x7528;&#x6237;&#x540D;&#x4E0D;&#x80FD;&#x4E3A;&#x7A7A;!&quot;</span>;</div><div class="line">        }</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x6700;&#x5C0F;&#x9A8C;&#x8BC1;&#x5B9E;&#x73B0;&#x7C7B;</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinLengthValidation</span> <span class="keyword">extends</span> <span class="title">Validation</span> </span>{</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">(String userName)</span> </span>{</div><div class="line">        <span class="keyword">if</span> (userName.length() &gt; <span class="number">6</span> ) {</div><div class="line">            <span class="keyword">if</span> (nextValidation != <span class="keyword">null</span>) {</div><div class="line">                <span class="keyword">return</span> nextValidation.test(userName);</div><div class="line">            }</div><div class="line">        }<span class="keyword">else</span>{</div><div class="line">            <span class="keyword">return</span> <span class="string">&quot;&#x7528;&#x6237;&#x540D;&#x957F;&#x5EA6;&#x4E0D;&#x80FD;&#x5C0F;&#x4E8E;6&#x4F4D;!&quot;</span>;</div><div class="line">        }</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x6700;&#x5927;&#x9A8C;&#x8BC1;&#x5B9E;&#x73B0;&#x7C7B;</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MaxLengthValidation</span> <span class="keyword">extends</span> <span class="title">Validation</span> </span>{</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">(String userName)</span> </span>{</div><div class="line">        <span class="keyword">if</span> (userName.length() &lt;= <span class="number">12</span> ) {</div><div class="line">            <span class="keyword">if</span> (nextValidation != <span class="keyword">null</span>) {</div><div class="line">                <span class="keyword">return</span> nextValidation.test(userName);</div><div class="line">            }</div><div class="line">        }<span class="keyword">else</span>{</div><div class="line">            <span class="keyword">return</span> <span class="string">&quot;&#x7528;&#x6237;&#x540D;&#x957F;&#x5EA6;&#x4E0D;&#x80FD;&#x5927;&#x4E8E;12&#x4F4D;!&quot;</span>;</div><div class="line">        }</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p>&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x6211;&#x4EEC;&#x53EA;&#x662F;&#x4FEE;&#x6539;&#x4E86;&#x62BD;&#x8C61;&#x7C7B;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x5E76;&#x4E14;&#x5C06;&#x6700;&#x540E;&#x7684;&#x9A8C;&#x8BC1;&#x7ED3;&#x679C;&#x4F5C;&#x4E3A;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x5B8C;&#x6210;&#x4E86;&#x5165;&#x53E3;&#x5373;&#x662F;&#x51FA;&#x53E3;&#x7684;&#x6539;&#x9020;&#xFF01;</p>
+<h5 id="&#x5165;&#x53E3;&#x5373;&#x662F;&#x51FA;&#x53E3;uml"><a href="#&#x5165;&#x53E3;&#x5373;&#x662F;&#x51FA;&#x53E3;UML" class="headerlink" title="&#x5165;&#x53E3;&#x5373;&#x662F;&#x51FA;&#x53E3;UML"></a>&#x5165;&#x53E3;&#x5373;&#x662F;&#x51FA;&#x53E3;UML</h5><img src="http://www.plantuml.com/plantuml/svg/2qlCoKn9BCdCprFGrRLJy2lDoGc32rafbAGMbt2X2Ye0bVbcvlcavgMNP62enI83DjWtiO847JQwkjXr5AMMb1RbeRi8h1oRaw3AqPIYUnAY2W00">
+<p>&#x901A;&#x8FC7;UML&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x6765;&#x771F;&#x6B63;&#x7684;&#x7ED3;&#x679C;&#x4F9D;&#x8D56;&#x4E8E;&#x6700;&#x540E;&#x7684;&#x5B9E;&#x9645;&#x9A8C;&#x8BC1;&#x7C7B;&#xFF01;</p>
+<h5 id="&#x7EAF;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;"><a href="#&#x7EAF;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;" class="headerlink" title="&#x7EAF;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;"></a>&#x7EAF;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;</h5><p>&#x4E00;&#x4E2A;&#x7EAF;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x8981;&#x6C42;&#x4E00;&#x4E2A;&#x5177;&#x4F53;&#x5904;&#x7406;&#x8005;&#x5BF9;&#x8C61;&#x53EA;&#x80FD;&#x5728;&#x4E24;&#x4E2A;&#x884C;&#x4E3A;&#x4E2D;&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#xFF1A;&#x8981;&#x4E48;&#x627F;&#x62C5;&#x5168;&#x90E8;&#x8D23;&#x4EFB;&#xFF0C;&#x8981;&#x4E48;&#x5C06;&#x8D23;&#x4EFB;&#x63A8;&#x7ED9;&#x4E0B;&#x7EA7;&#xFF0C;&#x4E0D;&#x5141;&#x8BB8;&#x51FA;&#x73B0;&#x67D0;&#x4E00;&#x4E2A;&#x5177;&#x4F53;&#x5904;&#x7406;&#x8005;&#x5BF9;&#x8C61;&#x5728;&#x627F;&#x62C5;&#x4E86;&#x4E00;&#x90E8;&#x5206;&#x6216;&#x5168;&#x90E8;&#x8D23;&#x4EFB;&#x540E;&#x53C8;&#x5C06;&#x8D23;&#x4EFB;&#x5411;&#x4E0B;&#x4F20;&#x9012;&#x7684;&#x60C5;&#x51B5;&#x3002;&#x800C;&#x4E14;&#x5728;&#x7EAF;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x4E2D;&#xFF0C;&#x8981;&#x6C42;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x5FC5;&#x987B;&#x88AB;&#x67D0;&#x4E00;&#x4E2A;&#x5904;&#x7406;&#x8005;&#x5BF9;&#x8C61;&#x6240;&#x63A5;&#x6536;&#xFF0C;&#x4E0D;&#x80FD;&#x51FA;&#x73B0;&#x67D0;&#x4E2A;&#x8BF7;&#x6C42;&#x672A;&#x88AB;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x5904;&#x7406;&#x8005;&#x5BF9;&#x8C61;&#x5904;&#x7406;&#x7684;&#x60C5;&#x51B5;&#x3002;&#x5728;&#x524D;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#x5E94;&#x7528;&#x7684;&#x662F;&#x7EAF;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x3002;</p>
+<h5 id="&#x4E0D;&#x7EAF;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;"><a href="#&#x4E0D;&#x7EAF;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;" class="headerlink" title="&#x4E0D;&#x7EAF;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;"></a>&#x4E0D;&#x7EAF;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;</h5><p>&#x5728;&#x4E00;&#x4E2A;&#x4E0D;&#x7EAF;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x4E2D;&#x5141;&#x8BB8;&#x67D0;&#x4E2A;&#x8BF7;&#x6C42;&#x88AB;&#x4E00;&#x4E2A;&#x5177;&#x4F53;&#x5904;&#x7406;&#x8005;&#x90E8;&#x5206;&#x5904;&#x7406;&#x540E;&#x518D;&#x5411;&#x4E0B;&#x4F20;&#x9012;&#xFF0C;&#x6216;&#x8005;&#x4E00;&#x4E2A;&#x5177;&#x4F53;&#x5904;&#x7406;&#x8005;&#x5904;&#x7406;&#x5B8C;&#x67D0;&#x8BF7;&#x6C42;&#x540E;&#x5176;&#x540E;&#x7EE7;&#x5904;&#x7406;&#x8005;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x5904;&#x7406;&#x8BE5;&#x8BF7;&#x6C42;&#xFF0C;&#x800C;&#x4E14;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x53EF;&#x4EE5;&#x6700;&#x7EC8;&#x4E0D;&#x88AB;&#x4EFB;&#x4F55;&#x5904;&#x7406;&#x8005;&#x5BF9;&#x8C61;&#x6240;&#x63A5;&#x6536;&#x3002;<br>&#x5047;&#x5982;:&#x6211;&#x4EEC;&#x7684;&#x7528;&#x6237;&#x540D;&#x9A8C;&#x8BC1;&#x4E2D;&#x591A;&#x4E86;&#x4E00;&#x4E2A;&#x6B63;&#x5219;&#x5339;&#x914D;&#x7684;&#x9A8C;&#x8BC1;&#xFF0C;&#x800C;&#x8FD9;&#x4E2A;&#x6B63;&#x5219;&#x5339;&#x914D;&#x6070;&#x6070;&#x53EA;&#x5BF9;&#x5C0F;&#x5199;&#x5B57;&#x6BCD;&#x8FDB;&#x884C;&#x4E86;&#x5339;&#x914D;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x7684;&#x6B63;&#x5219;&#x5339;&#x914D;&#x9A8C;&#x8BC1;&#x7C7B;&#x7684;&#x5B9E;&#x73B0;&#x4E2D;&#x8981;&#x4E0D;&#x8981;&#x5BF9;&#x7528;&#x6237;&#x540D;&#x5927;&#x5C0F;&#x5199;&#x8FDB;&#x884C;&#x8F6C;&#x6362;&#x5462;&#xFF01;&#x5982;&#x679C;&#x52A0;&#x4E86;&#x8F6C;&#x6362;&#xFF0C;&#x90A3;&#x4E48;&#x4E45;&#x662F;&#x4E00;&#x4E2A;&#x4E0D;&#x7EAF;&#x7684;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x5BF9;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x4E86;&#x5904;&#x7406;&#xFF01;&#x800C;&#x73B0;&#x5B9E;&#x60C5;&#x51B5;&#x4E5F;&#x5927;&#x6982;&#x5C31;&#x662F;&#x5982;&#x6B64;&#xFF01;</p>
+<h5 id="&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x7684;&#x6CE8;&#x610F;&#x70B9;"><a href="#&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x7684;&#x6CE8;&#x610F;&#x70B9;" class="headerlink" title="&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x7684;&#x6CE8;&#x610F;&#x70B9;"></a>&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x7684;&#x6CE8;&#x610F;&#x70B9;</h5><p>&#x4ECE;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;main&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x6574;&#x6761;&#x94FE;&#x7684;&#x6784;&#x9020;&#x90FD;&#x662F;&#x7531;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x5199;&#x4EE3;&#x7801;&#x6765;&#x5B8C;&#x6210;&#x7684;&#x3002;&#x52A0;&#x5165;&#x6211;&#x4EEC;&#x5C06;&#x5176;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x94FE;&#x94FE;&#x5230;&#x4E86;&#x81EA;&#x5DF1;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4F1A;&#x51FA;&#x73B0;&#x6B7B;&#x5FAA;&#x73AF;&#x8FD9;&#x4E2A;&#x73B0;&#x8C61;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x6784;&#x9020;&#x94FE;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x4E00;&#x5B9A;&#x8981;&#x6CE8;&#x610F;&#xFF01;&#x5F53;&#x7136;&#x4F60;&#x53EF;&#x4EE5;&#x91C7;&#x7528;&#x6709;&#x5E8F;&#x94FE;&#x8868;&#x52A0;&#x5FAA;&#x73AF;&#x6765;&#x6784;&#x9020;&#x4F60;&#x7684;&#x804C;&#x8D23;&#x94FE;</p>
+<h5 id="&#x9002;&#x7528;&#x573A;&#x666F;"><a href="#&#x9002;&#x7528;&#x573A;&#x666F;" class="headerlink" title="&#x9002;&#x7528;&#x573A;&#x666F;"></a>&#x9002;&#x7528;&#x573A;&#x666F;</h5><p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x4E2D;&#x793A;&#x4F8B;&#x4E86;&#x4E00;&#x4E2A;&#x5BF9;&#x7528;&#x6237;&#x540D;&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;&#x7684;&#x4F8B;&#x5B50;&#x3002;&#x4F46;&#x662F;&#x771F;&#x6B63;&#x7684;&#x8D23;&#x4EFB;&#x94FE;&#x662F;&#x4E0D;&#x5E94;&#x8BE5;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x5F62;&#x4E0B;&#x6765;&#x9002;&#x7528;&#x7684;&#x3002;&#x60F3;&#x4E00;&#x60F3;&#x3002;&#x6211;&#x4EEC;&#x4E00;&#x4E2A;&#x5B57;&#x6BB5;&#x7684;&#x6570;&#x636E;&#x8981;&#x8FDB;&#x884C;&#x591A;&#x5C11;&#x4E2A;&#x9A8C;&#x8BC1;&#x3002;&#x5199;&#x591A;&#x5C11;&#x4E2A;&#x5B9E;&#x73B0;&#x7C7B;&#xFF01;&#x53EF;&#x60F3;&#x800C;&#x6B62;&#x5427;&#xFF01;&#x4EE5;&#x4E0A;&#x53EA;&#x662F;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4F8B;&#x5B50;&#x6765;&#x8BF4;&#x660E;&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x7684;&#x7ED3;&#x6784;&#x7B49;&#xFF01;<br>&#x9002;&#x7528;&#x573A;&#x666F;&#xFF1A;<br>(1) &#x6709;&#x591A;&#x4E2A;&#x5BF9;&#x8C61;&#x53EF;&#x4EE5;&#x5904;&#x7406;&#x540C;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#xFF0C;&#x5177;&#x4F53;&#x54EA;&#x4E2A;&#x5BF9;&#x8C61;&#x5904;&#x7406;&#x8BE5;&#x8BF7;&#x6C42;&#x5F85;&#x8FD0;&#x884C;&#x65F6;&#x523B;&#x518D;&#x786E;&#x5B9A;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x53EA;&#x9700;&#x5C06;&#x8BF7;&#x6C42;&#x63D0;&#x4EA4;&#x5230;&#x94FE;&#x4E0A;&#xFF0C;&#x800C;&#x65E0;&#x987B;&#x5173;&#x5FC3;&#x8BF7;&#x6C42;&#x7684;&#x5904;&#x7406;&#x5BF9;&#x8C61;&#x662F;&#x8C01;&#x4EE5;&#x53CA;&#x5B83;&#x662F;&#x5982;&#x4F55;&#x5904;&#x7406;&#x7684;&#x3002;<br>(2) &#x5728;&#x4E0D;&#x660E;&#x786E;&#x6307;&#x5B9A;&#x63A5;&#x6536;&#x8005;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5411;&#x591A;&#x4E2A;&#x5BF9;&#x8C61;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x63D0;&#x4EA4;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x3002;<br>(3) &#x53EF;&#x52A8;&#x6001;&#x6307;&#x5B9A;&#x4E00;&#x7EC4;&#x5BF9;&#x8C61;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x4EE5;&#x52A8;&#x6001;&#x521B;&#x5EFA;&#x804C;&#x8D23;&#x94FE;&#x6765;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x6539;&#x53D8;&#x94FE;&#x4E2D;&#x5904;&#x7406;&#x8005;&#x4E4B;&#x95F4;&#x7684;&#x5148;&#x540E;&#x6B21;&#x5E8F;&#x3002;</p>
+
+      
+    </div>
+
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/08/22/oop-single-responsibility-principle/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          设计原则之单一职责原则
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/21/hotspot-jvm-classloader/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HotSpot虚拟机(JVM)classloader(类加载)</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+          
+            <div id="rig-menu" >
+              <div><a class="mulu" id="toc_toggle" href="javascript:void();"><img  src="/img/f0ca.png" /></a></div>
+
+            </div>
+            <div id="toc" class="toc-article" style="display:none;">
+                <strong class="toc-title" >文章目录</strong>
+                  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#职责链模式简介"><span class="toc-number">1.</span> <span class="toc-text">职责链模式简介</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#假设代码片段"><span class="toc-number">1.1.</span> <span class="toc-text">假设代码片段</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#责任链模式登场"><span class="toc-number">1.2.</span> <span class="toc-text">责任链模式登场</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#示例代码uml图"><span class="toc-number">1.3.</span> <span class="toc-text">示例代码UML图</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#入口即是出口"><span class="toc-number">1.4.</span> <span class="toc-text">入口即是出口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#入口即是出口uml"><span class="toc-number">1.5.</span> <span class="toc-text">入口即是出口UML</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#纯的职责链模式"><span class="toc-number">1.6.</span> <span class="toc-text">纯的职责链模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#不纯的职责链模式"><span class="toc-number">1.7.</span> <span class="toc-text">不纯的职责链模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#职责链模式的注意点"><span class="toc-number">1.8.</span> <span class="toc-text">职责链模式的注意点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#适用场景"><span class="toc-number">1.9.</span> <span class="toc-text">适用场景</span></a></li></ol></li></ol>
+            </div>
+          
+      
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="design-chain-of-responsibility" data-title="设计模式:职责链模式(chain of responsibility)" data-url="https://fantijie.github.io/2016/08/22/design-chain-of-responsibility/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"fantijie"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Fan Ti Jie
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: 'https://fantijie.github.io/'
+	}
+</script>
+<script src="https://www.cdnjs.net/ajax/libs/require.js/2.1.6/require.min.js"></script>
+
+<script src="https://www.cdnjs.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://www.cdnjs.net/ajax/libs/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script type="text/javascript">
+  $("#toc_toggle").bind("click",function(){
+        $("#toc").fadeToggle(150);
+        $("#toc").css('display',''); 
+    });
+</script>
+  </div>
+</body>
+</html>

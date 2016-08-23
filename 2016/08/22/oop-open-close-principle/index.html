@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>设计原则之开闭原则 | Fan Ti Jie&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="开闭原则简介开闭原则(Open-Closed Principle, OCP)：一个软件实体应当对扩展开放，对修改关闭。即软件实体应尽量在不修改原有代码的情况下进行扩展">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计原则之开闭原则">
+<meta property="og:url" content="https://fantijie.github.io/2016/08/22/oop-open-close-principle/index.html">
+<meta property="og:site_name" content="Fan Ti Jie's Blog">
+<meta property="og:description" content="开闭原则简介开闭原则(Open-Closed Principle, OCP)：一个软件实体应当对扩展开放，对修改关闭。即软件实体应尽量在不修改原有代码的情况下进行扩展">
+<meta property="og:updated_time" content="2016-08-23T15:36:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计原则之开闭原则">
+<meta name="twitter:description" content="开闭原则简介开闭原则(Open-Closed Principle, OCP)：一个软件实体应当对扩展开放，对修改关闭。即软件实体应尽量在不修改原有代码的情况下进行扩展">
+  
+    <link rel="alternative" href="/atom.xml" title="Fan Ti Jie&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://tva3.sinaimg.cn/crop.0.1.1242.1242.180/0069Tt9kjw8ex50m4q0xdj30yi0ykjvc.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Fan Ti Jie</a></h1>
+		  <h4 ><a href="#">onecloudlet@163.com</a></h4>
+
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap" style="transform: translate(-200%, 0px);">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/fantijie" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/5643004110" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/design/" style="font-size: 20px;">design</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 13.33px;">markdown</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">生命是无数次的裂岸骇浪，只为练习出一次完美的惊涛，谢天地赐我逆境！</div>
+					<nav class="header-nav" style="margin-top: 100px;">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/fantijie" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/5643004110" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Fan Ti Jie</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img lazy-src="http://tva3.sinaimg.cn/crop.0.1.1242.1242.180/0069Tt9kjw8ex50m4q0xdj30yi0ykjvc.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Fan Ti Jie</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/fantijie" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/5643004110" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-oop-open-close-principle" class="article article-type-post .article2" itemscope itemprop="blogPost" style="">
+  
+    <div class="article-meta">
+      <a href="/2016/08/22/oop-open-close-principle/" class="article-date">
+  	<time datetime="2016-08-22T10:17:05.000Z" itemprop="datePublished">2016-08-22</time>
+</a>
+    </div>
+  
+
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+
+
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设计原则之开闭原则
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design/">design</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h4 id="&#x5F00;&#x95ED;&#x539F;&#x5219;&#x7B80;&#x4ECB;"><a href="#&#x5F00;&#x95ED;&#x539F;&#x5219;&#x7B80;&#x4ECB;" class="headerlink" title="&#x5F00;&#x95ED;&#x539F;&#x5219;&#x7B80;&#x4ECB;"></a>&#x5F00;&#x95ED;&#x539F;&#x5219;&#x7B80;&#x4ECB;</h4><p>&#x5F00;&#x95ED;&#x539F;&#x5219;(Open-Closed Principle, OCP)&#xFF1A;&#x4E00;&#x4E2A;&#x8F6F;&#x4EF6;&#x5B9E;&#x4F53;&#x5E94;&#x5F53;&#x5BF9;&#x6269;&#x5C55;&#x5F00;&#x653E;&#xFF0C;&#x5BF9;&#x4FEE;&#x6539;&#x5173;&#x95ED;&#x3002;&#x5373;&#x8F6F;&#x4EF6;&#x5B9E;&#x4F53;&#x5E94;&#x5C3D;&#x91CF;&#x5728;&#x4E0D;&#x4FEE;&#x6539;&#x539F;&#x6709;&#x4EE3;&#x7801;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x8FDB;&#x884C;&#x6269;&#x5C55;<br><a id="more"></a></p>
+<h5 id="&#x793A;&#x4F8B;&#x652F;&#x4ED8;&#x529F;&#x80FD;&#x4EE3;&#x7801;"><a href="#&#x793A;&#x4F8B;&#x652F;&#x4ED8;&#x529F;&#x80FD;&#x4EE3;&#x7801;" class="headerlink" title="&#x793A;&#x4F8B;&#x652F;&#x4ED8;&#x529F;&#x80FD;&#x4EE3;&#x7801;"></a>&#x793A;&#x4F8B;&#x652F;&#x4ED8;&#x529F;&#x80FD;&#x4EE3;&#x7801;</h5><p>&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x7684;&#x7CFB;&#x7EDF;&#x73B0;&#x5728;&#x6709;&#x4E00;&#x4E2A;&#x652F;&#x4ED8;&#x4E1A;&#x52A1;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x4E2D;&#x652F;&#x6301;&#x7684;&#x652F;&#x4ED8;&#x65B9;&#x5F0F;&#x6709;&#x5FAE;&#x4FE1;&#xFF0C;&#x963F;&#x91CC;&#x8FD9;&#x4E24;&#x79CD;&#xFF01;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PayTest</span> </span>{</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</div><div class="line">        <span class="keyword">new</span> PayService().pay(<span class="string">&quot;wechat&quot;</span>);</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x652F;&#x4ED8;&#x670D;&#x52A1;</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">PayService</span></span>{</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pay</span><span class="params">(String type)</span> </span>{</div><div class="line">        <span class="keyword">if</span> (type.equals(<span class="string">&quot;wechat&quot;</span>)) {</div><div class="line">            <span class="keyword">new</span> WeChatPay().pay();</div><div class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">&quot;baidu&quot;</span>)) {</div><div class="line">            <span class="keyword">new</span> AliPay().pay();</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x5FAE;&#x4FE1;&#x652F;&#x4ED8;</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">WeChatPay</span> </span>{</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pay</span><span class="params">()</span> </span>{</div><div class="line">        System.out.println(<span class="string">&quot;wechat pay&quot;</span>);</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x963F;&#x91CC;&#x652F;&#x4ED8;</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AliPay</span> </span>{</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pay</span><span class="params">()</span> </span>{</div><div class="line">        System.out.println(<span class="string">&quot;ali pay&quot;</span>);</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p>&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x8BF4;&#x660E;&#x5728;&#x7F16;&#x5199;&#x4EE3;&#x7801;&#x65F6;&#x6211;&#x4EEC;&#x6CA1;&#x6709;&#x8003;&#x8651;&#x5230;&#x540E;&#x671F;&#x4F1A;&#x51FA;&#x73B0;&#x4E00;&#x4E2A;&#x65B0;&#x5174;&#x7684;&#x6F6E;&#x6D41;&#x7684;&#x652F;&#x4ED8;&#x5E73;&#x53F0;&#xFF0C;&#x90A3;&#x4E48;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x8981;&#x589E;&#x52A0;&#x4E00;&#x4E2A;apple pay&#x652F;&#x4ED8;&#xFF0C;&#x5982;&#x679C;&#x4FEE;&#x6539;PayService&#x7684;pay&#x65B9;&#x6CD5;&#x7684;&#x6E90;&#x4EE3;&#x7801;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x8FDD;&#x53CD;&#x4E86;&#x5F00;&#x95ED;&#x539F;&#x5219;&#x3002;</p>
+<h5 id="&#x91CD;&#x6784;&#x793A;&#x4F8B;&#x4EE3;&#x7801;"><a href="#&#x91CD;&#x6784;&#x793A;&#x4F8B;&#x4EE3;&#x7801;" class="headerlink" title="&#x91CD;&#x6784;&#x793A;&#x4F8B;&#x4EE3;&#x7801;"></a>&#x91CD;&#x6784;&#x793A;&#x4F8B;&#x4EE3;&#x7801;</h5><p>&#x9996;&#x5148;&#x6839;&#x636E;&#x9700;&#x8981;&#x589E;&#x52A0;Apple pay&#x652F;&#x4ED8;&#x3002;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PayTest</span> </span>{</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</div><div class="line">        <span class="keyword">new</span> PayService(<span class="keyword">new</span> WeChatPay()).pay();</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x652F;&#x4ED8;&#x670D;&#x52A1;</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">PayService</span></span>{</div><div class="line">    <span class="keyword">private</span> Pay pay;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PayService</span><span class="params">(Pay pay)</span> </span>{</div><div class="line">        <span class="keyword">this</span>.pay = pay;</div><div class="line">    }</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pay</span><span class="params">()</span> </span>{</div><div class="line">        pay.pay();</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x62BD;&#x8C61;</span></div><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Pay</span></span>{</div><div class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">pay</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">}</div><div class="line"><span class="comment">//&#x5FAE;&#x4FE1;&#x652F;&#x4ED8;</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">WeChatPay</span> <span class="keyword">extends</span> <span class="title">Pay</span> </span>{</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pay</span><span class="params">()</span> </span>{</div><div class="line">        System.out.println(<span class="string">&quot;wechat pay&quot;</span>);</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x963F;&#x91CC;&#x652F;&#x4ED8;</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AliPay</span> <span class="keyword">extends</span> <span class="title">Pay</span> </span>{</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pay</span><span class="params">()</span> </span>{</div><div class="line">        System.out.println(<span class="string">&quot;ali pay&quot;</span>);</div><div class="line">    }</div><div class="line">}</div><div class="line"><span class="comment">//&#x82F9;&#x679C;&#x652F;&#x4ED8;</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ApplePay</span> <span class="keyword">extends</span> <span class="title">Pay</span> </span>{</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pay</span><span class="params">()</span> </span>{</div><div class="line">        System.out.println(<span class="string">&quot;apple pay&quot;</span>);</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p>&#x4EE3;&#x7801;&#x4E2D;&#x9996;&#x5148;&#x5C06;pay&#x652F;&#x4ED8;&#x62BD;&#x8C61;&#xFF0C;&#x7136;&#x540E;&#x6839;&#x636E;&#x9700;&#x8981;&#x53BB;&#x7EE7;&#x627F;pay&#xFF0C;&#x800C;&#x5177;&#x4F53;&#x7684;PayService&#x5219;&#x4F9D;&#x8D56;&#x4E8E;pay&#x7684;&#x62BD;&#x8C61;pay&#x65B9;&#x6CD5;&#x3002;&#x90A3;&#x4E48;&#x5177;&#x4F53;&#x4F7F;&#x7528;&#x4EC0;&#x4E48;&#x652F;&#x4ED8;PayService&#x5219;&#x4E0D;&#x518D;&#x8D1F;&#x8D23;&#xFF0C;&#x5168;&#x6743;&#x4EA4;&#x7531;&#x8C03;&#x7528;&#x8005;&#x8D1F;&#x8D23;&#xFF01;</p>
+<blockquote>
+<p>&#x5176;&#x5B9E;&#x4ECE;&#x4E0A;&#x9762;&#x7684;&#x4E24;&#x6BB5;&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#x53EF;&#x4EE5;&#x5F97;&#x77E5;&#xFF0C;&#x4E0D;&#x8BBA;&#x600E;&#x4E48;&#x6269;&#x5C55;&#xFF0C;&#x90FD;&#x907F;&#x514D;&#x4E0D;&#x4E86;&#x4FEE;&#x6539;&#x4EE3;&#x7801;&#xFF01;&#x90A3;&#x4E48;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x6539;&#x6210;&#x8FD9;&#x79CD;&#x5199;&#x6CD5;&#x4F1A;&#x66F4;&#x597D;&#x5462;&#xFF01;&#x5047;&#x8BBE;&#xFF0C;wechat&#x652F;&#x4ED8;&#x5728;&#x652F;&#x4ED8;&#x4E0A;&#x6709;&#x6240;&#x6539;&#x53D8;&#xFF0C;&#x9700;&#x8981;&#x4E00;&#x4E9B;&#x5176;&#x4ED6;&#x7684;&#x53C2;&#x6570;&#xFF01;&#x610F;&#x601D;&#x5C31;&#x662F;&#x5728;new WechatPay()&#x7684;&#x65F6;&#x5019;&#x9700;&#x8981;&#x4E00;&#x4E9B;&#x5176;&#x4ED6;&#x53C2;&#x6570;&#xFF01;&#x800C;&#x5728;&#x4EE3;&#x7801;&#x7247;&#x6BB5;1&#x5F53;&#x4E2D;PayService&#x7C7B;&#x7684;pay&#x65B9;&#x6CD5;&#x91CC;&#x9762;&#x8FDB;&#x884C;&#x4E86;&#x63A7;&#x5236;&#xFF01;&#x5982;&#x82E5;&#x589E;&#x52A0;&#x5FC5;&#x987B;&#x4FEE;&#x6539;PayService&#x7684;pay&#x65B9;&#x6CD5;&#x7684;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#xFF01;&#x4EE3;&#x7801;&#x7247;&#x6BB5;2&#x4E2D;&#xFF0C;&#x4F9D;&#x8D56;&#x7684;&#x662F;&#x62BD;&#x8C61;&#x65B9;&#x6CD5;&#xFF0C;&#x5E76;&#x4E0D;&#x4F9D;&#x8D56;&#x4E8E;&#x5177;&#x4F53;&#x7684;&#x5B9E;&#x73B0;&#xFF01;&#x5C31;&#x7B97;wechat&#x652F;&#x4ED8;&#x9700;&#x8981;&#x6269;&#x5C55;&#xFF0C;&#x90A3;&#x4E48;PayService&#x7C7B;&#x7684;pay&#x65B9;&#x6CD5;&#x4E5F;&#x4E0D;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x3002;</p>
+</blockquote>
+<p>&#x60F3;&#x8981;&#x5F88;&#x597D;&#x7684;&#x7EF4;&#x62A4;&#x5F00;&#x95ED;&#x539F;&#x5219;&#xFF0C;&#x5C31;&#x5C3D;&#x91CF;&#x8981;&#x907F;&#x514D;&#x8FDB;&#x884C;&#x8FC7;&#x5EA6;&#x5C01;&#x88C5;&#xFF01;&#x4FDD;&#x6301;&#x826F;&#x597D;&#x7684;&#x6269;&#x5C55;&#x6027;&#x624D;&#x662F;&#x6700;&#x597D;&#x7684;&#x3002;</p>
+<font color="red">&#x9996;&#x5148;&#x4ECE;&#x6211;&#x7684;&#x7406;&#x89E3;&#x89D2;&#x5EA6;&#x6765;&#x770B;&#x5F00;&#x95ED;&#x539F;&#x5219;&#x975E;&#x5E38;&#x8003;&#x91CF;&#x7F16;&#x7801;&#x4EBA;&#x5458;&#x7684;&#x8BBE;&#x8BA1;&#x6C34;&#x5E73;&#xFF01;&#x7B80;&#x5355;&#x7684;&#x51E0;&#x884C;&#x4EE3;&#x7801;&#x662F;&#x6CA1;&#x529E;&#x6CD5;&#x8BF4;&#x6E05;&#x695A;&#x5F00;&#x95ED;&#x539F;&#x5219;&#x7684;&#x771F;&#x8C1B;&#x7684;&#xFF01;</font>
+
+
+
+
+
+
+
+
+
+
+      
+    </div>
+
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/08/22/oop-liskov-substitution-principle/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          设计原则之里氏代换原则
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/22/oop-single-responsibility-principle/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计原则之单一职责原则</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+          
+            <div id="rig-menu" >
+              <div><a class="mulu" id="toc_toggle" href="javascript:void();"><img  src="/img/f0ca.png" /></a></div>
+
+            </div>
+            <div id="toc" class="toc-article" style="display:none;">
+                <strong class="toc-title" >文章目录</strong>
+                  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#开闭原则简介"><span class="toc-number">1.</span> <span class="toc-text">开闭原则简介</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#示例支付功能代码"><span class="toc-number">1.1.</span> <span class="toc-text">示例支付功能代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#重构示例代码"><span class="toc-number">1.2.</span> <span class="toc-text">重构示例代码</span></a></li></ol></li></ol>
+            </div>
+          
+      
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="oop-open-close-principle" data-title="设计原则之开闭原则" data-url="https://fantijie.github.io/2016/08/22/oop-open-close-principle/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"fantijie"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Fan Ti Jie
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: 'https://fantijie.github.io/'
+	}
+</script>
+<script src="https://www.cdnjs.net/ajax/libs/require.js/2.1.6/require.min.js"></script>
+
+<script src="https://www.cdnjs.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://www.cdnjs.net/ajax/libs/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script type="text/javascript">
+  $("#toc_toggle").bind("click",function(){
+        $("#toc").fadeToggle(150);
+        $("#toc").css('display',''); 
+    });
+</script>
+  </div>
+</body>
+</html>
