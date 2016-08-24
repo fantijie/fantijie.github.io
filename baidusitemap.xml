@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>https://fantijie.github.io/2016/08/22/design-chain-of-responsibility/</loc>
+    <lastmod>2016-08-24T02:58:35.000Z</lastmod>
+    <data>
+        <display>
+        <title>设计模式:职责链模式(chain of responsibility)</title>
+        <pubTime>2016-08-22T05:53:55.000Z</pubTime>
+        
+        <tag>design</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fantijie.github.io/2016/08/22/oop-open-close-principle/</loc>
     <lastmod>2016-08-23T15:36:24.000Z</lastmod>
     <data>
@@ -95,23 +112,6 @@
         <display>
         <title>设计原则之合成复用原则</title>
         <pubTime>2016-08-22T10:23:44.000Z</pubTime>
-        
-        <tag>design</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fantijie.github.io/2016/08/22/design-chain-of-responsibility/</loc>
-    <lastmod>2016-08-23T11:55:18.000Z</lastmod>
-    <data>
-        <display>
-        <title>设计模式:职责链模式(chain of responsibility)</title>
-        <pubTime>2016-08-22T05:53:55.000Z</pubTime>
         
         <tag>design</tag>
          
