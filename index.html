@@ -280,8 +280,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-      
-        
+        <h4 id="合成复用原则简介"><a href="#合成复用原则简介" class="headerlink" title="合成复用原则简介"></a>合成复用原则简介</h4><blockquote>
+<p>合成复用原则(Composite Reuse Principle, CRP)：尽量使用对象组合，而不是继承来达到复用的目的。</p>
+</blockquote>
+<p>合成复用原则就是在一个新的对象里通过关联关系（包括组合关系和聚合关系）来使用一些已有的对象，使之成为新对象的一部分；新对象通过委派调用已有对象的方法达到复用功能的目的。简言之：复用时要尽量使用组合/聚合关系（关联关系），少用继承。<br>
       
     </div>
 
@@ -295,6 +297,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2016/08/22/oop-composite-reuse-principle/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -347,8 +353,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-      
-        
+        <h4 id="接口隔离原则简介"><a href="#接口隔离原则简介" class="headerlink" title="接口隔离原则简介"></a>接口隔离原则简介</h4><blockquote>
+<p>使用多个专门的接口，而不使用单一的总接口，即客户端不应该依赖那些它不需要的接口。<br>根据接口隔离原则，当一个接口太大时，我们需要将它分割成一些更细小的接口，使用该接口的客户端仅需知道与之相关的方法即可。每一个接口应该承担一种相对独立的角色，不干不该干的事，该干的事都要干。这里的“接口”往往有两种不同的含义：一种是指一个类型所具有的方法特征的集合，仅仅是一种逻辑上的抽象；另外一种是指某种语言具体的“接口”定义，有严格的定义和结构，比如Java语言中的interface。对于这两种不同的含义，ISP的表达方式以及含义都有所不同：<br>
       
     </div>
 
@@ -362,6 +368,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2016/08/22/oop-interface-segregation-principle/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -414,8 +424,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-      
-        
+        <h5 id="依赖倒转原则说明"><a href="#依赖倒转原则说明" class="headerlink" title="依赖倒转原则说明"></a>依赖倒转原则说明</h5><p>如果说开闭原则是面向对象设计的目标的话，那么依赖倒转原则就是面向对象设计的主要实现机制之一，它是系统抽象化的具体实现。依赖倒转原则是Robert C. Martin在1996年为“C++Reporter”所写的专栏Engineering Notebook的第三篇，后来加入到他在2002年出版的经典著作“Agile Software Development, Principles, Patterns, and Practices”一书中。依赖倒转原则定义如下： 依赖倒转原则(Dependency Inversion Principle, DIP)：抽象不应该依赖于细节，细节应当依赖于抽象。换言之，要针对接口编程，而不是针对实现编程。<br>依赖倒转原则要求我们在程序代码中传递参数时或在关联关系中，尽量引用层次高的抽象层类，即使用接口和抽象类进行变量类型声明、参数类型声明、方法返回类型声明，以及数据类型的转换等，而不要用具体类来做这些事情。为了确保该原则的应用，一个具体类应当只实现接口或抽象类中声明过的方法，而不要给出多余的方法，否则将无法调用到在子类中增加的新方法。<br>
       
     </div>
 
@@ -429,6 +438,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2016/08/22/oop-dependency-inversion-principle/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -481,8 +494,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-      
-        
+        <h4 id="里氏代换原则简介"><a href="#里氏代换原则简介" class="headerlink" title="里氏代换原则简介"></a>里氏代换原则简介</h4><p>里氏代换原则由2008年图灵奖得主、美国第一位计算机科学女博士Barbara Liskov教授和卡内基·梅隆大学Jeannette Wing教授于1994年提出。其严格表述如下：如果对每一个类型为S的对象o1，都有类型为T的对象o2，使得以T定义的所有程序P在所有的对象o1代换o2时，程序P的行为没有变化，那么类型S是类型T的子类型。这个定义比较拗口且难以理解，因此我们一般使用它的另一个通俗版定义： 里氏代换原则(Liskov Substitution Principle, LSP)：所有引用基类（父类）的地方必须能透明地使用其子类的对象。<br>
       
     </div>
 
@@ -496,6 +508,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2016/08/22/oop-liskov-substitution-principle/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>

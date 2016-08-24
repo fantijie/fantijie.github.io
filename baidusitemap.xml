@@ -4,6 +4,91 @@
 
     
   <url>
+    <loc>https://fantijie.github.io/2016/08/22/oop-liskov-substitution-principle/</loc>
+    <lastmod>2016-08-24T16:31:53.000Z</lastmod>
+    <data>
+        <display>
+        <title>设计原则之里氏代换原则</title>
+        <pubTime>2016-08-22T10:18:24.000Z</pubTime>
+        
+        <tag>design</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fantijie.github.io/2016/08/22/oop-dependency-inversion-principle/</loc>
+    <lastmod>2016-08-24T16:16:46.000Z</lastmod>
+    <data>
+        <display>
+        <title>设计原则之依赖倒转原则</title>
+        <pubTime>2016-08-22T10:20:46.000Z</pubTime>
+        
+        <tag>design</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fantijie.github.io/2016/08/22/oop-open-close-principle/</loc>
+    <lastmod>2016-08-24T16:11:05.000Z</lastmod>
+    <data>
+        <display>
+        <title>设计原则之开闭原则</title>
+        <pubTime>2016-08-22T10:17:05.000Z</pubTime>
+        
+        <tag>design</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fantijie.github.io/2016/08/22/oop-interface-segregation-principle/</loc>
+    <lastmod>2016-08-24T15:54:35.000Z</lastmod>
+    <data>
+        <display>
+        <title>设计原则之接口隔离原则</title>
+        <pubTime>2016-08-22T10:22:33.000Z</pubTime>
+        
+        <tag>design</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fantijie.github.io/2016/08/22/oop-composite-reuse-principle/</loc>
+    <lastmod>2016-08-24T15:17:07.000Z</lastmod>
+    <data>
+        <display>
+        <title>设计原则之合成复用原则</title>
+        <pubTime>2016-08-22T10:23:44.000Z</pubTime>
+        
+        <tag>design</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fantijie.github.io/2016/08/22/oop-law-of-demeter-principle/</loc>
     <lastmod>2016-08-24T10:16:51.000Z</lastmod>
     <data>
@@ -38,97 +123,12 @@
 
     
   <url>
-    <loc>https://fantijie.github.io/2016/08/22/oop-open-close-principle/</loc>
-    <lastmod>2016-08-23T15:36:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>设计原则之开闭原则</title>
-        <pubTime>2016-08-22T10:17:05.000Z</pubTime>
-        
-        <tag>design</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://fantijie.github.io/2016/08/22/oop-single-responsibility-principle/</loc>
     <lastmod>2016-08-23T15:35:11.000Z</lastmod>
     <data>
         <display>
         <title>设计原则之单一职责原则</title>
         <pubTime>2016-08-22T10:12:08.000Z</pubTime>
-        
-        <tag>design</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fantijie.github.io/2016/08/22/oop-interface-segregation-principle/</loc>
-    <lastmod>2016-08-23T15:34:54.000Z</lastmod>
-    <data>
-        <display>
-        <title>设计原则之接口隔离原则</title>
-        <pubTime>2016-08-22T10:22:33.000Z</pubTime>
-        
-        <tag>design</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fantijie.github.io/2016/08/22/oop-dependency-inversion-principle/</loc>
-    <lastmod>2016-08-23T15:34:48.000Z</lastmod>
-    <data>
-        <display>
-        <title>设计原则之依赖倒转原则</title>
-        <pubTime>2016-08-22T10:20:46.000Z</pubTime>
-        
-        <tag>design</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fantijie.github.io/2016/08/22/oop-composite-reuse-principle/</loc>
-    <lastmod>2016-08-23T15:34:42.000Z</lastmod>
-    <data>
-        <display>
-        <title>设计原则之合成复用原则</title>
-        <pubTime>2016-08-22T10:23:44.000Z</pubTime>
-        
-        <tag>design</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fantijie.github.io/2016/08/22/oop-liskov-substitution-principle/</loc>
-    <lastmod>2016-08-22T10:26:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>设计原则之里氏代换原则</title>
-        <pubTime>2016-08-22T10:18:24.000Z</pubTime>
         
         <tag>design</tag>
          
