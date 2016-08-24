@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fantijie.github.io/2016/08/22/oop-law-of-demeter-principle/</loc>
+    
+    <lastmod>2016-08-24T10:05:54.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fantijie.github.io/2016/08/22/design-chain-of-responsibility/</loc>
     
     <lastmod>2016-08-24T03:30:23.000Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>https://fantijie.github.io/2016/08/22/oop-single-responsibility-principle/</loc>
     
     <lastmod>2016-08-23T15:35:11.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fantijie.github.io/2016/08/22/oop-law-of-demeter-principle/</loc>
-    
-    <lastmod>2016-08-23T15:34:58.000Z</lastmod>
     
   </url>
   
