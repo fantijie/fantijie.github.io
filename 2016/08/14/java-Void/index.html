@@ -4,17 +4,20 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>java.lang.Void | Fan Ti Jie&#39;s Blog</title>
+  <title>java.lang.Void类 | Fan Ti Jie&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="java.lang.Void">
+  <meta name="description" content="Void类简介Void是一个不可实例化的占位符类，主要用于表示对应于该关键字的伪类型的对象void;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java.lang.Void类">
 <meta property="og:url" content="https://fantijie.github.io/2016/08/14/java-Void/index.html">
 <meta property="og:site_name" content="Fan Ti Jie's Blog">
-<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/u-8gI4pEJanFLSXAB4lKoqdCIw_cukJYL4ZEIImkLWZBpqm1ye42jLnS2a30LSi50000">
-<meta property="og:updated_time" content="2016-08-27T12:29:10.000Z">
+<meta property="og:description" content="Void类简介Void是一个不可实例化的占位符类，主要用于表示对应于该关键字的伪类型的对象void;">
+<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/AqXCpavCJrN8IYnBrCj9p4klvkBaubH8paaiBbO8oyzC0V8vjHMAIn9BCfCLqZBp4dCKd46IDY19EuMGo01Ne8fQhbek0000">
+<meta property="og:updated_time" content="2016-08-27T18:29:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java.lang.Void">
-<meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/u-8gI4pEJanFLSXAB4lKoqdCIw_cukJYL4ZEIImkLWZBpqm1ye42jLnS2a30LSi50000">
+<meta name="twitter:title" content="java.lang.Void类">
+<meta name="twitter:description" content="Void类简介Void是一个不可实例化的占位符类，主要用于表示对应于该关键字的伪类型的对象void;">
+<meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/AqXCpavCJrN8IYnBrCj9p4klvkBaubH8paaiBbO8oyzC0V8vjHMAIn9BCfCLqZBp4dCKd46IDY19EuMGo01Ne8fQhbek0000">
 
   
     <link rel="alternative" href="/atom.xml" title="Fan Ti Jie&#39;s Blog" type="application/atom+xml">
@@ -198,7 +201,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      java.lang.Void
+      java.lang.Void类
     </h1>
   
 
@@ -206,6 +209,10 @@
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
         
 
         <div class="clearfix"></div>
@@ -215,8 +222,14 @@
     <div class="article-entry" itemprop="articleBody">
       
       
-        <img src="http://www.plantuml.com/plantuml/svg/u-8gI4pEJanFLSXAB4lKoqdCIw_cukJYL4ZEIImkLWZBpqm1ye42jLnS2a30LSi50000">
-<a id="more"></a>
+        <h4 id="void&#x7C7B;&#x7B80;&#x4ECB;"><a href="#Void&#x7C7B;&#x7B80;&#x4ECB;" class="headerlink" title="Void&#x7C7B;&#x7B80;&#x4ECB;"></a>Void&#x7C7B;&#x7B80;&#x4ECB;</h4><p>Void&#x662F;&#x4E00;&#x4E2A;&#x4E0D;&#x53EF;&#x5B9E;&#x4F8B;&#x5316;&#x7684;&#x5360;&#x4F4D;&#x7B26;&#x7C7B;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x8868;&#x793A;&#x5BF9;&#x5E94;&#x4E8E;&#x8BE5;&#x5173;&#x952E;&#x5B57;&#x7684;&#x4F2A;&#x7C7B;&#x578B;&#x7684;&#x5BF9;&#x8C61;void;<br><a id="more"></a></p>
+<h5 id="void&#x7C7B;&#x7684;&#x4F7F;&#x7528;"><a href="#Void&#x7C7B;&#x7684;&#x4F7F;&#x7528;" class="headerlink" title="Void&#x7C7B;&#x7684;&#x4F7F;&#x7528;"></a>Void&#x7C7B;&#x7684;&#x4F7F;&#x7528;</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VoidTest</span> </span>{</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException </span>{</div><div class="line">        Method method = VoidTest.class.getMethod(<span class="string">&quot;wait&quot;</span>, <span class="keyword">null</span>);</div><div class="line">        Class c = method.getReturnType();</div><div class="line">        System.out.println(c == Void.TYPE);</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<blockquote>
+<p>&#x5728;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x7684;&#x65F6;&#x5019;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x5224;&#x65AD;&#x5176;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#x3002;</p>
+</blockquote>
+<p>&#x63A7;&#x5236;&#x53F0;&#x8F93;&#x51FA;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="literal">true</span></div></pre></td></tr></table></figure></p>
+<h5 id="void&#x7C7B;uml"><a href="#Void&#x7C7B;UML" class="headerlink" title="Void&#x7C7B;UML"></a>Void&#x7C7B;UML</h5><img src="http://www.plantuml.com/plantuml/svg/AqXCpavCJrN8IYnBrCj9p4klvkBaubH8paaiBbO8oyzC0V8vjHMAIn9BCfCLqZBp4dCKd46IDY19EuMGo01Ne8fQhbek0000">
+<!-- more -->
       
     </div>
 
@@ -254,7 +267,7 @@
             </div>
             <div id="toc" class="toc-article" style="display:none;">
                 <strong class="toc-title" >文章目录</strong>
-                  
+                  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#void类简介"><span class="toc-number">1.</span> <span class="toc-text">Void类简介</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#void类的使用"><span class="toc-number">1.1.</span> <span class="toc-text">Void类的使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#void类uml"><span class="toc-number">1.2.</span> <span class="toc-text">Void类UML</span></a></li></ol></li></ol>
             </div>
           
       
@@ -266,7 +279,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="java-Void" data-title="java.lang.Void" data-url="https://fantijie.github.io/2016/08/14/java-Void/"></div>
+	<div class="ds-thread" data-thread-key="java-Void" data-title="java.lang.Void类" data-url="https://fantijie.github.io/2016/08/14/java-Void/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
