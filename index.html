@@ -22,6 +22,8 @@
     <link rel="icon" href="//favicon.png">
   
   <link rel="stylesheet" href="/css/style.css">
+  <script src="https://www.cdnjs.net/ajax/libs/require.js/2.1.6/require.min.js"></script>
+  <script src="https://www.cdnjs.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -105,7 +107,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/design/" style="font-size: 20px;">design</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 13.33px;">markdown</a>
+						<a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/design/" style="font-size: 20px;">design</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 13.33px;">markdown</a>
 					</div>
 				</section>
 				
@@ -176,6 +178,200 @@
 
       <div class="body-wrap">
   
+    <article id="post-algorithm-sort" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
+  
+    <div class="article-meta">
+      <a href="/2016/08/27/algorithm-sort/" class="article-date">
+  	<time datetime="2016-08-27T12:28:27.000Z" itemprop="datePublished">2016-08-27</time>
+</a>
+    </div>
+  
+
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+
+
+
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/27/algorithm-sort/">排序算法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h5 id="&#x5192;&#x6CE1;&#x6392;&#x5E8F;"><a href="#&#x5192;&#x6CE1;&#x6392;&#x5E8F;" class="headerlink" title="&#x5192;&#x6CE1;&#x6392;&#x5E8F;"></a>&#x5192;&#x6CE1;&#x6392;&#x5E8F;</h5><h6 id="&#x5192;&#x6CE1;&#x6392;&#x5E8F;&#x52A8;&#x6001;&#x5C55;&#x793A;"><a href="#&#x5192;&#x6CE1;&#x6392;&#x5E8F;&#x52A8;&#x6001;&#x5C55;&#x793A;" class="headerlink" title="&#x5192;&#x6CE1;&#x6392;&#x5E8F;&#x52A8;&#x6001;&#x5C55;&#x793A; "></a>&#x5192;&#x6CE1;&#x6392;&#x5E8F;&#x52A8;&#x6001;&#x5C55;&#x793A; <input type="button" name="run" value="&#x6392;&#x5E8F;" onclick="showchar()"><input type="button" name="run" value="&#x8FD8;&#x539F;" onclick="restore()"></h6><div id="main" style="height:400px"></div>
+
+
+<script type="text/javascript">
+var myChart = null;
+var sourceData = [8, 1, 3, 5, 2, 9, 6, 7, 4];
+var sortindex = 0;
+var queueData = {};
+function lineSetting(){
+	sortindex++;
+
+
+	if(queueData[sortindex]==undefined){
+		return false;
+	}
+	console.log(queueData[sortindex].data+':'+queueData[sortindex].x+':'+queueData[sortindex].y);
+	 option = {
+        tooltip: {
+            trigger: 'axis',
+        },
+        xAxis: [
+            {
+                type: 'category',
+                scale: true,
+                data: queueData[sortindex].data,
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                type: 'bar',
+                data: queueData[sortindex].data,
+                markLine: {
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                type: 'solid',
+                               	color: "#000000",
+                               	width: 2,
+                            }
+                        }
+                    },
+                    data: [
+                        [
+                            {xAxis: queueData[sortindex].x, yAxis: queueData[sortindex].y},      // 当xAxis为类目轴时，数值1会被理解为类目轴的index
+                            {xAxis: queueData[sortindex].x+1, yAxis: queueData[sortindex].y+1,lineStyle:{color:'#000000'}},             // 当xAxis为类目轴时，字符串'周三'会被理解为与类目轴的文本进行匹配
+                        ]]
+                }
+            }
+        ]
+    };
+    // 为echarts对象加载数据 
+    myChart.setOption(option);
+}
+
+function showchar() {
+     var copyData =	sourceData.slice();
+     var Datalength = copyData.length-1;
+     var selctNum = 0;
+	 for(var i=0;i<copyData.length-1;i++){
+           for(var j=0;j<copyData.length-1-i;j++){
+           		if (copyData[j]>copyData[j+1]) {
+           			var cvalue = copyData[j];
+           			copyData[j]=copyData[j+1];
+           			copyData[j+1] = cvalue;
+           			++selctNum;
+           			queueData[selctNum*Datalength] = {x:j,y:j,data:copyData.slice()};
+					setTimeout("lineSetting()",300*(selctNum));
+           		}else{
+           			++selctNum;
+           			queueData[selctNum] = {x:j,y:j,data:copyData.slice()};
+					setTimeout("lineSetting()",300*(selctNum));
+           		}
+        	}
+        }
+
+}
+
+function restore() {
+queueData = {};
+sortindex = 0;
+    option = {
+        tooltip: {
+            trigger: 'axis',
+        },
+        xAxis: [
+            {
+                type: 'category',
+                scale: true,
+                data: sourceData,
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                type: 'bar',
+                data: sourceData,
+                animation: false
+            }
+        ]
+    };
+    // 为echarts对象加载数据 
+    myChart.setOption(option);
+}
+
+$(document).ready(function () {
+    myChart = echarts.init(document.getElementById('main'));
+    restore();
+    // 基于准备好的dom，初始化echarts图表
+
+});
+</script>
+
+
+
+      
+    </div>
+
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+
+
+
+
+
+
+  
     <article id="post-oop-law-of-demeter-principle" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
   
     <div class="article-meta">
@@ -243,6 +439,11 @@
 
 
 
+
+
+
+
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 
 
 
@@ -320,6 +521,11 @@
 
 
 
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+
+
+
+
 
 
   
@@ -387,6 +593,11 @@
 
 
 
+
+
+
+
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 
 
 
@@ -461,6 +672,11 @@
 
 
 
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+
+
+
+
 
 
   
@@ -527,6 +743,11 @@
 
 
 
+
+
+
+
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 
 
 
@@ -601,6 +822,11 @@
 
 
 
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+
+
+
+
 
 
   
@@ -667,6 +893,11 @@
 
 
 
+
+
+
+
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 
 
 
@@ -743,6 +974,11 @@
 
 
 
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+
+
+
+
 
 
   
@@ -814,78 +1050,7 @@
 
 
 
-
-
-  
-    <article id="post-jvm-boot-process-anlysis" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
-  
-    <div class="article-meta">
-      <a href="/2016/08/19/jvm-boot-process-anlysis/" class="article-date">
-  	<time datetime="2016-08-19T10:16:44.000Z" itemprop="datePublished">2016-08-19</time>
-</a>
-    </div>
-  
-
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-
-
-
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/19/jvm-boot-process-anlysis/">Jvm启动过程分析</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Jvm简介"><a href="#Jvm简介" class="headerlink" title="Jvm简介"></a>Jvm简介</h3><p>此处我所涉及的代码是以openjdk1.7的Hotpost为准。</p>
-<p>Java虚拟机（英语：Java VirtualMachine，缩写为JVM），一种能够运行Java字节码的虚拟机，以堆栈结构机器来进行实做。<br>Java虚拟机有自己完善的硬体架构，如处理器、堆栈、寄存器等，还具有相应的指令系统。JVM屏蔽了与具体操作系统平台相关的信息，使得Java程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。通过对中央处理器（CPU）所执行的软件实作，实现能执行编译过的Java程序码（Applet与应用程序）。</p>
-<p>作为一种编程语言的虚拟机，实际上不只是专用于Java语言，只要生成的编译文件匹配JVM对载入编译文件格式要求，任何语言都可以由JVM编译运行。（此处摘自维基百科）</p>
-<h4 id="JVM启动入口"><a href="#JVM启动入口" class="headerlink" title="JVM启动入口"></a>JVM启动入口</h4><blockquote>
-<p>我们平常写的java代码，是通过javac *.java来编译，并且通过java命令来运行我们编写的代码。当输入java命令回车的同时，此时就意味着一个java虚拟机的启动，以及加载我们编译过后的文件，然后执行。下面我们就来分析java虚拟机的启动过程。此文只对jvm的启动过程进行分析。</p>
-</blockquote>
-<p><font color=red>以下代码为jdk1.7中的main.c中的源代码</font><br>main.c的路径为<font color=blue>openjdk/jdk/src/share/bin/main.c</font><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> WINAPI</div><div class="line"><span class="title">WinMain</span><span class="params">(HINSTANCE inst, HINSTANCE previnst, LPSTR cmdline, <span class="keyword">int</span> cmdshow)</span></div><div class="line"></span>&#123;</div><div class="line">    <span class="keyword">int</span> margc;</div><div class="line">    <span class="keyword">char</span>** margv;</div><div class="line">    <span class="keyword">const</span> jboolean const_javaw = JNI_TRUE;</div><div class="line"></div><div class="line">    <span class="number">__</span>initenv = <span class="number">_</span>environ;</div><div class="line">    margc = <span class="number">__</span>argc;</div><div class="line">    margv = <span class="number">__</span>argv;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">else</span> <span class="comment">/* JAVAW */</span></span></div><div class="line"><span class="function"><span class="keyword">int</span></div><div class="line"><span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> ** argv)</span></div><div class="line"></span>&#123;</div><div class="line">    <span class="keyword">int</span> margc;</div><div class="line">    <span class="keyword">char</span>** margv;</div><div class="line">    <span class="keyword">const</span> jboolean const_javaw = JNI_FALSE;</div><div class="line"></div><div class="line">    margc = argc;</div><div class="line">    margv = argv;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* JAVAW */</span></span></div><div class="line">    <span class="keyword">return</span> JLI_Launch(margc, margv,</div><div class="line">                   <span class="keyword">sizeof</span>(const_jargs) / <span class="keyword">sizeof</span>(<span class="keyword">char</span> *), const_jargs,</div><div class="line">                   <span class="keyword">sizeof</span>(const_appclasspath) / <span class="keyword">sizeof</span>(<span class="keyword">char</span> *), const_appclasspath,</div><div class="line">                   FULL_VERSION,</div><div class="line">                   DOT_VERSION,</div><div class="line">                   (const_progname != <span class="literal">NULL</span>) ? const_progname : *margv,</div><div class="line">                   (const_launcher != <span class="literal">NULL</span>) ? const_launcher : *margv,</div><div class="line">                   (const_jargs != <span class="literal">NULL</span>) ? JNI_TRUE : JNI_FALSE,</div><div class="line">                   const_cpwildcard, const_javaw, const_ergo_class);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-      
-    </div>
-
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jvm/">jvm</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/08/19/jvm-boot-process-anlysis/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-
-</article>
-
-
-
-
-
-
-
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 
 
 
@@ -895,7 +1060,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </div>
@@ -930,9 +1095,7 @@
 		root: 'https://fantijie.github.io/'
 	}
 </script>
-<script src="https://www.cdnjs.net/ajax/libs/require.js/2.1.6/require.min.js"></script>
 
-<script src="https://www.cdnjs.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="/js/main.js"></script>
 
 

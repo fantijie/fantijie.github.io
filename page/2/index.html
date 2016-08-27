@@ -22,6 +22,8 @@
     <link rel="icon" href="//favicon.png">
   
   <link rel="stylesheet" href="/css/style.css">
+  <script src="https://www.cdnjs.net/ajax/libs/require.js/2.1.6/require.min.js"></script>
+  <script src="https://www.cdnjs.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -105,7 +107,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/design/" style="font-size: 20px;">design</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 13.33px;">markdown</a>
+						<a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/design/" style="font-size: 20px;">design</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 13.33px;">markdown</a>
 					</div>
 				</section>
 				
@@ -175,6 +177,87 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-jvm-boot-process-anlysis" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
+  
+    <div class="article-meta">
+      <a href="/2016/08/19/jvm-boot-process-anlysis/" class="article-date">
+  	<time datetime="2016-08-19T10:16:44.000Z" itemprop="datePublished">2016-08-19</time>
+</a>
+    </div>
+  
+
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+
+
+
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/19/jvm-boot-process-anlysis/">Jvm启动过程分析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Jvm简介"><a href="#Jvm简介" class="headerlink" title="Jvm简介"></a>Jvm简介</h3><p>此处我所涉及的代码是以openjdk1.7的Hotpost为准。</p>
+<p>Java虚拟机（英语：Java VirtualMachine，缩写为JVM），一种能够运行Java字节码的虚拟机，以堆栈结构机器来进行实做。<br>Java虚拟机有自己完善的硬体架构，如处理器、堆栈、寄存器等，还具有相应的指令系统。JVM屏蔽了与具体操作系统平台相关的信息，使得Java程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。通过对中央处理器（CPU）所执行的软件实作，实现能执行编译过的Java程序码（Applet与应用程序）。</p>
+<p>作为一种编程语言的虚拟机，实际上不只是专用于Java语言，只要生成的编译文件匹配JVM对载入编译文件格式要求，任何语言都可以由JVM编译运行。（此处摘自维基百科）</p>
+<h4 id="JVM启动入口"><a href="#JVM启动入口" class="headerlink" title="JVM启动入口"></a>JVM启动入口</h4><blockquote>
+<p>我们平常写的java代码，是通过javac *.java来编译，并且通过java命令来运行我们编写的代码。当输入java命令回车的同时，此时就意味着一个java虚拟机的启动，以及加载我们编译过后的文件，然后执行。下面我们就来分析java虚拟机的启动过程。此文只对jvm的启动过程进行分析。</p>
+</blockquote>
+<p><font color=red>以下代码为jdk1.7中的main.c中的源代码</font><br>main.c的路径为<font color=blue>openjdk/jdk/src/share/bin/main.c</font><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> WINAPI</div><div class="line"><span class="title">WinMain</span><span class="params">(HINSTANCE inst, HINSTANCE previnst, LPSTR cmdline, <span class="keyword">int</span> cmdshow)</span></div><div class="line"></span>&#123;</div><div class="line">    <span class="keyword">int</span> margc;</div><div class="line">    <span class="keyword">char</span>** margv;</div><div class="line">    <span class="keyword">const</span> jboolean const_javaw = JNI_TRUE;</div><div class="line"></div><div class="line">    <span class="number">__</span>initenv = <span class="number">_</span>environ;</div><div class="line">    margc = <span class="number">__</span>argc;</div><div class="line">    margv = <span class="number">__</span>argv;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">else</span> <span class="comment">/* JAVAW */</span></span></div><div class="line"><span class="function"><span class="keyword">int</span></div><div class="line"><span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> ** argv)</span></div><div class="line"></span>&#123;</div><div class="line">    <span class="keyword">int</span> margc;</div><div class="line">    <span class="keyword">char</span>** margv;</div><div class="line">    <span class="keyword">const</span> jboolean const_javaw = JNI_FALSE;</div><div class="line"></div><div class="line">    margc = argc;</div><div class="line">    margv = argv;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* JAVAW */</span></span></div><div class="line">    <span class="keyword">return</span> JLI_Launch(margc, margv,</div><div class="line">                   <span class="keyword">sizeof</span>(const_jargs) / <span class="keyword">sizeof</span>(<span class="keyword">char</span> *), const_jargs,</div><div class="line">                   <span class="keyword">sizeof</span>(const_appclasspath) / <span class="keyword">sizeof</span>(<span class="keyword">char</span> *), const_appclasspath,</div><div class="line">                   FULL_VERSION,</div><div class="line">                   DOT_VERSION,</div><div class="line">                   (const_progname != <span class="literal">NULL</span>) ? const_progname : *margv,</div><div class="line">                   (const_launcher != <span class="literal">NULL</span>) ? const_launcher : *margv,</div><div class="line">                   (const_jargs != <span class="literal">NULL</span>) ? JNI_TRUE : JNI_FALSE,</div><div class="line">                   const_cpwildcard, const_javaw, const_ergo_class);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+      
+    </div>
+
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jvm/">jvm</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/08/19/jvm-boot-process-anlysis/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+
+
+
+
+
+
   
     <article id="post-lucene-StandardAnalyzer" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
   
@@ -255,6 +338,11 @@
 
 
 
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+
+
+
+
 
 
   
@@ -321,6 +409,11 @@
 
 
 
+
+
+
+
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 
 
 
@@ -400,6 +493,11 @@
 
 
 
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+
+
+
+
 
 
   
@@ -475,6 +573,11 @@
 
 
 
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+
+
+
+
 
 
   
@@ -546,6 +649,11 @@
 
 
 
+
+
+
+
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 
 
 
@@ -632,6 +740,11 @@
 
 
 
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+
+
+
+
 
 
   
@@ -698,6 +811,11 @@
 
 
 
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+
+
+
+
 
 
   
@@ -732,7 +850,9 @@
     <div class="article-entry" itemprop="articleBody">
       
       
-        <img src="http://www.plantuml.com/plantuml/svg/AqXCpavCJrN8IYnBrClCh-RYpCmhIIrAIqnELGXEBSfCpCciIapAILM8ZiueAIcmqjSlBo_NAyX9p2ifpStHIyxFZOtbgkNYAa0sfxGaCmV59EVyt8B48f0vDY5s8EKeHjlKwEaf-9Nc9gKMMJrTD-zvtmOqyu2sfGFDu-9KyCdFIrVGhR63AbUmKdY-U_cpplr0AOGT40D1Ik76SIeavoGM5uC5WIO1ZU84ka81282k0G00">
+        <p>aaaa</p>
+<img src="http://www.plantuml.com/plantuml/svg/AqXCpavCJrN8IYnBrClCh-RYpCmhIIrAIqnELGXEBSfCpCciIapAILM8ZiueAIcmqjSlBo_NAyX9p2ifpStHIyxFZOtbgkNYAa0sfxGaCmV59EVyt8B48f0vDY5s8EKeHjlKwEaf-9Nc9gKMMJrTD-zvtmOqyu2sfGFDu-9KyCdFIrVGhR63AbUmKdY-U_cpplr0AOGT40D1Ik76SIeavoGM5uC5WIO1ZU84ka81282k0G00">
+
       
     </div>
 
@@ -757,6 +877,11 @@
 
 
 
+
+
+
+
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 
 
 
@@ -824,65 +949,7 @@
 
 
 
-
-
-  
-    <article id="post-java-Character" class="article article-type-post .article2" itemscope itemprop="blogPost" style=" margin: 5px 15px 15px 15px;">
-  
-    <div class="article-meta">
-      <a href="/2016/08/14/java-Character/" class="article-date">
-  	<time datetime="2016-08-13T18:15:04.000Z" itemprop="datePublished">2016-08-14</time>
-</a>
-    </div>
-  
-
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-
-
-
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/14/java-Character/">java.lang.Character</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        <img src="http://www.plantuml.com/plantuml/svg/uof8JCvEJ4zLo4eiIzJBpA_cuipCAqajIajCJbK8JYtAJCp9h4fCoabLY8xEA2afiDBNBoylrol8ISmhAStDqKlEpusDvQhbua8nfxGaCmV59EVyt8B48f0vDY5s6Cg1XgK3bQDOPrEZfwVWd07Kb0mqnEhfkddF-pPmSI8CmgKYEIUnk1WX3ZINauiJQAC2401j1W00">
-      
-    </div>
-
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-
-</article>
-
-
-
-
-
-
-
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 
 
 
@@ -892,7 +959,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 </div>
@@ -927,9 +994,7 @@
 		root: 'https://fantijie.github.io/'
 	}
 </script>
-<script src="https://www.cdnjs.net/ajax/libs/require.js/2.1.6/require.min.js"></script>
 
-<script src="https://www.cdnjs.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="/js/main.js"></script>
 
 

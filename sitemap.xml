@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fantijie.github.io/2016/08/27/algorithm-sort/</loc>
+    
+    <lastmod>2016-08-27T12:35:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fantijie.github.io/2016/08/14/java-Void/</loc>
+    
+    <lastmod>2016-08-27T12:29:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fantijie.github.io/2016/08/14/java-Long/</loc>
+    
+    <lastmod>2016-08-27T03:08:49.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fantijie.github.io/2016/08/19/lucene-StandardAnalyzer/</loc>
     
-    <lastmod>2016-08-25T09:59:20.000Z</lastmod>
+    <lastmod>2016-08-26T06:09:20.000Z</lastmod>
     
   </url>
   
@@ -145,20 +166,6 @@
     <loc>https://fantijie.github.io/2016/08/14/java-io/</loc>
     
     <lastmod>2016-08-14T04:21:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fantijie.github.io/2016/08/14/java-Long/</loc>
-    
-    <lastmod>2016-08-14T04:18:57.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fantijie.github.io/2016/08/14/java-Void/</loc>
-    
-    <lastmod>2016-08-14T04:17:12.000Z</lastmod>
     
   </url>
   

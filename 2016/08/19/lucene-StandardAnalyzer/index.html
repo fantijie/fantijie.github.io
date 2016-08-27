@@ -15,7 +15,7 @@ StandardAnalyzer简单使用Maven的pom.xml文件，如下：1234567891011121314
 <meta property="og:description" content="lucene标准分析器介绍StandardAnalyzer是Lucene自带的标准分析器，常常被用来对英文做分词，也可以用来做中文分词，但是会把单个字作为词。被这个分析器作用后,像这句话”hello 中国”就会变成”[hello][中][国]”.
 StandardAnalyzer简单使用Maven的pom.xml文件，如下：1234567891011121314151617181920212223">
 <meta property="og:image" content="http://www.plantuml.com/plantuml/svg/ZL7DJuCm53-Fl-8TDKOE9Zjwm8cQY3CHJBoHj_86TQKbRPb3m_zkSGCXaSJUtiVlwxL2jiESu1ttw0kKENnv2oujwIqoWg2sQYMK8Tm8SfF51UmLpu1rlRDpRz5whLUDERYQCWnee8CbcPaf9yoH3gnAvpwweY1Vr8ma-IXHD8QR3ii46aVPTJv90oyhGIL9Qs0gSGbRxfRWXMf3iTLeAMz0Zwjfc7bPlxPS_6h7LbKVIcUzXniqewoziR67LO4wq1gRc2oO4zpyExPlBCeCTJRsSEmCSht-d-QE9tSibhEJ9VTVS1lU1QzHaZu5Rsdo_1YkqoXStoSFS0rNo-MF_swjn4EYTYGZahajt70ErmK2zxps6m00">
-<meta property="og:updated_time" content="2016-08-25T09:59:20.000Z">
+<meta property="og:updated_time" content="2016-08-26T06:09:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="lucene标准分析器StandardAnalyzer源码解析">
 <meta name="twitter:description" content="lucene标准分析器介绍StandardAnalyzer是Lucene自带的标准分析器，常常被用来对英文做分词，也可以用来做中文分词，但是会把单个字作为词。被这个分析器作用后,像这句话”hello 中国”就会变成”[hello][中][国]”.
@@ -28,6 +28,8 @@ StandardAnalyzer简单使用Maven的pom.xml文件，如下：1234567891011121314
     <link rel="icon" href="//favicon.png">
   
   <link rel="stylesheet" href="/css/style.css">
+  <script src="https://www.cdnjs.net/ajax/libs/require.js/2.1.6/require.min.js"></script>
+  <script src="https://www.cdnjs.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -111,7 +113,7 @@ StandardAnalyzer简单使用Maven的pom.xml文件，如下：1234567891011121314
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/design/" style="font-size: 20px;">design</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 13.33px;">markdown</a>
+						<a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/design/" style="font-size: 20px;">design</a> <a href="/tags/dns/" style="font-size: 10px;">dns</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/lucene/" style="font-size: 10px;">lucene</a> <a href="/tags/markdown/" style="font-size: 13.33px;">markdown</a>
 					</div>
 				</section>
 				
@@ -308,6 +310,11 @@ StandardAnalyzer简单使用Maven的pom.xml文件，如下：1234567891011121314
 
 
 
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+
+
+
+
 
 </div>
       <footer id="footer">
@@ -341,9 +348,7 @@ StandardAnalyzer简单使用Maven的pom.xml文件，如下：1234567891011121314
 		root: 'https://fantijie.github.io/'
 	}
 </script>
-<script src="https://www.cdnjs.net/ajax/libs/require.js/2.1.6/require.min.js"></script>
 
-<script src="https://www.cdnjs.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="/js/main.js"></script>
 
 
